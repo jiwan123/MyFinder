@@ -17,12 +17,21 @@ public class MyData {
 
         fuels = new ArrayList<Fuel>();
 
-        fuels.add(new Fuel("fuel 1","9876543",-37.77505678,144.85198975));
-        fuels.add(new Fuel("fuel 2","1234567",-35.77505678,145.85198975));
-        fuels.add(new Fuel("fuel 3","3456785",-36.77505678,146.85198975));
-        fuels.add(new Fuel("fuel 4","6544563",-36.77505678,143.85198975));
+        fuels.add(new Fuel("fuel 1","9876543",-37.812131, 144.962356));
+        fuels.add(new Fuel("fuel 2","1234567",-37.809139, 144.960918));
+        fuels.add(new Fuel("fuel 3","3456785",-37.808952, 144.958053));
+        fuels.add(new Fuel("fuel 4","6544563",-37.809961, 144.958300));
+
+        fuels.add(new Fuel("fuel A","9876543",-37.786669, 144.832006));
+        fuels.add(new Fuel("fuel B","1234567",-37.786135, 144.830804));
+        fuels.add(new Fuel("fuel C","3456785",-37.788950, 144.831673));
+        fuels.add(new Fuel("fuel D","6544563",-37.788950, 144.831673));
 
         return fuels;
+    }
+
+    public static Fuel getFuelByID(int i){
+        return (Fuel) getFuel().get(i);
     }
 
 }

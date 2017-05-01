@@ -9,6 +9,7 @@ public class Fuel {
     private String phone;
     private double lat;
     private double lng;
+    public int distanceInt;
 
     public Fuel() {
     }
@@ -50,5 +51,9 @@ public class Fuel {
 
     public void setLng(double lng) {
         this.lng = lng;
+    }
+
+    public String distance(){
+        return (distanceInt < 1000) ? Math.round(distanceInt)+" M" : Math.round(distanceInt/1000)+" KM";
     }
 }
