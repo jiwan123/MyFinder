@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_fuel"
+            android:title="Fuel Station" />
+        <item
+            android:id="@+id/nav_highway"
+            android:title="Highway assist" />
+        <item
+            android:id="@+id/nav_hospital"
+            android:title="Hospital" />
+        <item
+            android:id="@+id/nav_book"
+            android:title="Book Vehicle" />
+        <item
+            android:id="@+id/nav_road"
+            android:title="Roadside Assist" />
+        <item
+            android:id="@+id/nav_pick"
+            android:title="Pickup Van" />
+    </group>
+
+    <item android:title="User Section">
+        <menu>
+            <item
+                android:id="@+id/nav_login"
+                android:title="Login" />
+            <item
+                android:id="@+id/nav_register"
+                android:title="Register" />
+        </menu>
+    </item>
+
+</menu>
