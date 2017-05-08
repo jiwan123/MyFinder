@@ -134,15 +134,9 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_fuel) {
 
-        } else if (id == R.id.nav_highway) {
-
         } else if (id == R.id.nav_hospital) {
 
-        } else if (id == R.id.nav_book) {
-
         } else if (id == R.id.nav_road) {
-
-        } else if (id == R.id.nav_pick) {
 
         } else if (id == R.id.nav_login) {
             Intent intent = new Intent(this, login.class);
