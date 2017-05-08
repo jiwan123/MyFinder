@@ -55,7 +55,9 @@ public class list extends AppCompatActivity {
         LatLng currentLocation = new LatLng(Double.parseDouble(lat),Double.parseDouble(lng));
 
         listView = (ListView) findViewById(R.id.listview);
+
         List<Fuel> allFuels = MyData.getFuel();
+
         for (int  i = 0; i<allFuels.size(); i++){
             Location loc1 = new Location("");
             loc1.setLatitude(currentLocation.latitude);
@@ -72,6 +74,7 @@ public class list extends AppCompatActivity {
         Collections.sort(allFuels, (Comparator<? super Fuel>) new CustomComparator());
 
         CustomBaseAdapter adapter = new CustomBaseAdapter(this, allFuels);
+
         listView.setAdapter(adapter);
 
     }

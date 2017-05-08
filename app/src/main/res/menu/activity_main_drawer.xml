@@ -3,23 +3,22 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_service"
+            android:title="Service Station" />
+        <item
             android:id="@+id/nav_fuel"
             android:title="Fuel Station" />
+
         <item
-            android:id="@+id/nav_highway"
-            android:title="Highway assist" />
-        <item
-            android:id="@+id/nav_hospital"
-            android:title="Hospital" />
-        <item
-            android:id="@+id/nav_book"
-            android:title="Book Vehicle" />
+            android:id="@+id/nav_pickup"
+            android:title="Pick-up van" />
         <item
             android:id="@+id/nav_road"
             android:title="Roadside Assist" />
         <item
-            android:id="@+id/nav_pick"
-            android:title="Pickup Van" />
+            android:id="@+id/nav_hospital"
+            android:title="Hospital call" />
+
     </group>
 
     <item android:title="User Section">
