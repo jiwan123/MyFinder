@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,12 +8,52 @@
     tools:context="com.designsquad.myfinder.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <fragment
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/map"
+    tools:context=".MapsActivity"
+        android:layout_marginBottom="50dp"
+        android:layout_alignParentTop="true"
+    android:name="com.google.android.gms.maps.SupportMapFragment"
+     />
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/map"
-        tools:context=".MapsActivity"
-        android:name="com.google.android.gms.maps.SupportMapFragment" />
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:weightSum="4"
+        >
+        <ImageButton
+            android:id="@+id/btn_service"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@mipmap/ic_service"
+            android:text="Service Stations" />
+        <ImageButton
+            android:id="@+id/btn_fuel"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@mipmap/ic_fuel"
+            android:text="Fuel Stations" />
+        <ImageButton
+            android:id="@+id/btn_pickup"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@mipmap/ic_car"
+            android:text="Pick Van" />
+        <ImageButton
+            android:id="@+id/btn_road"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@mipmap/ic_road"
+            android:text="Road side assists" />
 
-</android.support.constraint.ConstraintLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>

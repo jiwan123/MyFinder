@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity
     private final LocationListener mLocationListener = new LocationListener() {
         @Override
         public void onLocationChanged(final Location location) {
-            Toast.makeText(MainActivity.this,"Location found",Toast.LENGTH_LONG).show();
+
         }
 
         @Override
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         public void onProviderEnabled(String provider) {
-            Toast.makeText(MainActivity.this,"Location enable",Toast.LENGTH_LONG).show();
+
         }
 
         @Override
