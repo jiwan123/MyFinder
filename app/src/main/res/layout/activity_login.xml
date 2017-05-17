@@ -9,7 +9,7 @@
     tools:layout_editor_absoluteX="0dp">
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/edit_username"
         android:layout_width="368dp"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -18,12 +18,12 @@
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="31dp"
         android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/editText2"
-        android:layout_alignStart="@+id/editText2"
+        android:layout_alignLeft="@+id/edit_password"
+        android:layout_alignStart="@+id/edit_password"
         android:layout_marginTop="11dp" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/edit_password"
         android:layout_width="368dp"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -31,18 +31,18 @@
         android:hint="Password"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="101dp"
-        android:layout_below="@+id/editText"
+        android:layout_below="@+id/edit_username"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="23dp" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btn_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Login"
         tools:layout_editor_absoluteX="147dp"
         tools:layout_editor_absoluteY="206dp"
-        android:layout_below="@+id/editText"
+        android:layout_below="@+id/edit_username"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="135dp" />
 </RelativeLayout>
