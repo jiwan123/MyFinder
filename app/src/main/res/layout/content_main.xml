@@ -53,6 +53,16 @@
             android:src="@mipmap/ic_road"
             android:text="Road side assists" />
 
+        <Button
+            android:id="@+id/btn_list"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:src="@mipmap/ic_road"
+            android:text="List View"
+            />
+
     </LinearLayout>
 
 

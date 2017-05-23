@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "357932477859",
+    "firebase_url": "https://my-finder-e9002.firebaseio.com",
+    "project_id": "my-finder-e9002",
+    "storage_bucket": "my-finder-e9002.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:357932477859:android:dd93ebd7ceca4138",
+        "android_client_info": {
+          "package_name": "com.designsquad.myfinder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "357932477859-5m8qdflo76hcs7pgpgb2bas7safd0hnp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.designsquad.myfinder",
+            "certificate_hash": "4fe0ba6962da72af3afb03b7cdf81c6e80d4b26f"
+          }
+        },
+        {
+          "client_id": "357932477859-q1qs800gl3otvm54uh9sfrqur820pl8g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.designsquad.myfinder",
+            "certificate_hash": "8a3630fcca2c1845f1c1330983abf181df144f69"
+          }
+        },
+        {
+          "client_id": "357932477859-vkdfnc40vvh04g4ekuvqfadg26d3arl5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCugB45r7qIRae3aCkowvy6HKSSUZdSslg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "357932477859-vkdfnc40vvh04g4ekuvqfadg26d3arl5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

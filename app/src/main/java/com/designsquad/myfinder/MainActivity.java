@@ -23,15 +23,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.designsquad.dataSource.MyData;
+import com.designsquad.modal.User;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -47,6 +52,12 @@ public class MainActivity extends AppCompatActivity
     private LocationManager mLocationManager;
     Geocoder geocoder = null;
     double currentLongitude, currentLatitude;
+    public ImageButton btn_service;
+    public ImageButton btn_fuel;
+    public ImageButton btn_pickup;
+    public ImageButton btn_road;
+    public Button btn_list;
+
 
     private final LocationListener mLocationListener = new LocationListener() {
         @Override
@@ -74,6 +85,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(getResources().getString(R.string.app_name));
@@ -95,6 +107,69 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        btn_service = (ImageButton) findViewById(R.id.btn_service);
+        btn_fuel = (ImageButton) findViewById(R.id.btn_fuel);
+        btn_pickup = (ImageButton) findViewById(R.id.btn_pickup);
+        btn_road = (ImageButton) findViewById(R.id.btn_road);
+        btn_list = (Button) findViewById(R.id.btn_list);
+
+        btn_service.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                btn_service.setVisibility(View.INVISIBLE);
+                btn_fuel.setVisibility(View.INVISIBLE);
+                btn_pickup.setVisibility(View.INVISIBLE);
+                btn_road.setVisibility(View.INVISIBLE);
+
+                btn_list.setVisibility(View.VISIBLE);
+            }
+        });
+        btn_fuel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                btn_service.setVisibility(View.INVISIBLE);
+                btn_fuel.setVisibility(View.INVISIBLE);
+                btn_pickup.setVisibility(View.INVISIBLE);
+                btn_road.setVisibility(View.INVISIBLE);
+
+                btn_list.setVisibility(View.VISIBLE);
+            }
+        });
+        btn_pickup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                btn_service.setVisibility(View.INVISIBLE);
+                btn_fuel.setVisibility(View.INVISIBLE);
+                btn_pickup.setVisibility(View.INVISIBLE);
+                btn_road.setVisibility(View.INVISIBLE);
+
+                btn_list.setVisibility(View.VISIBLE);
+            }
+        });
+        btn_road.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                btn_service.setVisibility(View.INVISIBLE);
+                btn_fuel.setVisibility(View.INVISIBLE);
+                btn_pickup.setVisibility(View.INVISIBLE);
+                btn_road.setVisibility(View.INVISIBLE);
+
+                btn_list.setVisibility(View.VISIBLE);
+            }
+        });
+        btn_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(MainActivity.this, list.class);
+                intent.putExtra("LAT", currentLatitude+"");
+                intent.putExtra("LNG", currentLongitude+"");
+                startActivity(intent);
+
+            }
+        });
+
     }
 
     @Override
@@ -110,7 +185,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        // getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
