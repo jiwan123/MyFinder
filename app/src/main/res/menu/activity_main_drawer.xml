@@ -14,21 +14,21 @@
             android:title="Pick-up van" />
         <item
             android:id="@+id/nav_road"
-            android:title="Roadside Assist" />
+            android:title="Roadside Assistance" />
         <item
             android:id="@+id/nav_hospital"
             android:title="Hospital call" />
 
     </group>
 
-    <item android:title="User Section">
+    <item android:title="USER SECTION">
         <menu>
             <item
                 android:id="@+id/nav_login"
-                android:title="Login" />
+                android:title="Account Login" />
             <item
                 android:id="@+id/nav_register"
-                android:title="Register" />
+                android:title="Registration" />
         </menu>
     </item>
 

@@ -8,4 +8,11 @@
 
     <string name="action_settings">List view</string>
     <string name="title_activity_register">register</string>
+    <string name="Welcome">Welcome</string>
+    <string name="username">username</string>
+    <string name="UserName">User Name</string>
+    <string name="Password">password</string>
+
+    <string name="EmailAddress">Email Address</string>
+
 </resources>
