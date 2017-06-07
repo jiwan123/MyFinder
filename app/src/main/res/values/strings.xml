@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AssistanceFinder</string>
+    <string name="app_name">Assistance Finder</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_main">MainActivity</string>
 
@@ -15,6 +15,13 @@
     <string name="EmailAddress">Email Address</string>
     <string name="PhoneNumber">Phone Number</string>
     <string name="REGISTRATION">REGISTRATION</string>
+    <string name="PlaceName">Fuel Station Name</string>
+    <string name="Address">Address</string>
+    <string name="OpeningHrs">Opening Hours</string>
+    <string name="Form">Please Fill Location Details Here.</string>
+    <string name="StationName">Service Station Name</string>
+    <string name="roadsideServiceName">Roadside Assistance Name</string>
+    <string name="HospitalName">Hospital Name</string>
 
 
 </resources>
