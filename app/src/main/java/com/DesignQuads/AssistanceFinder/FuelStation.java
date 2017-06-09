@@ -3,7 +3,6 @@ package com.DesignQuads.AssistanceFinder;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,8 +15,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 
 public class FuelStation extends AppCompatActivity {
-
-
 
         private DatabaseReference mDatabase;
         private EditText PlaceName;
@@ -95,15 +92,6 @@ public class FuelStation extends AppCompatActivity {
         mDatabase.child("FuelPumps").child(FuelId).setValue(Fuel);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        return true;
 
-
-
-    }
 }
 
