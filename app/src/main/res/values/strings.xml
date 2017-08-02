@@ -22,6 +22,8 @@
     <string name="StationName">Service Station Name</string>
     <string name="roadsideServiceName">Roadside Assistance Name</string>
     <string name="HospitalName">Hospital Name</string>
+    <string name="TagNewLocation">Tag New Location</string>
+    <string name="TypeOfService">What type of service your place have? Select one.</string>
 
 
 </resources>
