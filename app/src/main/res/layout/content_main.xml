@@ -5,18 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.designsquad.myfinder.MainActivity"
+    tools:context="com.DesignQuads.AssistanceFinder.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
     <fragment
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/map"
-    tools:context=".MapsActivity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/map"
+        tools:context=".MapsActivity"
         android:layout_marginBottom="50dp"
         android:layout_alignParentTop="true"
-    android:name="com.google.android.gms.maps.SupportMapFragment"
-     />
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -24,46 +24,53 @@
         android:layout_alignParentBottom="true"
         android:weightSum="4"
         >
+
         <ImageButton
             android:id="@+id/btn_service"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="#ffffff"
             android:src="@mipmap/ic_service"
             android:text="Service Stations" />
+
         <ImageButton
             android:id="@+id/btn_fuel"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="#ffffff"
             android:src="@mipmap/ic_fuel"
             android:text="Fuel Stations" />
+
         <ImageButton
             android:id="@+id/btn_pickup"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="#ffffff"
             android:src="@mipmap/ic_car"
             android:text="Pick Van" />
+
         <ImageButton
             android:id="@+id/btn_road"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="#ffffff"
             android:src="@mipmap/ic_road"
             android:text="Road side assists" />
 
         <Button
             android:id="@+id/btn_list"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="4"
-            android:src="@mipmap/ic_road"
+            android:background="#ffffff"
             android:text="List View"
-            />
+            android:textSize="18sp"
+            android:visibility="gone" />
 
     </LinearLayout>
-
 
 </RelativeLayout>

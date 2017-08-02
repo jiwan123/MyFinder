@@ -1,4 +1,4 @@
-package com.designsquad.myfinder;
+package com.DesignQuads.AssistanceFinder;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

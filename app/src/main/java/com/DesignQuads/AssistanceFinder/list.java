@@ -1,4 +1,4 @@
-package com.designsquad.myfinder;
+package com.DesignQuads.AssistanceFinder;
 
 import android.content.Intent;
 import android.location.Location;
@@ -7,9 +7,9 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ListView;
 
-import com.designsquad.adapters.CustomBaseAdapter;
-import com.designsquad.dataSource.MyData;
-import com.designsquad.modal.Fuel;
+import com.DesignQuads.adapters.CustomBaseAdapter;
+import com.DesignQuads.dataSource.MyData;
+import com.DesignQuads.modal.Fuel;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.Collections;

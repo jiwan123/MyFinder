@@ -1,4 +1,4 @@
-package com.designsquad.adapters;
+package com.DesignQuads.adapters;
 
 import android.Manifest;
 import android.app.Activity;
@@ -14,9 +14,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.designsquad.modal.Fuel;
-import com.designsquad.myfinder.R;
-import com.google.android.gms.maps.model.LatLng;
+import com.DesignQuads.modal.Fuel;
+import com.DesignQuads.AssistanceFinder.R;
 
 import java.util.List;
 

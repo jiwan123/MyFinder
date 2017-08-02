@@ -1,8 +1,6 @@
-package com.designsquad.modal;
+package com.DesignQuads.modal;
 
-/**
- * Created by bimalpariyar on 5/1/17.
- */
+
 
 public class Fuel {
     private String name;

@@ -1,4 +1,4 @@
-package com.designsquad.myfinder;
+package com.DesignQuads.AssistanceFinder;
 
 import android.content.Context;
 import android.content.Intent;
@@ -57,7 +57,8 @@ public class login extends AppCompatActivity {
                     return;
                 }
 
-                mDatabase.child("users").orderByChild("username").startAt(username.getText().toString()).endAt(username.getText().toString()).addValueEventListener(new ValueEventListener() {
+                mDatabase.child("users").orderByChild("username").startAt(username.getText().toString()).endAt(username.getText()
+                        .toString()).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if(dataSnapshot!=null && dataSnapshot.getChildren()!=null &&
@@ -67,10 +68,11 @@ public class login extends AppCompatActivity {
                             SharedPreferences.Editor editor = sharedpreferences.edit();
 
                             editor.putString("username", username.getText().toString());
+
+
                             editor.commit();
 
-                            Intent intent = new Intent(login.this, MainActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            Intent intent = new Intent(login.this, ProfileActivity.class);
                             startActivity(intent);
 
 

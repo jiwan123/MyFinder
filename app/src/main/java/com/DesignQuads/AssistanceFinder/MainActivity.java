@@ -1,4 +1,4 @@
-package com.designsquad.myfinder;
+package com.DesignQuads.AssistanceFinder;
 
 import android.Manifest;
 import android.content.Context;
@@ -10,8 +10,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 import android.view.View;
@@ -25,18 +23,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
-import com.designsquad.dataSource.MyData;
-import com.designsquad.modal.User;
+import com.DesignQuads.dataSource.MyData;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -80,6 +74,7 @@ public class MainActivity extends AppCompatActivity
 
         }
     };
+    private GoogleMap googleMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,6 +118,15 @@ public class MainActivity extends AppCompatActivity
                 btn_road.setVisibility(View.INVISIBLE);
 
                 btn_list.setVisibility(View.VISIBLE);
+
+                for (int i=0; i< MyData.getFuel().size();i++){
+
+                    googleMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(MyData.getFuelByID(i).getLat(), MyData.getFuelByID(i).getLng()))
+                            .title( MyData.getFuelByID(i).getName()));
+
+                }
+
             }
         });
         btn_fuel.setOnClickListener(new View.OnClickListener() {
@@ -134,6 +138,14 @@ public class MainActivity extends AppCompatActivity
                 btn_road.setVisibility(View.INVISIBLE);
 
                 btn_list.setVisibility(View.VISIBLE);
+
+                for (int i=0; i< MyData.getFuel().size();i++){
+
+                    googleMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(MyData.getFuelByID(i).getLat(), MyData.getFuelByID(i).getLng()))
+                            .title( MyData.getFuelByID(i).getName()));
+
+                }
             }
         });
         btn_pickup.setOnClickListener(new View.OnClickListener() {
@@ -145,6 +157,14 @@ public class MainActivity extends AppCompatActivity
                 btn_road.setVisibility(View.INVISIBLE);
 
                 btn_list.setVisibility(View.VISIBLE);
+
+                for (int i=0; i< MyData.getFuel().size();i++){
+
+                    googleMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(MyData.getFuelByID(i).getLat(), MyData.getFuelByID(i).getLng()))
+                            .title( MyData.getFuelByID(i).getName()));
+
+                }
             }
         });
         btn_road.setOnClickListener(new View.OnClickListener() {
@@ -156,6 +176,14 @@ public class MainActivity extends AppCompatActivity
                 btn_road.setVisibility(View.INVISIBLE);
 
                 btn_list.setVisibility(View.VISIBLE);
+
+                for (int i=0; i< MyData.getFuel().size();i++){
+
+                    googleMap.addMarker(new MarkerOptions()
+                            .position(new LatLng(MyData.getFuelByID(i).getLat(), MyData.getFuelByID(i).getLng()))
+                            .title( MyData.getFuelByID(i).getName()));
+
+                }
             }
         });
         btn_list.setOnClickListener(new View.OnClickListener() {
@@ -230,6 +258,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
+        this.googleMap = googleMap;
+
         mMap = googleMap;
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
@@ -288,13 +318,6 @@ public class MainActivity extends AppCompatActivity
 
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(currentLatitude, currentLongitude), 14));
 
-        for (int i=0; i< MyData.getFuel().size();i++){
-
-            googleMap.addMarker(new MarkerOptions()
-                    .position(new LatLng(MyData.getFuelByID(i).getLat(), MyData.getFuelByID(i).getLng()))
-                    .title( MyData.getFuelByID(i).getName()));
-
-        }
 
     }
 

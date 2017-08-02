@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.designsquad.myfinder">
+    package="com.DesignQuads.AssistanceFinder">
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
-         location permissions for the 'MyLocation' functionality. 
+         location permissions for the 'MyLocation' functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
     <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <supports-screens android:requiresSmallestWidthDp="600" />
 
     <application
         android:allowBackup="true"
@@ -25,7 +26,7 @@
              Note that the API key is linked to the encryption key used to sign the APK.
              You need a different API key for each encryption key, including the release key that is used to
              sign the APK for publishing.
-             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -36,19 +37,29 @@
             android:label="@string/title_activity_maps" />
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_main"
+            android:label="Assistance Finder"
             android:theme="@style/AppTheme.NoActionBar">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity android:name=".login" />
         <activity android:name=".register" />
-        <activity android:name=".list"></activity>
+        <activity android:name=".list" />
+        <activity
+            android:name=".ProfileActivity"
+            android:noHistory="true" />
+        <activity android:name=".TagLocation" />
+        <activity android:name=".FuelStation"
+            android:noHistory="true"/>
+        <activity android:name=".ServiceStation"
+            android:noHistory="true"/>
+        <activity android:name=".RoadSide"
+            android:noHistory="true"/>
+        <activity android:name=".Hospital"
+            android:noHistory="true" />
     </application>
 
 </manifest>
