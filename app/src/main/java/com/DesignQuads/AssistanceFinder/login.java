@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.DesignQuads.modal.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -56,7 +57,7 @@ public class login extends AppCompatActivity {
                     Toast.makeText(login.this,"Password is required",Toast.LENGTH_LONG).show();
                     return;
                 }
-
+//                check if username exists or not
                 mDatabase.child("users").orderByChild("username").startAt(username.getText().toString()).endAt(username.getText()
                         .toString()).addValueEventListener(new ValueEventListener() {
                     @Override
@@ -64,11 +65,23 @@ public class login extends AppCompatActivity {
                         if(dataSnapshot!=null && dataSnapshot.getChildren()!=null &&
                                 dataSnapshot.getChildren().iterator().hasNext()){
 
+//                            check if password matches or not
+                            for (DataSnapshot postSnapshot :dataSnapshot.getChildren()) {
+
+//                                db stored password
+                                String pass = postSnapshot.getValue(User.class).password;
+//                                user input password
+                                String et_pass = User.getHash(password.getText().toString());
+
+                               if(!pass.equalsIgnoreCase(et_pass)){
+                                    Toast.makeText(login.this,"Invalid Username or Password",Toast.LENGTH_LONG).show();
+                                    return;
+                               }
+
+                            }
 
                             SharedPreferences.Editor editor = sharedpreferences.edit();
-
                             editor.putString("username", username.getText().toString());
-
 
                             editor.commit();
 
