@@ -12,24 +12,25 @@ public class User {
     public String phone;
     public String password;
 
+    public User(){}
 
     public User(String username, String Email, String phone, String password) {
         this.username = username;
         this.Email = Email;
         this.phone = phone;
-        try{
-            this.password = getHash(password);
-        }catch (Exception ex){
-            this.password = password;
-        }
+        this.password = User.getHash(password);
     }
 
-    public String getHash(String x) throws NoSuchAlgorithmException {
-        java.security.MessageDigest d = null;
-        d = java.security.MessageDigest.getInstance("SHA-1");
-        d.reset();
-        d.update(x.getBytes());
-        return convertToHex(d.digest());
+    public static String getHash(String x){
+        try {
+            java.security.MessageDigest d = null;
+            d = java.security.MessageDigest.getInstance("SHA-1");
+            d.reset();
+            d.update(x.getBytes());
+            return convertToHex(d.digest());
+        }catch (Exception ex){
+            return "";
+        }
     }
 
     private static String convertToHex(byte[] data) {
