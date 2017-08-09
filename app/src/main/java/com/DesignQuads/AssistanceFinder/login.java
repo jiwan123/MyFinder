@@ -57,7 +57,8 @@ public class login extends AppCompatActivity {
                     return;
                 }
 
-                mDatabase.child("users").orderByChild("username").startAt(username.getText().toString()).endAt(username.getText()
+                mDatabase.child("users").orderByChild("username").startAt(username.getText().toString())
+                        .endAt(username.getText()
                         .toString()).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -68,6 +69,7 @@ public class login extends AppCompatActivity {
                             SharedPreferences.Editor editor = sharedpreferences.edit();
 
                             editor.putString("username", username.getText().toString());
+                           // editor.putString("password", password.getText().toString());
 
 
                             editor.commit();

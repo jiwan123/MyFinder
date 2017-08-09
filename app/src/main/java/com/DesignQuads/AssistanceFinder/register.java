@@ -45,6 +45,7 @@ public class register extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+
                 if(username.getText().toString().equals("")){
                     Toast.makeText(register.this,"Name is required",Toast.LENGTH_LONG).show();
                     return;

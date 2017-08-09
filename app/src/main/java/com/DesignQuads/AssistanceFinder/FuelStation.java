@@ -1,6 +1,7 @@
 package com.DesignQuads.AssistanceFinder;
 
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,9 +19,9 @@ public class FuelStation extends AppCompatActivity {
 
         private DatabaseReference mDatabase;
         private EditText PlaceName;
-        private EditText PlaceAddress;
-        private EditText OpeningHrs;
         private EditText LocationPhone;
+        private Button Address_btn;
+        private Button OpeningHrs_btn;
         private Button Submit_btn;
 
 
@@ -35,9 +36,61 @@ public class FuelStation extends AppCompatActivity {
             mDatabase = FirebaseDatabase.getInstance().getReference();
 
             PlaceName = (EditText) findViewById(R.id.edit_PlaceName);
-            PlaceAddress = (EditText) findViewById(R.id.edit_PlaceAddress);
-            OpeningHrs = (EditText) findViewById(R.id.OpeningTimes);
             LocationPhone = (EditText) findViewById(R.id.edit_phone);
+
+            Button mAddress_btn = (Button) findViewById(R.id.Address_btn);
+            mAddress_btn.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view){
+                    AlertDialog.Builder mBuilder =new AlertDialog.Builder(FuelStation.this);
+                    View mView =getLayoutInflater().inflate(R.layout.address_layout,null);
+                    final EditText mHouseNumber = (EditText)mView.findViewById(R.id.HouseNumber);
+                    final EditText mStreet = (EditText)mView.findViewById(R.id.Street);
+                    final EditText mSuburb = (EditText)mView.findViewById(R.id.Suburb);
+                    final EditText mPostcode = (EditText)mView.findViewById(R.id.Postcode);
+                    final EditText mState = (EditText)mView.findViewById(R.id.State);
+                    Button mSave =(Button)mView.findViewById(R.id.Address_save);
+
+
+                    mSave.setOnClickListener(new View.OnClickListener(){
+                        @Override
+                        public void onClick(View view) {
+                            if (mHouseNumber.getText().toString().equals("")) {
+                                Toast.makeText(FuelStation.this, R.string.HouseErrMsg, Toast.LENGTH_LONG).show();
+                                return;
+                            }
+
+                            if (mStreet.getText().toString().equals("")) {
+                                Toast.makeText(FuelStation.this, R.string.StreetErrMsg, Toast.LENGTH_LONG).show();
+                                return;
+                            }
+
+                            if (mSuburb.getText().toString().equals("")) {
+                                Toast.makeText(FuelStation.this, R.string.SuburbErrMsg, Toast.LENGTH_LONG).show();
+                                return;
+                            }
+
+                            if (mPostcode.getText().toString().equals("")) {
+                                Toast.makeText(FuelStation.this, R.string.PostcodeErrMsg, Toast.LENGTH_LONG).show();
+                                return;
+                            }
+
+                            if (mState.getText().toString().equals("")) {
+                                Toast.makeText(FuelStation.this, R.string.StateErrMsg, Toast.LENGTH_LONG).show();
+                                return;
+                            }
+                        }
+
+                    });
+
+                    mBuilder.setView(mView);
+                    AlertDialog dialog=mBuilder.create();
+                    dialog.show();
+
+                }
+            });
+            Address_btn = (Button) findViewById(R.id.Address_btn);
+            OpeningHrs_btn = (Button) findViewById(R.id.OpeningHrs_btn);
 
 
             Submit_btn = (Button) findViewById(R.id.Submit_btn);
@@ -51,28 +104,29 @@ public class FuelStation extends AppCompatActivity {
                         return;
                     }
 
-                    if (PlaceAddress.getText().toString().equals("")) {
-                        Toast.makeText(FuelStation.this, "Place Address is required", Toast.LENGTH_LONG).show();
-                        return;
-                    }
-
-                    if (OpeningHrs.getText().toString().equals("")) {
-                        Toast.makeText(FuelStation.this, "Opening hours are required", Toast.LENGTH_LONG).show();
-                        return;
-                    }
 
                     if (LocationPhone.getText().toString().equals("")) {
                         Toast.makeText(FuelStation.this, "Phone Number is required", Toast.LENGTH_LONG).show();
                         return;
                     }
 
-                    writeNewFuelPump(PlaceName.getText().toString(), PlaceAddress.getText().toString(), OpeningHrs.getText().toString(),
+                    if (Address_btn.getText().toString().equals("")) {
+                        Toast.makeText(FuelStation.this, "Place Address is required", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
+                    if (OpeningHrs_btn.getText().toString().equals("")) {
+                        Toast.makeText(FuelStation.this, "Opening hours are required", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
+                    writeNewFuelPump(PlaceName.getText().toString(), Address_btn.getText().toString(), OpeningHrs_btn.getText().toString(),
                             LocationPhone.getText().toString());
 
                     PlaceName.setText("");
-                    PlaceAddress.setText("");
-                    OpeningHrs.setText("");
                     LocationPhone.setText("");
+                    Address_btn.setText("");
+                    OpeningHrs_btn.setText("");
 
                     Toast.makeText(FuelStation.this, "Fuel Station is Successfully Added... ", Toast.LENGTH_LONG).show();
 

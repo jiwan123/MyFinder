@@ -52,13 +52,17 @@
             android:name=".ProfileActivity"
             android:noHistory="true" />
         <activity android:name=".TagLocation" />
-        <activity android:name=".FuelStation"
-            android:noHistory="true"/>
-        <activity android:name=".ServiceStation"
-            android:noHistory="true"/>
-        <activity android:name=".RoadSide"
-            android:noHistory="true"/>
-        <activity android:name=".Hospital"
+        <activity
+            android:name=".FuelStation"
+            android:noHistory="true" />
+        <activity
+            android:name=".ServiceStation"
+            android:noHistory="true" />
+        <activity
+            android:name=".RoadSide"
+            android:noHistory="true" />
+        <activity
+            android:name=".Hospital"
             android:noHistory="true" />
     </application>
 
