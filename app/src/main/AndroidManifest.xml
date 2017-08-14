@@ -64,6 +64,9 @@
         <activity
             android:name=".Hospital"
             android:noHistory="true" />
+        <activity
+            android:name=".Address"
+            android:noHistory="true" />
     </application>
 
 </manifest>

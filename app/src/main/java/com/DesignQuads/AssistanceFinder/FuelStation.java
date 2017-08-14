@@ -30,6 +30,7 @@ public class FuelStation extends AppCompatActivity {
         protected void onCreate (Bundle savedInstanceState){
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_fuel_station);
+
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle("Fuel Station Form");
 
@@ -37,59 +38,9 @@ public class FuelStation extends AppCompatActivity {
 
             PlaceName = (EditText) findViewById(R.id.edit_PlaceName);
             LocationPhone = (EditText) findViewById(R.id.edit_phone);
-
-            Button mAddress_btn = (Button) findViewById(R.id.Address_btn);
-            mAddress_btn.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View view){
-                    AlertDialog.Builder mBuilder =new AlertDialog.Builder(FuelStation.this);
-                    View mView =getLayoutInflater().inflate(R.layout.address_layout,null);
-                    final EditText mHouseNumber = (EditText)mView.findViewById(R.id.HouseNumber);
-                    final EditText mStreet = (EditText)mView.findViewById(R.id.Street);
-                    final EditText mSuburb = (EditText)mView.findViewById(R.id.Suburb);
-                    final EditText mPostcode = (EditText)mView.findViewById(R.id.Postcode);
-                    final EditText mState = (EditText)mView.findViewById(R.id.State);
-                    Button mSave =(Button)mView.findViewById(R.id.Address_save);
-
-
-                    mSave.setOnClickListener(new View.OnClickListener(){
-                        @Override
-                        public void onClick(View view) {
-                            if (mHouseNumber.getText().toString().equals("")) {
-                                Toast.makeText(FuelStation.this, R.string.HouseErrMsg, Toast.LENGTH_LONG).show();
-                                return;
-                            }
-
-                            if (mStreet.getText().toString().equals("")) {
-                                Toast.makeText(FuelStation.this, R.string.StreetErrMsg, Toast.LENGTH_LONG).show();
-                                return;
-                            }
-
-                            if (mSuburb.getText().toString().equals("")) {
-                                Toast.makeText(FuelStation.this, R.string.SuburbErrMsg, Toast.LENGTH_LONG).show();
-                                return;
-                            }
-
-                            if (mPostcode.getText().toString().equals("")) {
-                                Toast.makeText(FuelStation.this, R.string.PostcodeErrMsg, Toast.LENGTH_LONG).show();
-                                return;
-                            }
-
-                            if (mState.getText().toString().equals("")) {
-                                Toast.makeText(FuelStation.this, R.string.StateErrMsg, Toast.LENGTH_LONG).show();
-                                return;
-                            }
-                        }
-
-                    });
-
-                    mBuilder.setView(mView);
-                    AlertDialog dialog=mBuilder.create();
-                    dialog.show();
-
-                }
-            });
             Address_btn = (Button) findViewById(R.id.Address_btn);
+            Intent intent = new Intent(FuelStation.this, Address.class);
+            startActivity(intent);
             OpeningHrs_btn = (Button) findViewById(R.id.OpeningHrs_btn);
 
 

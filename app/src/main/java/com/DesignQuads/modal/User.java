@@ -13,7 +13,6 @@ public class User {
     public String password;
 
     public User(){}
-
     public User(String username, String Email, String phone, String password) {
         this.username = username;
         this.Email = Email;

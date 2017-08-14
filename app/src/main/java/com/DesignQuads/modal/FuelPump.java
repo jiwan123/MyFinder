@@ -9,14 +9,14 @@ public class FuelPump {
 
 
     public String PlaceName;
-    public String PlaceAddress;
+    public String Address_btn;
     public String OpeningHrs;
     public String LocationPhone;
 
 
     public FuelPump(String PlaceName, String PlaceAddress, String OpeningHrs, String LocationPhone) {
         this.PlaceName = PlaceName;
-        this.PlaceAddress = PlaceAddress;
+        this.Address_btn = PlaceAddress;
         this.OpeningHrs = OpeningHrs;
         this.LocationPhone = LocationPhone;
 
