@@ -13,9 +13,12 @@ public class DataAddress {
     public String suburb_name;
     public String post_code;
     public String state;
+    public String FuelID;
 
+    public DataAddress(){}
 
-    public DataAddress(String unit_house_number, String street_name, String suburb_name, String post_code,String state) {
+    public DataAddress(String FuelID,String unit_house_number, String street_name, String suburb_name, String post_code,String state) {
+        this.FuelID = FuelID;
         this.unit_house_number = unit_house_number;
         this.street_name = street_name;
         this.suburb_name = suburb_name;

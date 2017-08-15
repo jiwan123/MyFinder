@@ -12,6 +12,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -25,12 +26,19 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.DesignQuads.dataSource.MyData;
+import com.DesignQuads.modal.DataAddress;
+import com.DesignQuads.modal.Fuel;
+import com.DesignQuads.modal.FuelPump;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -109,6 +117,9 @@ public class MainActivity extends AppCompatActivity
         btn_road = (ImageButton) findViewById(R.id.btn_road);
         btn_list = (Button) findViewById(R.id.btn_list);
 
+
+        final MyData mydata = new MyData(this.getApplicationContext());
+
         btn_service.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,11 +130,11 @@ public class MainActivity extends AppCompatActivity
 
                 btn_list.setVisibility(View.VISIBLE);
 
-                for (int i=0; i< MyData.getFuel().size();i++){
+                for (int i=0; i< mydata.getFuel().size();i++){
 
                     googleMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(MyData.getFuelByID(i).getLat(), MyData.getFuelByID(i).getLng()))
-                            .title( MyData.getFuelByID(i).getName()));
+                            .position(new LatLng(mydata.getFuelByID(i).getLat(), mydata.getFuelByID(i).getLng()))
+                            .title( mydata.getFuelByID(i).getName()));
 
                 }
 
@@ -139,13 +150,50 @@ public class MainActivity extends AppCompatActivity
 
                 btn_list.setVisibility(View.VISIBLE);
 
-                for (int i=0; i< MyData.getFuel().size();i++){
+                FirebaseDatabase.getInstance().getReference().child("FuelPumps").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    googleMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(MyData.getFuelByID(i).getLat(), MyData.getFuelByID(i).getLng()))
-                            .title( MyData.getFuelByID(i).getName()));
+                        for (DataSnapshot postSnapshot :dataSnapshot.getChildren()) {
+                            final FuelPump fp = postSnapshot.getValue(FuelPump.class);
 
-                }
+                            FirebaseDatabase.getInstance().getReference().child("Address").orderByChild("FuelID")
+                                    .startAt(postSnapshot.getKey())
+                                    .endAt(postSnapshot.getKey()).addValueEventListener(new ValueEventListener() {
+
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot2) {
+
+                                    for (DataSnapshot postSnapshot2 :dataSnapshot2.getChildren()) {
+                                        DataAddress ad = postSnapshot2.getValue(DataAddress.class);
+                                        String addressString = ad.unit_house_number+", "+ad.street_name+", "+ad.suburb_name+" "+ad.state+" "+ad.post_code;
+                                        double[] cords = getLatLongFromAddress(addressString);
+                                        googleMap.addMarker(new MarkerOptions()
+                                                .position(new LatLng(cords[0], cords[1]))
+                                                .title( fp.PlaceName ));
+                                    }
+
+
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError2) {
+
+                                }
+                            });
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+
+
             }
         });
         btn_pickup.setOnClickListener(new View.OnClickListener() {
@@ -158,11 +206,11 @@ public class MainActivity extends AppCompatActivity
 
                 btn_list.setVisibility(View.VISIBLE);
 
-                for (int i=0; i< MyData.getFuel().size();i++){
+                for (int i=0; i< mydata.getFuel().size();i++){
 
                     googleMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(MyData.getFuelByID(i).getLat(), MyData.getFuelByID(i).getLng()))
-                            .title( MyData.getFuelByID(i).getName()));
+                            .position(new LatLng(mydata.getFuelByID(i).getLat(), mydata.getFuelByID(i).getLng()))
+                            .title( mydata.getFuelByID(i).getName()));
 
                 }
             }
@@ -177,11 +225,11 @@ public class MainActivity extends AppCompatActivity
 
                 btn_list.setVisibility(View.VISIBLE);
 
-                for (int i=0; i< MyData.getFuel().size();i++){
+                for (int i=0; i< mydata.getFuel().size();i++){
 
                     googleMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(MyData.getFuelByID(i).getLat(), MyData.getFuelByID(i).getLng()))
-                            .title( MyData.getFuelByID(i).getName()));
+                            .position(new LatLng(mydata.getFuelByID(i).getLat(), mydata.getFuelByID(i).getLng()))
+                            .title( mydata.getFuelByID(i).getName()));
 
                 }
             }
@@ -319,6 +367,29 @@ public class MainActivity extends AppCompatActivity
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(currentLatitude, currentLongitude), 14));
 
 
+    }
+
+    private double[] getLatLongFromAddress(String address)
+    {
+        double lat= 0.0, lng= 0.0;
+
+        Geocoder geoCoder = new Geocoder(this.getApplicationContext(), Locale.getDefault());
+        try
+        {
+            List<android.location.Address> addresses = geoCoder.getFromLocationName(address , 1);
+            if (addresses.size() > 0)
+            {
+
+                lat=addresses.get(0).getLatitude();
+                lng=addresses.get(0).getLongitude();
+
+            }
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return new double[]{lat,lng};
     }
 
 

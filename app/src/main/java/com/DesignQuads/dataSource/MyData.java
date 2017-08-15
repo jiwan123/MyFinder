@@ -1,35 +1,118 @@
 package com.DesignQuads.dataSource;
 
+import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.DesignQuads.modal.DataAddress;
 import com.DesignQuads.modal.Fuel;
+import com.DesignQuads.modal.FuelPump;
+import com.DesignQuads.modal.User;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Locale;
 
 
 public class MyData {
 
-    public  static List<Fuel>fuels;
+    public  List<Fuel>fuels;
+    public  DatabaseReference mDatabase;
+    private Context context;
 
-    public static List getFuel(){
+    public MyData(Context context){
+        this.context = context;
 
         fuels = new ArrayList<Fuel>();
 
-        fuels.add(new Fuel("fuel 1","6876843",-37.812131, 144.962356));
-        fuels.add(new Fuel("fuel 2","1234567",-37.809139, 144.960918));
-        fuels.add(new Fuel("fuel 3","3456785",-37.808952, 144.958053));
-        fuels.add(new Fuel("fuel 4","6544563",-37.809961, 144.958300));
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        fuels.add(new Fuel("fuel A","7876543",-37.786669, 144.832006));
-        fuels.add(new Fuel("fuel B","1234567",-37.786135, 144.830804));
-        fuels.add(new Fuel("fuel C","3456785",-37.788950, 144.831673));
-        fuels.add(new Fuel("fuel D","6544563",-37.788950, 144.831673));
+        mDatabase.child("FuelPumps").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
-        return fuels;
+                for (DataSnapshot postSnapshot :dataSnapshot.getChildren()) {
+                    final FuelPump fp = postSnapshot.getValue(FuelPump.class);
+
+                    mDatabase.child("Address").orderByChild("FuelID")
+                            .startAt(postSnapshot.getKey())
+                            .endAt(postSnapshot.getKey()).addValueEventListener(new ValueEventListener() {
+
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot2) {
+
+                            for (DataSnapshot postSnapshot2 :dataSnapshot2.getChildren()) {
+                                DataAddress ad = postSnapshot2.getValue(DataAddress.class);
+                                String addressString = ad.unit_house_number+", "+ad.street_name+", "+ad.suburb_name+" "+ad.state+" "+ad.post_code;
+                                double[] cords = getLatLongFromAddress(addressString);
+//                                Log.v("ttt",fp.PlaceName+", address-> "+addressString);
+                                MyData.this.fuels.add(new Fuel(fp.PlaceName,fp.LocationPhone,cords[0],cords[1]));
+                                Log.v("ttt", fuels.size()+", size");
+                            }
+
+//                            Log.v("ttt", "done");
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError2) {
+
+                        }
+                    });
+                }
+
+                Log.v("ttt", "done");
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        Log.v("ttt", fuels.size()+", size");
+
     }
 
-    public static Fuel getFuelByID(int i){
-        return (Fuel) getFuel().get(i);
+    public List getFuel(){
+        return this.fuels;
+    }
+
+    public Fuel getFuelByID(int i){
+        return (Fuel) this.fuels.get(i);
+    }
+
+    private double[] getLatLongFromAddress(String address)
+    {
+        double lat= 0.0, lng= 0.0;
+
+        Geocoder geoCoder = new Geocoder(this.context, Locale.getDefault());
+        try
+        {
+            List<Address> addresses = geoCoder.getFromLocationName(address , 1);
+            if (addresses.size() > 0)
+            {
+
+                lat=addresses.get(0).getLatitude();
+                lng=addresses.get(0).getLongitude();
+
+//                Log.v("ttt", ""+lat);
+//                Log.v("ttt", ""+lng);
+            }
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return new double[]{lat,lng};
     }
 
 }

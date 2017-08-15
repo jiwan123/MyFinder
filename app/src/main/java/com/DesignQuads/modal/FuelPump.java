@@ -9,15 +9,18 @@ public class FuelPump {
 
 
     public String PlaceName;
-    public String Address_btn;
-    public String OpeningHrs;
     public String LocationPhone;
+    public String userId;
 
+    public FuelPump() {}
 
-    public FuelPump(String PlaceName, String PlaceAddress, String OpeningHrs, String LocationPhone) {
+    public FuelPump(String PlaceName, String LocationPhone,String UserId) {
+        this(PlaceName,LocationPhone);
+        this.userId = UserId;
+    }
+
+    public FuelPump(String PlaceName, String LocationPhone) {
         this.PlaceName = PlaceName;
-        this.Address_btn = PlaceAddress;
-        this.OpeningHrs = OpeningHrs;
         this.LocationPhone = LocationPhone;
 
     }

@@ -89,12 +89,12 @@ public class FuelStation extends AppCompatActivity {
         }
 
         private void writeNewFuelPump(String PlaceName, String PlaceAddress, String OpeningHrs, String LocationPhone) {
-        FuelPump Fuel = new FuelPump(PlaceName, PlaceAddress, OpeningHrs, LocationPhone);
+//        FuelPump Fuel = new FuelPump(PlaceName, PlaceAddress, OpeningHrs, LocationPhone);
 
 
 
-        String FuelId = mDatabase.push().getKey();
-        mDatabase.child("FuelPumps").child(FuelId).setValue(Fuel);
+//        String FuelId = mDatabase.push().getKey();
+//        mDatabase.child("FuelPumps").child(FuelId).setValue(Fuel);
     }
 
 

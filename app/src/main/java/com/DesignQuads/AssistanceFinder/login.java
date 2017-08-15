@@ -73,6 +73,11 @@ public class login extends AppCompatActivity {
 //                                user input password
                                 String et_pass = User.getHash(password.getText().toString());
 
+                                SharedPreferences.Editor editor = sharedpreferences.edit();
+                                editor.putString("user_id", postSnapshot.getKey().toString());
+
+                                editor.commit();
+
                                 if(!pass.equalsIgnoreCase(et_pass)){
                                     Toast.makeText(login.this,"Invalid Username or Password",Toast.LENGTH_LONG).show();
                                     return;
