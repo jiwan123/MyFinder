@@ -286,7 +286,8 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_fuel) {
 
         } else if (id == R.id.nav_hospital) {
-
+            Intent intent = new Intent(this, HospitalCall.class);
+            startActivity(intent);
         } else if (id == R.id.nav_road) {
 
         } else if (id == R.id.nav_login) {

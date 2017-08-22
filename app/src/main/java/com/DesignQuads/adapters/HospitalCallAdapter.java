@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +15,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.DesignQuads.modal.Fuel;
+import com.DesignQuads.AssistanceFinder.Hospital;
 import com.DesignQuads.AssistanceFinder.R;
+import com.DesignQuads.modal.Fuel;
+import com.DesignQuads.modal.HospitalModel;
 
 import java.util.List;
 
@@ -23,11 +26,11 @@ import java.util.List;
  * Created by Jiwan on 2/05/2017.
  */
 
-public class CustomBaseAdapter extends BaseAdapter {
+public class HospitalCallAdapter extends BaseAdapter {
     Context context;
-    List<Fuel> rowItems;
+    List<HospitalModel> rowItems;
 
-    public CustomBaseAdapter(Context context, List<Fuel> items) {
+    public HospitalCallAdapter(Context context, List<HospitalModel> items) {
         this.context = context;
         this.rowItems = items;
     }
@@ -46,9 +49,9 @@ public class CustomBaseAdapter extends BaseAdapter {
         LayoutInflater mInflater = (LayoutInflater)
                 context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         if (convertView == null) {
-            convertView = mInflater.inflate(R.layout.row_item, null);
+            convertView = mInflater.inflate(R.layout.hospital_row_item, null);
             holder = new ViewHolder();
-            holder.txtDesc = (TextView) convertView.findViewById(R.id.type);
+            holder.txtDesc = (TextView) convertView.findViewById(R.id.subtitle);
             holder.txtTitle = (TextView) convertView.findViewById(R.id.name);
             holder.callBtn = (ImageView) convertView.findViewById(R.id.item_call);
             convertView.setTag(holder);
@@ -56,19 +59,21 @@ public class CustomBaseAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        final Fuel rowItem = (Fuel) getItem(position);
+        final HospitalModel rowItem = (HospitalModel) getItem(position);
 
-        holder.txtDesc.setText(rowItem.distance());
-        holder.txtTitle.setText(rowItem.getName());
+        Log.v("ttt",rowItem.getName());
+
+        holder.txtDesc.setText(rowItem.getName());
+        holder.txtTitle.setText(rowItem.getSubTitle());
         holder.callBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent callIntent = new Intent(Intent.ACTION_CALL);
                 callIntent.setData(Uri.parse("tel:" + rowItem.getPhone()));
-                if (ActivityCompat.checkSelfPermission(CustomBaseAdapter.this.context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.checkSelfPermission(HospitalCallAdapter.this.context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                     return;
                 }
-                CustomBaseAdapter.this.context.startActivity(callIntent);
+                HospitalCallAdapter.this.context.startActivity(callIntent);
             }
         });
 
