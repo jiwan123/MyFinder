@@ -115,7 +115,7 @@ public class list extends AppCompatActivity {
 
         Log.v("bbb","tab =>"+tab_clicked);
 
-        mDatabase.child("Service_Stations").addValueEventListener(new ValueEventListener() {
+        mDatabase.child(tab_clicked).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
