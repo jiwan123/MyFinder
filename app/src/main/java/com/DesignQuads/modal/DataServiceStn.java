@@ -10,15 +10,18 @@ public class DataServiceStn {
 
 
     public String PlaceName;
-    public String PlaceAddress;
-    public String OpeningHrs;
     public String LocationPhone;
+    public String userId;
 
+    public DataServiceStn() {}
 
-    public DataServiceStn(String PlaceName, String PlaceAddress, String OpeningHrs, String LocationPhone) {
+    public DataServiceStn(String PlaceName, String LocationPhone,String UserId) {
+        this(PlaceName,LocationPhone);
+        this.userId = UserId;
+    }
+
+    public DataServiceStn(String PlaceName, String LocationPhone) {
         this.PlaceName = PlaceName;
-        this.PlaceAddress = PlaceAddress;
-        this.OpeningHrs = OpeningHrs;
         this.LocationPhone = LocationPhone;
 
     }

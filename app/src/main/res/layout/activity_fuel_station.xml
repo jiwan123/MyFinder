@@ -96,6 +96,7 @@
         android:background="@drawable/common_full_open_on_phone"
         android:elevation="0dp"
         android:text="@string/address"
+        android:textStyle="normal"
         android:textSize="18sp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
@@ -110,6 +111,7 @@
         android:textSize="18sp"
         android:background="@drawable/common_full_open_on_phone"
         android:text="Opening Hours"
+        android:textStyle="normal"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
 

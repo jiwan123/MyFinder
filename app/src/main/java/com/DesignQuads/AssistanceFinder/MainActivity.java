@@ -3,6 +3,7 @@ package com.DesignQuads.AssistanceFinder;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -27,6 +28,8 @@ import android.widget.ImageButton;
 
 import com.DesignQuads.dataSource.MyData;
 import com.DesignQuads.modal.DataAddress;
+import com.DesignQuads.modal.DataServiceAddress;
+import com.DesignQuads.modal.DataServiceStn;
 import com.DesignQuads.modal.Fuel;
 import com.DesignQuads.modal.FuelPump;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -60,6 +63,10 @@ public class MainActivity extends AppCompatActivity
     public ImageButton btn_road;
     public Button btn_list;
 
+    public SharedPreferences sharedpreferences;
+
+    public static final String MyPREFERENCES = "MyPrefs" ;
+
 
     private final LocationListener mLocationListener = new LocationListener() {
         @Override
@@ -92,6 +99,8 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(getResources().getString(R.string.app_name));
+
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -130,13 +139,53 @@ public class MainActivity extends AppCompatActivity
 
                 btn_list.setVisibility(View.VISIBLE);
 
-                for (int i=0; i< mydata.getFuel().size();i++){
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putString("tab_clicked", "Service_Stations");
 
-                    googleMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(mydata.getFuelByID(i).getLat(), mydata.getFuelByID(i).getLng()))
-                            .title( mydata.getFuelByID(i).getName()));
+                editor.commit();
 
-                }
+                FirebaseDatabase.getInstance().getReference().child("Service_Stations").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        for (DataSnapshot postSnapshot :dataSnapshot.getChildren()) {
+                            final DataServiceStn ss = postSnapshot.getValue(DataServiceStn.class);
+
+                            FirebaseDatabase.getInstance().getReference().child("Address").orderByChild("FuelID")
+                                    .startAt(postSnapshot.getKey())
+                                    .endAt(postSnapshot.getKey()).addValueEventListener(new ValueEventListener() {
+
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot2) {
+
+                                    for (DataSnapshot postSnapshot2 :dataSnapshot2.getChildren()) {
+                                        DataServiceAddress ad = postSnapshot2.getValue(DataServiceAddress.class);
+                                        String addressString = ad.unit_house_number+", "+ad.street_name+", "+ad.suburb_name+" " +
+                                                ""+ad.state+" "+ad.post_code;
+                                        double[] cords = getLatLongFromAddress(addressString);
+                                        googleMap.addMarker(new MarkerOptions()
+                                                .position(new LatLng(cords[0], cords[1]))
+                                                .title( ss.PlaceName ));
+                                    }
+
+
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError2) {
+
+                                }
+                            });
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
 
             }
         });
@@ -149,6 +198,11 @@ public class MainActivity extends AppCompatActivity
                 btn_road.setVisibility(View.INVISIBLE);
 
                 btn_list.setVisibility(View.VISIBLE);
+
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putString("tab_clicked", "FuelPumps");
+
+                editor.commit();
 
                 FirebaseDatabase.getInstance().getReference().child("FuelPumps").addValueEventListener(new ValueEventListener() {
                     @Override
@@ -166,7 +220,9 @@ public class MainActivity extends AppCompatActivity
 
                                     for (DataSnapshot postSnapshot2 :dataSnapshot2.getChildren()) {
                                         DataAddress ad = postSnapshot2.getValue(DataAddress.class);
-                                        String addressString = ad.unit_house_number+", "+ad.street_name+", "+ad.suburb_name+" "+ad.state+" "+ad.post_code;
+                                        String addressString = ad.unit_house_number+", "+ad.street_name+", "+ad.suburb_name+" " +
+                                                ""+ad.state+" "+ad.post_code;
+
                                         double[] cords = getLatLongFromAddress(addressString);
                                         googleMap.addMarker(new MarkerOptions()
                                                 .position(new LatLng(cords[0], cords[1]))
@@ -310,14 +366,16 @@ public class MainActivity extends AppCompatActivity
         this.googleMap = googleMap;
 
         mMap = googleMap;
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             return;
         }
 
         mMap.setMyLocationEnabled(true);
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             return;
         }

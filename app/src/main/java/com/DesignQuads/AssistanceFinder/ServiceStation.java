@@ -17,16 +17,16 @@ public class ServiceStation extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
     private EditText PlaceName;
-    private EditText PlaceAddress;
-    private EditText OpeningHrs;
     private EditText LocationPhone;
+    private Button Address_btn;
+    private Button OpeningHrs_btn;
     private Button Submit_btn;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_service_station);
+        setContentView(R.layout.activity_fuel_station);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Service Station Form");
@@ -34,10 +34,14 @@ public class ServiceStation extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         PlaceName = (EditText) findViewById(R.id.edit_PlaceName);
-        PlaceAddress = (EditText) findViewById(R.id.edit_PlaceAddress);
-        OpeningHrs = (EditText) findViewById(R.id.OpeningTimes);
         LocationPhone = (EditText) findViewById(R.id.edit_phone);
+        Address_btn = (Button) findViewById(R.id.Address_btn);
+        Intent intent = new Intent(ServiceStation.this, ServiceAddress.class);
+        startActivity(intent);
+        OpeningHrs_btn = (Button) findViewById(R.id.OpeningHrs_btn);
 
+
+        Submit_btn = (Button) findViewById(R.id.Submit_btn);
 
         Submit_btn = (Button) findViewById(R.id.Submit_btn);
 
@@ -50,28 +54,29 @@ public class ServiceStation extends AppCompatActivity {
                     return;
                 }
 
-                if (PlaceAddress.getText().toString().equals("")) {
-                    Toast.makeText(ServiceStation.this, "Place Address is required", Toast.LENGTH_LONG).show();
-                    return;
-                }
-
-                if (OpeningHrs.getText().toString().equals("")) {
-                    Toast.makeText(ServiceStation.this, "Opening hours are required", Toast.LENGTH_LONG).show();
-                    return;
-                }
 
                 if (LocationPhone.getText().toString().equals("")) {
                     Toast.makeText(ServiceStation.this, "Phone Number is required", Toast.LENGTH_LONG).show();
                     return;
                 }
 
-                writeNewDataServiceStn(PlaceName.getText().toString(), PlaceAddress.getText().toString(), OpeningHrs.getText().toString(),
+                if (Address_btn.getText().toString().equals("")) {
+                    Toast.makeText(ServiceStation.this, "Place Address is required", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                if (OpeningHrs_btn.getText().toString().equals("")) {
+                    Toast.makeText(ServiceStation.this, "Opening hours are required", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                writeNewDataServiceStn(PlaceName.getText().toString(), Address_btn.getText().toString(), OpeningHrs_btn.getText().toString(),
                         LocationPhone.getText().toString());
 
                 PlaceName.setText("");
-                PlaceAddress.setText("");
-                OpeningHrs.setText("");
                 LocationPhone.setText("");
+                Address_btn.setText("");
+                OpeningHrs_btn.setText("");
 
                 Toast.makeText(ServiceStation.this, "Service Station is Successfully Added... ", Toast.LENGTH_LONG).show();
 
@@ -81,14 +86,13 @@ public class ServiceStation extends AppCompatActivity {
         });
 
     }
-
     private void writeNewDataServiceStn(String PlaceName, String PlaceAddress, String OpeningHrs, String LocationPhone) {
-        DataServiceStn ServiceShop = new DataServiceStn(PlaceName, PlaceAddress, OpeningHrs, LocationPhone);
+     //   DataServiceStn ServiceShop = new DataServiceStn(PlaceName, PlaceAddress, OpeningHrs, LocationPhone);
 
 
 
-        String ServiceShopId = mDatabase.push().getKey();
-        mDatabase.child("Service_Stations").child(ServiceShopId).setValue(ServiceShop);
+       // String ServiceShopId = mDatabase.push().getKey();
+        //mDatabase.child("Service_Stations").child(ServiceShopId).setValue(ServiceShop);
 
 
     }

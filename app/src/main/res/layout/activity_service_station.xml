@@ -59,90 +59,60 @@
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="0dp" />
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/edit_PlaceName"
-        android:text="@string/Address"
-        android:textColor="#001a00"
-        android:textSize="18sp"
-        android:layout_marginBottom="5dp"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="0dp" />
 
-    <EditText
-        android:id="@+id/edit_PlaceAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView8"
-        android:ems="10"
-        android:inputType="textPostalAddress"
-        android:layout_marginBottom="5dp"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="0dp" />
-
-    <TextView
-        android:id="@+id/OpeningHrs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/edit_PlaceAddress"
-        android:text="@string/OpeningHrs"
-        android:textColor="#001a00"
-        android:textSize="18sp"
-        android:layout_marginBottom="5dp"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="0dp" />
-
-    <EditText
-        android:id="@+id/OpeningTimes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/OpeningHrs"
-        android:ems="10"
-        android:inputType="textMultiLine"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="5dp"
-        tools:layout_editor_absoluteY="0dp"
-        tools:layout_editor_absoluteX="0dp" />
 
     <TextView
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/OpeningTimes"
-        android:layout_marginTop="0dp"
         android:text="@string/PhoneNumber"
-        android:layout_marginBottom="5dp"
         android:textColor="#001a00"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:layout_below="@+id/edit_PlaceName"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:id="@+id/edit_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView9"
         android:ems="10"
         android:inputType="phone"
-        android:layout_marginBottom="5dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_below="@+id/textView9"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="11dp" />
 
+
+    <Button
+        android:id="@+id/Address_btn"
+        style="@style/Widget.AppCompat.Button.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/OpeningHrs_btn"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/common_full_open_on_phone"
+        android:elevation="0dp"
+        android:text="@string/address"
+        android:textStyle="normal"
+        android:textSize="18sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+    <Button
+        android:id="@+id/OpeningHrs_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/Submit_btn"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="21dp"
+        android:textSize="18sp"
+        android:background="@drawable/common_full_open_on_phone"
+        android:text="Opening Hours"
+        android:textStyle="normal"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
     <Button
         android:id="@+id/Submit_btn"
         style="@android:style/Widget.Holo.Button"

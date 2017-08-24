@@ -67,6 +67,9 @@
         <activity
             android:name=".Address"
             android:noHistory="true" />
+        <activity
+            android:name=".ServiceAddress"
+            android:noHistory="true" />
         <activity android:name=".HospitalCall"></activity>
     </application>
 
