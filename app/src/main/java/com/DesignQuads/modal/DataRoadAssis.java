@@ -8,16 +8,20 @@ import com.google.firebase.database.IgnoreExtraProperties;
 
 @IgnoreExtraProperties
 public class DataRoadAssis {
+
     public String PlaceName;
-    public String PlaceAddress;
-    public String OpeningHrs;
     public String LocationPhone;
+    public String userId;
 
+    public DataRoadAssis() {}
 
-    public DataRoadAssis(String PlaceName, String PlaceAddress, String OpeningHrs, String LocationPhone) {
+    public DataRoadAssis(String PlaceName, String LocationPhone,String UserId) {
+        this(PlaceName,LocationPhone);
+        this.userId = UserId;
+    }
+
+    public DataRoadAssis(String PlaceName, String LocationPhone) {
         this.PlaceName = PlaceName;
-        this.PlaceAddress = PlaceAddress;
-        this.OpeningHrs = OpeningHrs;
         this.LocationPhone = LocationPhone;
 
     }

@@ -113,6 +113,7 @@
         android:text="Opening Hours"
         android:textStyle="normal"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
     <Button
         android:id="@+id/Submit_btn"
         style="@android:style/Widget.Holo.Button"

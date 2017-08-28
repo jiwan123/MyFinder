@@ -26,7 +26,7 @@ public class ServiceStation extends AppCompatActivity {
     @Override
     protected void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fuel_station);
+        setContentView(R.layout.activity_service_station);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Service Station Form");

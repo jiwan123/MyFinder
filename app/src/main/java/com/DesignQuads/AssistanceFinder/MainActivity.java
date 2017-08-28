@@ -28,6 +28,8 @@ import android.widget.ImageButton;
 
 import com.DesignQuads.dataSource.MyData;
 import com.DesignQuads.modal.DataAddress;
+import com.DesignQuads.modal.DataRoadAddress;
+import com.DesignQuads.modal.DataRoadAssis;
 import com.DesignQuads.modal.DataServiceAddress;
 import com.DesignQuads.modal.DataServiceStn;
 import com.DesignQuads.modal.Fuel;
@@ -132,162 +134,26 @@ public class MainActivity extends AppCompatActivity
         btn_service.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btn_service.setVisibility(View.INVISIBLE);
-                btn_fuel.setVisibility(View.INVISIBLE);
-                btn_pickup.setVisibility(View.INVISIBLE);
-                btn_road.setVisibility(View.INVISIBLE);
-
-                btn_list.setVisibility(View.VISIBLE);
-
-                SharedPreferences.Editor editor = sharedpreferences.edit();
-                editor.putString("tab_clicked", "Service_Stations");
-
-                editor.commit();
-
-                FirebaseDatabase.getInstance().getReference().child("Service_Stations").addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        for (DataSnapshot postSnapshot :dataSnapshot.getChildren()) {
-                            final DataServiceStn ss = postSnapshot.getValue(DataServiceStn.class);
-
-                            FirebaseDatabase.getInstance().getReference().child("Address").orderByChild("FuelID")
-                                    .startAt(postSnapshot.getKey())
-                                    .endAt(postSnapshot.getKey()).addValueEventListener(new ValueEventListener() {
-
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot2) {
-
-                                    for (DataSnapshot postSnapshot2 :dataSnapshot2.getChildren()) {
-                                        DataServiceAddress ad = postSnapshot2.getValue(DataServiceAddress.class);
-                                        String addressString = ad.unit_house_number+", "+ad.street_name+", "+ad.suburb_name+" " +
-                                                ""+ad.state+" "+ad.post_code;
-                                        double[] cords = getLatLongFromAddress(addressString);
-                                        googleMap.addMarker(new MarkerOptions()
-                                                .position(new LatLng(cords[0], cords[1]))
-                                                .title( ss.PlaceName ));
-                                    }
-
-
-                                }
-
-                                @Override
-                                public void onCancelled(DatabaseError databaseError2) {
-
-                                }
-                            });
-                        }
-
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-
+                show_service();
             }
         });
         btn_fuel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btn_service.setVisibility(View.INVISIBLE);
-                btn_fuel.setVisibility(View.INVISIBLE);
-                btn_pickup.setVisibility(View.INVISIBLE);
-                btn_road.setVisibility(View.INVISIBLE);
-
-                btn_list.setVisibility(View.VISIBLE);
-
-                SharedPreferences.Editor editor = sharedpreferences.edit();
-                editor.putString("tab_clicked", "FuelPumps");
-
-                editor.commit();
-
-                FirebaseDatabase.getInstance().getReference().child("FuelPumps").addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        for (DataSnapshot postSnapshot :dataSnapshot.getChildren()) {
-                            final FuelPump fp = postSnapshot.getValue(FuelPump.class);
-
-                            FirebaseDatabase.getInstance().getReference().child("Address").orderByChild("FuelID")
-                                    .startAt(postSnapshot.getKey())
-                                    .endAt(postSnapshot.getKey()).addValueEventListener(new ValueEventListener() {
-
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot2) {
-
-                                    for (DataSnapshot postSnapshot2 :dataSnapshot2.getChildren()) {
-                                        DataAddress ad = postSnapshot2.getValue(DataAddress.class);
-                                        String addressString = ad.unit_house_number+", "+ad.street_name+", "+ad.suburb_name+" " +
-                                                ""+ad.state+" "+ad.post_code;
-
-                                        double[] cords = getLatLongFromAddress(addressString);
-                                        googleMap.addMarker(new MarkerOptions()
-                                                .position(new LatLng(cords[0], cords[1]))
-                                                .title( fp.PlaceName ));
-                                    }
-
-
-                                }
-
-                                @Override
-                                public void onCancelled(DatabaseError databaseError2) {
-
-                                }
-                            });
-                        }
-
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-
-
-
+                show_fuel();
             }
-        });
+        }
+        );
         btn_pickup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btn_service.setVisibility(View.INVISIBLE);
-                btn_fuel.setVisibility(View.INVISIBLE);
-                btn_pickup.setVisibility(View.INVISIBLE);
-                btn_road.setVisibility(View.INVISIBLE);
-
-                btn_list.setVisibility(View.VISIBLE);
-
-                for (int i=0; i< mydata.getFuel().size();i++){
-
-                    googleMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(mydata.getFuelByID(i).getLat(), mydata.getFuelByID(i).getLng()))
-                            .title( mydata.getFuelByID(i).getName()));
-
-                }
+                show_service();
             }
         });
         btn_road.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btn_service.setVisibility(View.INVISIBLE);
-                btn_fuel.setVisibility(View.INVISIBLE);
-                btn_pickup.setVisibility(View.INVISIBLE);
-                btn_road.setVisibility(View.INVISIBLE);
-
-                btn_list.setVisibility(View.VISIBLE);
-
-                for (int i=0; i< mydata.getFuel().size();i++){
-
-                    googleMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(mydata.getFuelByID(i).getLat(), mydata.getFuelByID(i).getLng()))
-                            .title( mydata.getFuelByID(i).getName()));
-
-                }
+                show_roadside();
             }
         });
         btn_list.setOnClickListener(new View.OnClickListener() {
@@ -333,23 +199,216 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    public void show_service(){
+
+        btn_service.setVisibility(View.INVISIBLE);
+        btn_fuel.setVisibility(View.INVISIBLE);
+        btn_pickup.setVisibility(View.INVISIBLE);
+        btn_road.setVisibility(View.INVISIBLE);
+
+        btn_list.setVisibility(View.VISIBLE);
+
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString("tab_clicked", "Service_Stations");
+
+        editor.commit();
+
+        FirebaseDatabase.getInstance().getReference().child("Service_Stations").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot postSnapshot :dataSnapshot.getChildren()) {
+                    final DataServiceStn ss = postSnapshot.getValue(DataServiceStn.class);
+
+                    FirebaseDatabase.getInstance().getReference().child("Address").orderByChild("FuelID")
+                            .startAt(postSnapshot.getKey())
+                            .endAt(postSnapshot.getKey()).addValueEventListener(new ValueEventListener() {
+
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot2) {
+
+                            for (DataSnapshot postSnapshot2 :dataSnapshot2.getChildren()) {
+                                DataServiceAddress ad = postSnapshot2.getValue(DataServiceAddress.class);
+                                String addressString = ad.unit_house_number+", "+ad.street_name+", "+ad.suburb_name+" " +
+                                        ""+ad.state+" "+ad.post_code;
+                                double[] cords = getLatLongFromAddress(addressString);
+                                googleMap.addMarker(new MarkerOptions()
+                                        .position(new LatLng(cords[0], cords[1]))
+                                        .title( ss.PlaceName ));
+                            }
+
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError2) {
+
+                        }
+                    });
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
+
+    public void show_fuel(){
+
+        btn_service.setVisibility(View.INVISIBLE);
+        btn_fuel.setVisibility(View.INVISIBLE);
+        btn_pickup.setVisibility(View.INVISIBLE);
+        btn_road.setVisibility(View.INVISIBLE);
+
+        btn_list.setVisibility(View.VISIBLE);
+
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString("tab_clicked", "FuelPumps");
+
+        editor.commit();
+
+        FirebaseDatabase.getInstance().getReference().child("FuelPumps").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot postSnapshot :dataSnapshot.getChildren()) {
+                    final FuelPump fp = postSnapshot.getValue(FuelPump.class);
+
+                    FirebaseDatabase.getInstance().getReference().child("Address").orderByChild("FuelID")
+                            .startAt(postSnapshot.getKey())
+                            .endAt(postSnapshot.getKey()).addValueEventListener(new ValueEventListener() {
+
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot2) {
+
+                            for (DataSnapshot postSnapshot2 :dataSnapshot2.getChildren()) {
+                                DataAddress ad = postSnapshot2.getValue(DataAddress.class);
+                                String addressString = ad.unit_house_number+", "+ad.street_name+", "+ad.suburb_name+" " +
+                                        ""+ad.state+" "+ad.post_code;
+
+                                double[] cords = getLatLongFromAddress(addressString);
+                                googleMap.addMarker(new MarkerOptions()
+                                        .position(new LatLng(cords[0], cords[1]))
+                                        .title( fp.PlaceName ));
+                            }
+
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError2) {
+
+                        }
+                    });
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+    }
+
+    public void show_roadside(){
+
+        btn_service.setVisibility(View.INVISIBLE);
+        btn_fuel.setVisibility(View.INVISIBLE);
+        btn_pickup.setVisibility(View.INVISIBLE);
+        btn_road.setVisibility(View.INVISIBLE);
+
+        btn_list.setVisibility(View.VISIBLE);
+
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString("tab_clicked", "RoadSide_Assistance");
+
+        editor.commit();
+
+        FirebaseDatabase.getInstance().getReference().child("RoadSide_Assistance").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot postSnapshot :dataSnapshot.getChildren()) {
+                    final DataRoadAssis ra = postSnapshot.getValue(DataRoadAssis.class);
+
+                    FirebaseDatabase.getInstance().getReference().child("Address").orderByChild("FuelID")
+                            .startAt(postSnapshot.getKey())
+                            .endAt(postSnapshot.getKey()).addValueEventListener(new ValueEventListener() {
+
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot2) {
+
+                            for (DataSnapshot postSnapshot2 :dataSnapshot2.getChildren()) {
+                                DataRoadAddress ad = postSnapshot2.getValue(DataRoadAddress.class);
+                                String addressString = ad.unit_house_number+", "+ad.street_name+", "+ad.suburb_name+" " +
+                                        ""+ad.state+" "+ad.post_code;
+                                double[] cords = getLatLongFromAddress(addressString);
+                                googleMap.addMarker(new MarkerOptions()
+                                        .position(new LatLng(cords[0], cords[1]))
+                                        .title( ra.PlaceName ));
+                            }
+
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError2) {
+
+                        }
+                    });
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_fuel) {
+        if (id == R.id.nav_service) {
+            show_service();
+        }
 
-        } else if (id == R.id.nav_hospital) {
+        else if (id == R.id.nav_fuel) {
+            show_fuel();
+        }
+
+        else if (id == R.id.nav_pickup) {
+            show_service();
+        }
+        else if (id == R.id.nav_hospital) {
             Intent intent = new Intent(this, HospitalCall.class);
             startActivity(intent);
-        } else if (id == R.id.nav_road) {
+        }
+        else if (id == R.id.nav_road) {
+            show_roadside();
 
-        } else if (id == R.id.nav_login) {
+        }
+        else if (id == R.id.nav_login) {
             Intent intent = new Intent(this, login.class);
             startActivity(intent);
-        } else if (id == R.id.nav_register) {
+        }
+        else if (id == R.id.nav_register) {
             Intent intent = new Intent(this, register.class);
             startActivity(intent);
         }

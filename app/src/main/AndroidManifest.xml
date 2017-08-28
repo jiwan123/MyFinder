@@ -70,6 +70,10 @@
         <activity
             android:name=".ServiceAddress"
             android:noHistory="true" />
+
+        <activity
+            android:name=".RoadSideAddress"
+            android:noHistory="true" />
         <activity android:name=".HospitalCall"></activity>
     </application>
 

@@ -11,12 +11,15 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.DesignQuads.adapters.CustomBaseAdapter;
+import com.DesignQuads.adapters.RoadsideBaseAdapter;
 import com.DesignQuads.adapters.StationBaseAdapter;
 import com.DesignQuads.dataSource.MyData;
 import com.DesignQuads.modal.DataAddress;
+import com.DesignQuads.modal.DataRoadAssis;
 import com.DesignQuads.modal.DataServiceStn;
 import com.DesignQuads.modal.Fuel;
 import com.DesignQuads.modal.FuelPump;
+import com.DesignQuads.modal.RoadsideAssistance;
 import com.DesignQuads.modal.Station;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DataSnapshot;
@@ -109,6 +112,7 @@ public class list extends AppCompatActivity {
 
         final List<Fuel> allFuels = new ArrayList<>();
         final List<Station> allStations = new ArrayList<>();
+        final List<RoadsideAssistance> allRoadsideAssistances = new ArrayList<>();
 
         SharedPreferences shared = getSharedPreferences(MyPREFERENCES, MODE_PRIVATE);
         final String tab_clicked = (shared.getString("tab_clicked", ""));
@@ -170,7 +174,10 @@ public class list extends AppCompatActivity {
                         });
 
 
-                    } else if(tab_clicked == "Service_Stations"){
+                    }
+
+                    else if(tab_clicked == "Service_Stations")
+                    {
 
                         Log.v("bbb","tab2 =>"+tab_clicked);
 
@@ -210,6 +217,63 @@ public class list extends AppCompatActivity {
                                     Log.v("bbb",allStations.size()+"");
 
                                     StationBaseAdapter adapter = new StationBaseAdapter(list.this, allStations);
+                                    listView.setAdapter(adapter);
+
+                                }
+
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError2) {
+
+                            }
+                        });
+
+
+                    }
+
+
+                    else if(tab_clicked == "RoadSide_Assistance")
+                    {
+
+                        Log.v("bbb","tab4 =>"+tab_clicked);
+
+                        final RoadsideAssistance roadsideassistance= new RoadsideAssistance();
+                        final DataRoadAssis ra = postSnapshot.getValue(DataRoadAssis.class);
+
+                        roadsideassistance.setName(ra.PlaceName);
+                        roadsideassistance.setPhone(ra.LocationPhone);
+
+                        mDatabase.child("Address").orderByChild("FuelID")
+                                .startAt(postSnapshot.getKey())
+                                .endAt(postSnapshot.getKey()).addValueEventListener(new ValueEventListener() {
+
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot2) {
+
+                                for (DataSnapshot postSnapshot2 :dataSnapshot2.getChildren()) {
+                                    DataAddress ad = postSnapshot2.getValue(DataAddress.class);
+                                    String addressString = ad.unit_house_number+", "+ad.street_name+", "+ad.suburb_name+" "+ad.state+" "+ad.post_code;
+                                    double[] cords = getLatLongFromAddress(addressString);
+
+                                    roadsideassistance.setLat(cords[0]);
+                                    roadsideassistance.setLng(cords[1]);
+
+                                    Location loc1 = new Location("");
+                                    loc1.setLatitude(currentLocation.latitude);
+                                    loc1.setLongitude(currentLocation.longitude);
+
+                                    Location loc2 = new Location("");
+                                    loc2.setLatitude(cords[0]);
+                                    loc2.setLongitude(cords[1]);
+
+                                    roadsideassistance.distanceInt = Math.round(loc1.distanceTo(loc2));
+
+                                    allRoadsideAssistances.add(roadsideassistance);
+
+                                    Log.v("bbb",allRoadsideAssistances.size()+"");
+
+                                    RoadsideBaseAdapter adapter = new RoadsideBaseAdapter(list.this, allRoadsideAssistances);
                                     listView.setAdapter(adapter);
 
                                 }
