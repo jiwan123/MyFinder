@@ -1,6 +1,7 @@
 package com.DesignQuads.AssistanceFinder;
 
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -37,10 +38,26 @@ public class FuelStation extends AppCompatActivity {
 
             PlaceName = (EditText) findViewById(R.id.edit_PlaceName);
             LocationPhone = (EditText) findViewById(R.id.edit_phone);
+
             Address_btn = (Button) findViewById(R.id.Address_btn);
             Intent intent = new Intent(FuelStation.this, Address.class);
             startActivity(intent);
             OpeningHrs_btn = (Button) findViewById(R.id.OpeningHrs_btn);
+            OpeningHrs_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AlertDialog.Builder mBuilder = new AlertDialog.Builder(FuelStation.this);
+                    View mView = getLayoutInflater().inflate(R.layout.activity_opening_hrs__dialog, null);
+
+
+
+
+                    mBuilder.setView(mView);
+                    final AlertDialog dialog = mBuilder.create();
+                    dialog.show();
+                }
+            });
+
 
 
             Submit_btn = (Button) findViewById(R.id.Submit_btn);

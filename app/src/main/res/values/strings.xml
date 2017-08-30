@@ -26,7 +26,8 @@
     <string name="TypeOfService">What type of service your place have? Select one.</string>
     <string name="service_station">SERVICE STATION</string>
     <string name="address">Address</string>
-    <string name="dailog_address">Address</string>
+    <string name="dialog_address">Address</string>
+    <string name="dialog_OpeningHrs">Opening Hours</string>
     <string name="unit_house_number">Unit/House Number.</string>
     <string name="street_name">Street Name.</string>
     <string name="suburb_name">Suburb Name.</string>

@@ -37,7 +37,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:text="@string/StationName"
+        android:text="@string/roadsideServiceName"
         android:textColor="#001a00"
         android:textSize="18sp"
         android:layout_marginBottom="5dp"

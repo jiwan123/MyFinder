@@ -70,11 +70,14 @@
         <activity
             android:name=".ServiceAddress"
             android:noHistory="true" />
-
         <activity
             android:name=".RoadSideAddress"
             android:noHistory="true" />
-        <activity android:name=".HospitalCall"></activity>
+        <activity
+            android:name=".FuelOpeningHrs_Dialog"
+            android:noHistory="true" />
+
+        <activity android:name=".HospitalCall" />
     </application>
 
 </manifest>
