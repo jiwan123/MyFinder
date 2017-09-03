@@ -41,5 +41,10 @@
     <string name="StateErrMsg">State Name is required</string>
     <string name="Ok">OK</string>
 
+    <string name="WDamOpeningErrMsg">Weekdays Opening time is required</string>
+    <string name="WDpmClosingErrMsg">Weekdays Closing time is required</string>
+    <string name="WEamOpeningErrMsg">WeekEnds Opening time is required</string>
+    <string name="WEamClosingErrMsg">WeekEnds Closing time is required</string>
+
 
 </resources>

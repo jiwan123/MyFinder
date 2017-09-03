@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="7dp"
@@ -27,43 +28,63 @@
         android:layout_margin="7dp"
         />
 
+    <EditText
+        android:id="@+id/WDamOpening"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Opening Time in AM"
+        android:inputType="time" />
 
     <EditText
-        android:id="@+id/time"
-        android:layout_width="175dp"
+        android:id="@+id/WDpmClosing"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:background="#d4d4d4"
-        android:hint="Opening Time."
-        android:padding="15dp"
-        android:textColor="#090"
-        android:textColorHint="#090"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:ems="10"
+        android:hint="Closing Time in PM"
+        android:inputType="time" />
 
-    <Button
-        android:id="@+id/btn_OpeningHrs"
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
-
-        android:layout_toRightOf="@+id/btn_OpeningHrs"
-
-
-
-        android:text="Opening Hours" />
-
-    <Button
-        android:id="@+id/btn_closing"
-        android:layout_width="140dp"
+    <TextView
+        android:id="@+id/Space"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
-        android:layout_toLeftOf="@+id/btn_closing"
+        android:text=""
+        android:textStyle="normal"
+        android:textSize="25dp"
+        android:layout_margin="7dp"
+        />
 
+    <TextView
+        android:id="@+id/weekends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:text="Weekends"
+        android:textStyle="normal"
+        android:textSize="25dp"
+        android:layout_margin="7dp"
+        />
+    <EditText
+        android:id="@+id/WEamOpening"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Opening Time in AM"
+        android:inputType="time" />
 
-        android:text="Closing Hours" />
+    <EditText
+        android:id="@+id/WEamClosing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Closing Time in PM"
+        android:inputType="time" />
+
     <Button
-        android:id="@+id/Address_save"
-        android:layout_width="match_parent"
+        android:id="@+id/Hours_save"
+        android:layout_width="226dp"
+        android:layout_gravity="center"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:background="@color/colorAccent"

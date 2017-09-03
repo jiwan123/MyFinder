@@ -42,8 +42,12 @@ public class FuelStation extends AppCompatActivity {
             Address_btn = (Button) findViewById(R.id.Address_btn);
             Intent intent = new Intent(FuelStation.this, Address.class);
             startActivity(intent);
+
             OpeningHrs_btn = (Button) findViewById(R.id.OpeningHrs_btn);
-            OpeningHrs_btn.setOnClickListener(new View.OnClickListener() {
+            Intent intent1 = new Intent(FuelStation.this, FuelOpeningHrs_Dialog.class);
+            startActivity(intent1);
+
+           /* OpeningHrs_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     AlertDialog.Builder mBuilder = new AlertDialog.Builder(FuelStation.this);
@@ -51,68 +55,66 @@ public class FuelStation extends AppCompatActivity {
 
 
 
-
                     mBuilder.setView(mView);
                     final AlertDialog dialog = mBuilder.create();
                     dialog.show();
                 }
-            });
+            });*/
 
 
+                    Submit_btn = (Button) findViewById(R.id.Submit_btn);
 
-            Submit_btn = (Button) findViewById(R.id.Submit_btn);
+                    Submit_btn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
 
-            Submit_btn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    if (PlaceName.getText().toString().equals("")) {
-                        Toast.makeText(FuelStation.this, "Place Name is required", Toast.LENGTH_LONG).show();
-                        return;
-                    }
+                            if (PlaceName.getText().toString().equals("")) {
+                                Toast.makeText(FuelStation.this, "Place Name is required", Toast.LENGTH_LONG).show();
+                                return;
+                            }
 
 
-                    if (LocationPhone.getText().toString().equals("")) {
-                        Toast.makeText(FuelStation.this, "Phone Number is required", Toast.LENGTH_LONG).show();
-                        return;
-                    }
+                            if (LocationPhone.getText().toString().equals("")) {
+                                Toast.makeText(FuelStation.this, "Phone Number is required", Toast.LENGTH_LONG).show();
+                                return;
+                            }
 
-                    if (Address_btn.getText().toString().equals("")) {
-                        Toast.makeText(FuelStation.this, "Place Address is required", Toast.LENGTH_LONG).show();
-                        return;
-                    }
+                            if (Address_btn.getText().toString().equals("")) {
+                                Toast.makeText(FuelStation.this, "Place Address is required", Toast.LENGTH_LONG).show();
+                                return;
+                            }
 
-                    if (OpeningHrs_btn.getText().toString().equals("")) {
-                        Toast.makeText(FuelStation.this, "Opening hours are required", Toast.LENGTH_LONG).show();
-                        return;
-                    }
+                            if (OpeningHrs_btn.getText().toString().equals("")) {
+                                Toast.makeText(FuelStation.this, "Opening hours are required", Toast.LENGTH_LONG).show();
+                                return;
+                            }
 
-                    writeNewFuelPump(PlaceName.getText().toString(), Address_btn.getText().toString(), OpeningHrs_btn.getText().toString(),
-                            LocationPhone.getText().toString());
+                            writeNewFuelPump(PlaceName.getText().toString(), Address_btn.getText().toString(), OpeningHrs_btn.getText().toString(),
+                                    LocationPhone.getText().toString());
 
-                    PlaceName.setText("");
-                    LocationPhone.setText("");
-                    Address_btn.setText("");
-                    OpeningHrs_btn.setText("");
+                            PlaceName.setText("");
+                            LocationPhone.setText("");
+                            Address_btn.setText("");
+                            OpeningHrs_btn.setText("");
 
-                    Toast.makeText(FuelStation.this, "Fuel Station is Successfully Added... ", Toast.LENGTH_LONG).show();
+                            Toast.makeText(FuelStation.this, "Fuel Station is Successfully Added... ", Toast.LENGTH_LONG).show();
 
-                    Intent intent = new Intent(FuelStation.this, TagLocation.class);
-                    startActivity(intent);
+                            Intent intent = new Intent(FuelStation.this, TagLocation.class);
+                            startActivity(intent);
+                        }
+                    });
+
                 }
-            });
 
-        }
-
-        private void writeNewFuelPump(String PlaceName, String PlaceAddress, String OpeningHrs, String LocationPhone) {
+                private void writeNewFuelPump(String PlaceName, String PlaceAddress, String OpeningHrs, String LocationPhone) {
 //        FuelPump Fuel = new FuelPump(PlaceName, PlaceAddress, OpeningHrs, LocationPhone);
-
 
 
 //        String FuelId = mDatabase.push().getKey();
 //        mDatabase.child("FuelPumps").child(FuelId).setValue(Fuel);
-    }
+                }
 
 
-}
+            }
+
 
