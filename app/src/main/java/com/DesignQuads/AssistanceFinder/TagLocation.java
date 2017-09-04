@@ -48,7 +48,7 @@ public class TagLocation extends AppCompatActivity {
         fuelStation_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(TagLocation.this, FuelStation.class);
+                Intent intent = new Intent(TagLocation.this, Address.class);
                 startActivity(intent);
             }
         });

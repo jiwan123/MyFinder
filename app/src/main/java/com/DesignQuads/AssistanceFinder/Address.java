@@ -7,12 +7,15 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.DesignQuads.modal.DataAddress;
+import com.DesignQuads.modal.DataFuelOpeningHrs;
 import com.DesignQuads.modal.FuelPump;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -40,6 +43,7 @@ public class Address extends AppCompatActivity {
     public SharedPreferences sharedpreferences;
 
     public static final String MyPREFERENCES = "MyPrefs" ;
+    private boolean saveOpeningHrs = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +60,68 @@ public class Address extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         FuelId = mDatabase.push().getKey();
+
+        Button mOpeningHrs_btn = (Button) findViewById(R.id.OpeningHrs_btn);
+        mOpeningHrs_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(Address.this);
+                View mView = getLayoutInflater().inflate(R.layout.activity_opening_hrs__dialog, null);
+                final EditText mWDamOpening = (EditText) mView.findViewById(R.id.WDamOpening);
+                final Spinner sp1 = (Spinner) mView.findViewById(R.id.spinner1);
+                final Spinner sp2 = (Spinner) mView.findViewById(R.id.spinner2);
+                final EditText mWDpmClosing = (EditText) mView.findViewById(R.id.WDpmClosing);
+                final EditText mWEamOpening = (EditText) mView.findViewById(R.id.WEamOpening);
+                final EditText mWEamClosing = (EditText) mView.findViewById(R.id.WEamClosing);
+                Button mHoursSave = (Button) mView.findViewById(R.id.Hours_save);
+
+                mBuilder.setView(mView);
+                final AlertDialog dialog = mBuilder.create();
+                dialog.show();
+
+                mHoursSave.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (mWDamOpening.getText().toString().equals("")) {
+                            Toast.makeText(Address.this, R.string.WDamOpeningErrMsg, Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
+                        if (mWDpmClosing.getText().toString().equals("")) {
+                            Toast.makeText(Address.this, R.string.WDpmClosingErrMsg, Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
+                        if (mWEamOpening.getText().toString().equals("")) {
+                            Toast.makeText(Address.this, R.string.WEamOpeningErrMsg, Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
+                        if (mWEamClosing.getText().toString().equals("")) {
+                            Toast.makeText(Address.this, R.string.WEamClosingErrMsg, Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
+
+                        WriteDataFuelOpeningHrs(mWDamOpening.getText().toString(),  String.valueOf(sp1.getSelectedItem()), mWDpmClosing.getText().toString(), String.valueOf(sp2.getSelectedItem()),
+                                mWEamOpening.getText().toString(), mWEamClosing.getText().toString());
+
+                        mWDamOpening.setText("");
+                        mWDpmClosing.setText("");
+                        mWEamOpening.setText("");
+                        mWEamClosing.setText("");
+
+                        Toast.makeText(Address.this, "You Have Successfully saved.... ", Toast.LENGTH_LONG).show();
+                        dialog.cancel();
+
+                    }
+
+
+                });
+
+            }
+        });
+
 
         Button mAddress_btn = (Button) findViewById(R.id.Address_btn);
         mAddress_btn.setOnClickListener(new View.OnClickListener() {
@@ -147,6 +213,11 @@ public class Address extends AppCompatActivity {
                     return;
                 }
 
+                if (!saveOpeningHrs) {
+                    Toast.makeText(Address.this, "Opening hours is required", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 writeNewFuelPump(PlaceName.getText().toString(),LocationPhone.getText().toString());
 
                 PlaceName.setText("");
@@ -158,6 +229,17 @@ public class Address extends AppCompatActivity {
         });
 
     }
+
+    private void WriteDataFuelOpeningHrs(String WDamOpening ,String WDam_pm_opening, String WDpmClosing,String WDam_pm_closing, String WEamOpening, String WEamClosing)
+    {
+        Log.v("bbb",WDamOpening+" "+WDam_pm_opening);
+        DataFuelOpeningHrs OpenHours = new DataFuelOpeningHrs(FuelId,WDamOpening+" "+WDam_pm_opening, WDpmClosing+" "+WDam_pm_opening, WEamOpening, WEamClosing);
+
+        String openingHrsId = mDatabase.push().getKey();
+        mDatabase.child("OpeningHrs").child(openingHrsId).setValue(OpenHours);
+        saveOpeningHrs = true;
+    }
+
 
 
     private void writeNewFuelPump(String PlaceName, String LocationPhone) {

@@ -28,21 +28,48 @@
         android:layout_margin="7dp"
         />
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
     <EditText
         android:id="@+id/WDamOpening"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Opening Time in AM"
+        android:hint="Opening Time"
         android:inputType="time" />
+
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/am_pm" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
     <EditText
         android:id="@+id/WDpmClosing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Closing Time in PM"
+        android:hint="Closing Time"
         android:inputType="time" />
+
+    <Spinner
+        android:id="@+id/spinner2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:entries="@array/am_pm" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/Space"

@@ -28,6 +28,8 @@ import android.widget.ImageButton;
 
 import com.DesignQuads.dataSource.MyData;
 import com.DesignQuads.modal.DataAddress;
+import com.DesignQuads.modal.DataHospital;
+import com.DesignQuads.modal.DataHospitalAddress;
 import com.DesignQuads.modal.DataRoadAddress;
 import com.DesignQuads.modal.DataRoadAssis;
 import com.DesignQuads.modal.DataServiceAddress;
@@ -338,7 +340,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                for (DataSnapshot postSnapshot :dataSnapshot.getChildren()) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     final DataRoadAssis ra = postSnapshot.getValue(DataRoadAssis.class);
 
                     FirebaseDatabase.getInstance().getReference().child("Address").orderByChild("FuelID")
@@ -348,14 +350,72 @@ public class MainActivity extends AppCompatActivity
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot2) {
 
-                            for (DataSnapshot postSnapshot2 :dataSnapshot2.getChildren()) {
+                            for (DataSnapshot postSnapshot2 : dataSnapshot2.getChildren()) {
                                 DataRoadAddress ad = postSnapshot2.getValue(DataRoadAddress.class);
+                                String addressString = ad.unit_house_number + ", " + ad.street_name + ", " + ad.suburb_name + " " +
+                                        "" + ad.state + " " + ad.post_code;
+                                double[] cords = getLatLongFromAddress(addressString);
+                                googleMap.addMarker(new MarkerOptions()
+                                        .position(new LatLng(cords[0], cords[1]))
+                                        .title(ra.PlaceName));
+                            }
+
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError2) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    public void show_hospital(){
+
+        btn_service.setVisibility(View.INVISIBLE);
+        btn_fuel.setVisibility(View.INVISIBLE);
+        btn_pickup.setVisibility(View.INVISIBLE);
+        btn_road.setVisibility(View.INVISIBLE);
+
+        btn_list.setVisibility(View.VISIBLE);
+
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString("tab_clicked", "Hospitals");
+
+        editor.commit();
+
+
+        FirebaseDatabase.getInstance().getReference().child("Hospitals").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot postSnapshot :dataSnapshot.getChildren()) {
+                    final DataHospital hs = postSnapshot.getValue(DataHospital.class);
+
+                    FirebaseDatabase.getInstance().getReference().child("Address").orderByChild("FuelID")
+                            .startAt(postSnapshot.getKey())
+                            .endAt(postSnapshot.getKey()).addValueEventListener(new ValueEventListener() {
+
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot2) {
+
+                            for (DataSnapshot postSnapshot2 :dataSnapshot2.getChildren()) {
+                                DataHospitalAddress ad = postSnapshot2.getValue(DataHospitalAddress.class);
                                 String addressString = ad.unit_house_number+", "+ad.street_name+", "+ad.suburb_name+" " +
                                         ""+ad.state+" "+ad.post_code;
                                 double[] cords = getLatLongFromAddress(addressString);
                                 googleMap.addMarker(new MarkerOptions()
                                         .position(new LatLng(cords[0], cords[1]))
-                                        .title( ra.PlaceName ));
+                                        .title( hs.PlaceName ));
                             }
 
 
@@ -377,7 +437,9 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+
     }
+
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -397,8 +459,8 @@ public class MainActivity extends AppCompatActivity
             show_service();
         }
         else if (id == R.id.nav_hospital) {
-            Intent intent = new Intent(this, HospitalCall.class);
-            startActivity(intent);
+            show_hospital();
+
         }
         else if (id == R.id.nav_road) {
             show_roadside();
@@ -513,3 +575,5 @@ public class MainActivity extends AppCompatActivity
 
 
 }
+
+

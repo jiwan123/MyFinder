@@ -84,29 +84,6 @@ public class list extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.listview);
 
-//        MyData myData = new MyData(this.getApplicationContext());
-//
-//        List<Fuel> allFuels = myData.getFuel();
-//
-//        for (int  i = 0; i<allFuels.size(); i++){
-//
-//            Location loc1 = new Location("");
-//            loc1.setLatitude(currentLocation.latitude);
-//            loc1.setLongitude(currentLocation.longitude);
-//
-//            Location loc2 = new Location("");
-//            loc2.setLatitude(allFuels.get(i).getLat());
-//            loc2.setLongitude(allFuels.get(i).getLng());
-//
-//            allFuels.get(i).distanceInt = Math.round(loc1.distanceTo(loc2));
-//
-//        }
-//
-//        Collections.sort(allFuels, (Comparator<? super Fuel>) new CustomComparator());
-//
-//        CustomBaseAdapter adapter = new CustomBaseAdapter(this, allFuels);
-//
-//        listView.setAdapter(adapter);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 

@@ -46,5 +46,10 @@
     <string name="WEamOpeningErrMsg">WeekEnds Opening time is required</string>
     <string name="WEamClosingErrMsg">WeekEnds Closing time is required</string>
 
+    <string-array name="am_pm">
+        <item>AM</item>
+        <item>PM</item>
+    </string-array>
+
 
 </resources>

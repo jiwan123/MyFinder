@@ -43,9 +43,6 @@ public class FuelStation extends AppCompatActivity {
             Intent intent = new Intent(FuelStation.this, Address.class);
             startActivity(intent);
 
-            OpeningHrs_btn = (Button) findViewById(R.id.OpeningHrs_btn);
-            Intent intent1 = new Intent(FuelStation.this, FuelOpeningHrs_Dialog.class);
-            startActivity(intent1);
 
            /* OpeningHrs_btn.setOnClickListener(new View.OnClickListener() {
                 @Override

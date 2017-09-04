@@ -8,15 +8,19 @@ import com.google.firebase.database.IgnoreExtraProperties;
 @IgnoreExtraProperties
 public class DataHospital {
     public String PlaceName;
-    public String PlaceAddress;
-    public String OpeningHrs;
     public String LocationPhone;
+    public String userId;
 
+    public DataHospital() {}
 
-    public DataHospital(String PlaceName, String PlaceAddress, String OpeningHrs, String LocationPhone) {
+    public DataHospital(String PlaceName, String LocationPhone,String UserId) {
+        this(PlaceName,LocationPhone);
+        this.userId = UserId;
+    }
+
+    public DataHospital(String PlaceName, String LocationPhone) {
         this.PlaceName = PlaceName;
-        this.PlaceAddress = PlaceAddress;
-        this.OpeningHrs = OpeningHrs;
         this.LocationPhone = LocationPhone;
+
     }
 }

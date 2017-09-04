@@ -16,9 +16,10 @@ public class Hospital extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
     private EditText PlaceName;
-    private EditText PlaceAddress;
-    private EditText OpeningHrs;
     private EditText LocationPhone;
+    private Button Address_btn;
+    private Button OpeningHrs_btn;
+
     private Button Submit_btn;
 
     @Override
@@ -32,9 +33,12 @@ public class Hospital extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         PlaceName = (EditText) findViewById(R.id.edit_PlaceName);
-        PlaceAddress = (EditText) findViewById(R.id.edit_PlaceAddress);
-        OpeningHrs = (EditText) findViewById(R.id.OpeningTimes);
         LocationPhone = (EditText) findViewById(R.id.edit_phone);
+        Address_btn = (Button) findViewById(R.id.Address_btn);
+        Intent intent = new Intent(Hospital.this, HospitalAddress.class);
+        startActivity(intent);
+        OpeningHrs_btn = (Button) findViewById(R.id.OpeningHrs_btn);
+
 
 
         Submit_btn = (Button) findViewById(R.id.Submit_btn);
@@ -48,12 +52,12 @@ public class Hospital extends AppCompatActivity {
                     return;
                 }
 
-                if (PlaceAddress.getText().toString().equals("")) {
+                if (Address_btn.getText().toString().equals("")) {
                     Toast.makeText(Hospital.this, "Place Address is required", Toast.LENGTH_LONG).show();
                     return;
                 }
 
-                if (OpeningHrs.getText().toString().equals("")) {
+                if (OpeningHrs_btn.getText().toString().equals("")) {
                     Toast.makeText(Hospital.this, "Opening hours are required", Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -63,15 +67,15 @@ public class Hospital extends AppCompatActivity {
                     return;
                 }
 
-                writeNewDataHospital(PlaceName.getText().toString(), PlaceAddress.getText().toString(), OpeningHrs.getText().toString(),
+                writeNewDataHospital(PlaceName.getText().toString(), Address_btn.getText().toString(), OpeningHrs_btn.getText().toString(),
                         LocationPhone.getText().toString());
 
                 PlaceName.setText("");
-                PlaceAddress.setText("");
-                OpeningHrs.setText("");
+                Address_btn.setText("");
+                OpeningHrs_btn.setText("");
                 LocationPhone.setText("");
 
-                Toast.makeText(Hospital.this, "Service Station is Successfully Added... ", Toast.LENGTH_LONG).show();
+                Toast.makeText(Hospital.this, "Hospital is Successfully Added... ", Toast.LENGTH_LONG).show();
 
                 Intent intent = new Intent(Hospital.this, TagLocation.class);
                 startActivity(intent);
@@ -81,12 +85,12 @@ public class Hospital extends AppCompatActivity {
     }
 
     private void writeNewDataHospital(String PlaceName, String PlaceAddress, String OpeningHrs, String LocationPhone) {
-        DataHospital HospitalCall = new DataHospital(PlaceName, PlaceAddress, OpeningHrs, LocationPhone);
+       // DataHospital HospitalCall = new DataHospital(PlaceName, PlaceAddress, OpeningHrs, LocationPhone);
 
 
 
-        String HospitalId = mDatabase.push().getKey();
-        mDatabase.child("Hospitals").child(HospitalId).setValue(HospitalCall);
+        //String HospitalId = mDatabase.push().getKey();
+        //mDatabase.child("Hospitals").child(HospitalId).setValue(HospitalCall);
 
     }
 }

@@ -63,13 +63,15 @@
 
         <Button
             android:id="@+id/btn_list"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="4"
+            android:layout_gravity="center"
             android:background="#ffffff"
             android:text="List View"
             android:textSize="18sp"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"/>
 
     </LinearLayout>
 
