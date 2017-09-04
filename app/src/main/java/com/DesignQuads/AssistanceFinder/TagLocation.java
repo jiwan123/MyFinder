@@ -42,7 +42,6 @@ public class TagLocation extends AppCompatActivity {
         });
 
 
-
         fuelStation_btn = (Button) findViewById(R.id.fuelStation_btn);
 
         fuelStation_btn.setOnClickListener(new View.OnClickListener() {

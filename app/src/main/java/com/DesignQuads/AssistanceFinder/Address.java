@@ -214,7 +214,7 @@ public class Address extends AppCompatActivity {
                 }
 
                 if (!saveOpeningHrs) {
-                    Toast.makeText(Address.this, "Opening hours is required", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Address.this, "Opening hours is required", Toast.LENGTH_SHORT).show();
                     return;
                 }
 

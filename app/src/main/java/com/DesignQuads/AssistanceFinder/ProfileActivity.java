@@ -67,7 +67,7 @@ public class ProfileActivity extends AppCompatActivity {
         unTag_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ProfileActivity.this, TagLocation.class);
+                Intent intent = new Intent(ProfileActivity.this, UntagLocation.class);
                 startActivity(intent);
             }
         });
