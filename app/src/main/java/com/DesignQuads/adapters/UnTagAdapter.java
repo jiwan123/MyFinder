@@ -76,6 +76,7 @@ public class UnTagAdapter extends BaseAdapter {
                 FirebaseDatabase.getInstance().getReference().child("FuelPumps").child(rowItem.FuelID).removeValue();
 
                 Intent intent = new Intent(context, UntagLocation.class);
+                UntagLocation.getInstance().finish();
                 context.startActivity(intent);
 
                 notifyDataSetChanged();
