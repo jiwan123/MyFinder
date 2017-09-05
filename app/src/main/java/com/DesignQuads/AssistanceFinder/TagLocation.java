@@ -36,7 +36,7 @@ public class TagLocation extends AppCompatActivity {
         ServiceStation_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(TagLocation.this, ServiceStation.class);
+                Intent intent = new Intent(TagLocation.this, ServiceAddress.class);
                 startActivity(intent);
             }
         });
@@ -58,7 +58,7 @@ public class TagLocation extends AppCompatActivity {
         roadSideAssis_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(TagLocation.this, RoadSide.class);
+                Intent intent = new Intent(TagLocation.this, RoadSideAddress.class);
                 startActivity(intent);
             }
         });
@@ -68,7 +68,7 @@ public class TagLocation extends AppCompatActivity {
         Hospital_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(TagLocation.this, Hospital.class);
+                Intent intent = new Intent(TagLocation.this, HospitalAddress.class);
                 startActivity(intent);
             }
         });

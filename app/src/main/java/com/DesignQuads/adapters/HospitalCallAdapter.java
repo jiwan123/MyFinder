@@ -15,7 +15,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.DesignQuads.AssistanceFinder.Hospital;
 import com.DesignQuads.AssistanceFinder.R;
 import com.DesignQuads.modal.Fuel;
 import com.DesignQuads.modal.HospitalModel;

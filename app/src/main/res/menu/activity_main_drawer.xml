@@ -5,20 +5,24 @@
         <item
             android:id="@+id/nav_service"
             android:title="Service Station"
-            android:icon="@drawable/icon"/>
+            android:icon="@drawable/ic_service1"/>
         <item
             android:id="@+id/nav_fuel"
-            android:title="Fuel Station" />
+            android:title="Fuel Station"
+            android:icon="@drawable/ic_fuel1"/>
 
         <item
             android:id="@+id/nav_pickup"
-            android:title="Pick-up van" />
+            android:title="Pick-up van"
+            android:icon="@drawable/ic_car1"/>
         <item
             android:id="@+id/nav_road"
-            android:title="Roadside Assistance" />
+            android:title="Roadside Assistance"
+            android:icon="@drawable/ic_road1"/>
         <item
             android:id="@+id/nav_hospital"
-            android:title="Hospital call" />
+            android:title="Hospital call"
+            android:icon="@drawable/ic_hospital1"/>
 
     </group>
 
@@ -26,10 +30,12 @@
         <menu>
             <item
                 android:id="@+id/nav_login"
-                android:title="Login" />
+                android:title="Login"
+                android:icon="@drawable/ic_login1"/>
             <item
                 android:id="@+id/nav_register"
-                android:title="Registration" />
+                android:title="Registration"
+                android:icon="@drawable/ic_register1"/>
         </menu>
     </item>
 

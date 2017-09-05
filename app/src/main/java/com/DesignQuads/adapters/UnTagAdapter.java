@@ -54,8 +54,8 @@ public class UnTagAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.untag_item, null);
             holder = new ViewHolder();
-            holder.txtDesc = (TextView) convertView.findViewById(R.id.type);
             holder.txtTitle = (TextView) convertView.findViewById(R.id.name);
+            holder.txtDesc = (TextView) convertView.findViewById(R.id.type);
             holder.deleteBtn = (ImageView) convertView.findViewById(R.id.item_delete);
             convertView.setTag(holder);
         } else {

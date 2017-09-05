@@ -30,7 +30,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:adjustViewBounds="true"
             android:background="#ffffff"
+            android:cropToPadding="true"
             android:src="@mipmap/ic_service"
             android:text="Service Stations" />
 
@@ -40,8 +42,9 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="#ffffff"
-            android:src="@mipmap/ic_fuel"
+            android:src="@mipmap/ic_fuel12"
             android:text="Fuel Stations" />
+
 
         <Button
             android:id="@+id/btn_list"
@@ -50,8 +53,12 @@
             android:layout_above="@+id/linearLayout2"
             android:layout_centerHorizontal="true"
             android:background="#68b9ce"
+            android:elevation="0dp"
             android:text="List View"
-            android:textSize="18sp"
+            android:textAllCaps="false"
+            android:textColor="#ffffff"
+            android:textSize="28dp"
+            android:textStyle="normal"
             android:visibility="gone" />
 
         <ImageButton
@@ -60,7 +67,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="#ffffff"
-            android:src="@mipmap/ic_car"
+            android:src="@mipmap/ic_car1"
             android:text="Pick Van" />
 
         <ImageButton
