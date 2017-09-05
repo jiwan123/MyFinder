@@ -68,11 +68,13 @@ public class Address extends AppCompatActivity {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(Address.this);
                 View mView = getLayoutInflater().inflate(R.layout.activity_opening_hrs__dialog, null);
                 final EditText mWDamOpening = (EditText) mView.findViewById(R.id.WDamOpening);
-                final Spinner sp1 = (Spinner) mView.findViewById(R.id.spinner1);
-                final Spinner sp2 = (Spinner) mView.findViewById(R.id.spinner2);
                 final EditText mWDpmClosing = (EditText) mView.findViewById(R.id.WDpmClosing);
                 final EditText mWEamOpening = (EditText) mView.findViewById(R.id.WEamOpening);
-                final EditText mWEamClosing = (EditText) mView.findViewById(R.id.WEamClosing);
+                final EditText mWEpmClosing = (EditText) mView.findViewById(R.id.WEpmClosing);
+                final Spinner sp1 = (Spinner) mView.findViewById(R.id.spinner1);
+                final Spinner sp2 = (Spinner) mView.findViewById(R.id.spinner2);
+                final Spinner sp3 = (Spinner) mView.findViewById(R.id.spinner3);
+                final Spinner sp4 = (Spinner) mView.findViewById(R.id.spinner4);
                 Button mHoursSave = (Button) mView.findViewById(R.id.Hours_save);
 
                 mBuilder.setView(mView);
@@ -97,19 +99,21 @@ public class Address extends AppCompatActivity {
                             return;
                         }
 
-                        if (mWEamClosing.getText().toString().equals("")) {
+                        if (mWEpmClosing.getText().toString().equals("")) {
                             Toast.makeText(Address.this, R.string.WEamClosingErrMsg, Toast.LENGTH_LONG).show();
                             return;
                         }
 
 
-                        WriteDataFuelOpeningHrs(mWDamOpening.getText().toString(),  String.valueOf(sp1.getSelectedItem()), mWDpmClosing.getText().toString(), String.valueOf(sp2.getSelectedItem()),
-                                mWEamOpening.getText().toString(), mWEamClosing.getText().toString());
+                        WriteDataFuelOpeningHrs(mWDamOpening.getText().toString(),  String.valueOf(sp1.getSelectedItem()),
+                                mWDpmClosing.getText().toString(), String.valueOf(sp2.getSelectedItem()),
+                                mWEamOpening.getText().toString(), String.valueOf(sp3.getSelectedItem()),
+                                mWEpmClosing.getText().toString(), String.valueOf(sp4.getSelectedItem()));
 
                         mWDamOpening.setText("");
                         mWDpmClosing.setText("");
                         mWEamOpening.setText("");
-                        mWEamClosing.setText("");
+                        mWEpmClosing.setText("");
 
                         Toast.makeText(Address.this, "You Have Successfully saved.... ", Toast.LENGTH_LONG).show();
                         dialog.cancel();
@@ -230,10 +234,12 @@ public class Address extends AppCompatActivity {
 
     }
 
-    private void WriteDataFuelOpeningHrs(String WDamOpening ,String WDam_pm_opening, String WDpmClosing,String WDam_pm_closing, String WEamOpening, String WEamClosing)
+    private void WriteDataFuelOpeningHrs(String WDamOpening ,String WDam_pm_opening, String WDpmClosing,String WDam_pm_closing,
+                                         String WEamOpening ,String WEam_pm_opening, String WEpmClosing,String WEam_pm_closing)
     {
         Log.v("bbb",WDamOpening+" "+WDam_pm_opening);
-        DataFuelOpeningHrs OpenHours = new DataFuelOpeningHrs(FuelId,WDamOpening+" "+WDam_pm_opening, WDpmClosing+" "+WDam_pm_opening, WEamOpening, WEamClosing);
+        DataFuelOpeningHrs OpenHours = new DataFuelOpeningHrs(FuelId,WDamOpening+" "+WDam_pm_opening,
+                WDpmClosing+" " +WDam_pm_closing, WEamOpening+" "+WEam_pm_opening, WEpmClosing+" "+WEam_pm_closing);
 
         String openingHrsId = mDatabase.push().getKey();
         mDatabase.child("OpeningHrs").child(openingHrsId).setValue(OpenHours);

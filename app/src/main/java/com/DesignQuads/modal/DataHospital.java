@@ -7,6 +7,7 @@ import com.google.firebase.database.IgnoreExtraProperties;
  */
 @IgnoreExtraProperties
 public class DataHospital {
+
     public String PlaceName;
     public String LocationPhone;
     public String userId;

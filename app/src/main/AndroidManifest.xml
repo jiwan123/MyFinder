@@ -80,7 +80,6 @@
             android:name=".FuelOpeningHrs_Dialog"
             android:noHistory="true" />
 
-        <activity android:name=".HospitalCall" />
     </application>
 
 </manifest>

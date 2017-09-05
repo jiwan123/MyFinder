@@ -23,7 +23,7 @@
         android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         android:weightSum="4"
-        >
+        android:id="@+id/linearLayout2">
 
         <ImageButton
             android:id="@+id/btn_service"
@@ -43,6 +43,17 @@
             android:src="@mipmap/ic_fuel"
             android:text="Fuel Stations" />
 
+        <Button
+            android:id="@+id/btn_list"
+            android:layout_width="323dp"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/linearLayout2"
+            android:layout_centerHorizontal="true"
+            android:background="#68b9ce"
+            android:text="List View"
+            android:textSize="18sp"
+            android:visibility="gone" />
+
         <ImageButton
             android:id="@+id/btn_pickup"
             android:layout_width="wrap_content"
@@ -59,19 +70,8 @@
             android:layout_weight="1"
             android:background="#ffffff"
             android:src="@mipmap/ic_road"
-            android:text="Road side assists" />
-
-        <Button
-            android:id="@+id/btn_list"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:background="#ffffff"
-            android:text="List View"
-            android:textSize="18sp"
-            android:visibility="gone"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"/>
+            android:text="Road side assists"
+            android:visibility="visible" />
 
     </LinearLayout>
 

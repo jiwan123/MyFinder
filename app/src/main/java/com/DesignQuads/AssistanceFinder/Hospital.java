@@ -85,12 +85,7 @@ public class Hospital extends AppCompatActivity {
     }
 
     private void writeNewDataHospital(String PlaceName, String PlaceAddress, String OpeningHrs, String LocationPhone) {
-       // DataHospital HospitalCall = new DataHospital(PlaceName, PlaceAddress, OpeningHrs, LocationPhone);
 
-
-
-        //String HospitalId = mDatabase.push().getKey();
-        //mDatabase.child("Hospitals").child(HospitalId).setValue(HospitalCall);
 
     }
 }

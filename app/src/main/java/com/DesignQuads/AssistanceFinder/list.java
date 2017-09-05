@@ -11,14 +11,16 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.DesignQuads.adapters.CustomBaseAdapter;
+import com.DesignQuads.adapters.HospitalCallAdapter;
 import com.DesignQuads.adapters.RoadsideBaseAdapter;
 import com.DesignQuads.adapters.StationBaseAdapter;
-import com.DesignQuads.dataSource.MyData;
 import com.DesignQuads.modal.DataAddress;
+import com.DesignQuads.modal.DataHospital;
 import com.DesignQuads.modal.DataRoadAssis;
 import com.DesignQuads.modal.DataServiceStn;
 import com.DesignQuads.modal.Fuel;
 import com.DesignQuads.modal.FuelPump;
+import com.DesignQuads.modal.HospitalModel;
 import com.DesignQuads.modal.RoadsideAssistance;
 import com.DesignQuads.modal.Station;
 import com.google.android.gms.maps.model.LatLng;
@@ -29,7 +31,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
@@ -90,6 +91,7 @@ public class list extends AppCompatActivity {
         final List<Fuel> allFuels = new ArrayList<>();
         final List<Station> allStations = new ArrayList<>();
         final List<RoadsideAssistance> allRoadsideAssistances = new ArrayList<>();
+        final List<HospitalModel> allHospitalModel = new ArrayList<>();
 
         SharedPreferences shared = getSharedPreferences(MyPREFERENCES, MODE_PRIVATE);
         final String tab_clicked = (shared.getString("tab_clicked", ""));
@@ -265,6 +267,64 @@ public class list extends AppCompatActivity {
 
 
                     }
+
+
+                    else if(tab_clicked == "Hospitals")
+                    {
+
+                        Log.v("bbb","tab5 =>"+tab_clicked);
+
+                        final HospitalModel hospitalModel= new HospitalModel();
+                        final DataHospital hs = postSnapshot.getValue(DataHospital.class);
+
+                        hospitalModel.setName(hs.PlaceName);
+                        hospitalModel.setPhone(hs.LocationPhone);
+
+                        mDatabase.child("Address").orderByChild("FuelID")
+                                .startAt(postSnapshot.getKey())
+                                .endAt(postSnapshot.getKey()).addValueEventListener(new ValueEventListener() {
+
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot2) {
+
+                                for (DataSnapshot postSnapshot2 :dataSnapshot2.getChildren()) {
+                                    DataAddress ad = postSnapshot2.getValue(DataAddress.class);
+                                    String addressString = ad.unit_house_number+", "+ad.street_name+", "+ad.suburb_name+" "+ad.state+" "+ad.post_code;
+                                    double[] cords = getLatLongFromAddress(addressString);
+
+                                    hospitalModel.setLat(cords[0]);
+                                    hospitalModel.setLng(cords[1]);
+
+                                    Location loc1 = new Location("");
+                                    loc1.setLatitude(currentLocation.latitude);
+                                    loc1.setLongitude(currentLocation.longitude);
+
+                                    Location loc2 = new Location("");
+                                    loc2.setLatitude(cords[0]);
+                                    loc2.setLongitude(cords[1]);
+
+                                    hospitalModel.distanceInt = Math.round(loc1.distanceTo(loc2));
+
+                                    allHospitalModel.add(hospitalModel);
+
+                                    Log.v("bbb",allHospitalModel.size()+"");
+
+                                    HospitalCallAdapter adapter = new HospitalCallAdapter(list.this,allHospitalModel);
+                                    listView.setAdapter(adapter);
+
+                                }
+
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError2) {
+
+                            }
+                        });
+
+
+                    }
+
 
 
                 }

@@ -62,7 +62,7 @@ public class FuelOpeningHrs_Dialog extends AppCompatActivity {
                 final EditText mWDamOpening = (EditText) mView.findViewById(R.id.WDamOpening);
                 final EditText mWDpmClosing = (EditText) mView.findViewById(R.id.WDpmClosing);
                 final EditText mWEamOpening = (EditText) mView.findViewById(R.id.WEamOpening);
-                final EditText mWEamClosing = (EditText) mView.findViewById(R.id.WEamClosing);
+                final EditText mWEpmClosing = (EditText) mView.findViewById(R.id.WEpmClosing);
                 Button mHoursSave = (Button) mView.findViewById(R.id.Hours_save);
 
                 mBuilder.setView(mView);
@@ -87,19 +87,19 @@ public class FuelOpeningHrs_Dialog extends AppCompatActivity {
                             return;
                         }
 
-                        if (mWEamClosing.getText().toString().equals("")) {
+                        if (mWEpmClosing.getText().toString().equals("")) {
                             Toast.makeText(FuelOpeningHrs_Dialog.this, R.string.WEamClosingErrMsg, Toast.LENGTH_LONG).show();
                             return;
                         }
 
 
                         WriteDataFuelOpeningHrs(mWDamOpening.getText().toString(), mWDpmClosing.getText().toString(),
-                                mWEamOpening.getText().toString(), mWEamClosing.getText().toString());
+                                mWEamOpening.getText().toString(), mWEpmClosing.getText().toString());
 
                         mWDamOpening.setText("");
                         mWDpmClosing.setText("");
                         mWEamOpening.setText("");
-                        mWEamClosing.setText("");
+                        mWEpmClosing.setText("");
 
                         Toast.makeText(FuelOpeningHrs_Dialog.this, "You Have Successfully saved.... ", Toast.LENGTH_LONG).show();
                         dialog.cancel();

@@ -3,19 +3,22 @@ package com.DesignQuads.modal;
 
 
 public class HospitalModel {
+
     private String name;
     private String phone;
-    private String subTitle;
+    private double lat;
+    private double lng;
+    public int distanceInt;
 
     public HospitalModel() {
     }
 
-    public HospitalModel(String name, String phone, String subTitle) {
+    public HospitalModel(String name, String phone, double lat, double lng) {
         this.name = name;
         this.phone = phone;
-        this.subTitle = subTitle;
+        this.lat = lat;
+        this.lng = lng;
     }
-
 
     public String getName() {
         return name;
@@ -33,11 +36,23 @@ public class HospitalModel {
         this.phone = phone;
     }
 
-    public String getSubTitle() {
-        return subTitle;
+    public double getLat() {
+        return lat;
     }
 
-    public void setSubTitle(String subTitle) {
-        this.subTitle = subTitle;
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
+    }
+
+    public String distance(){
+        return (distanceInt < 1000) ? Math.round(distanceInt)+" M" : Math.round(distanceInt/1000)+" KM";
     }
 }
