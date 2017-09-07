@@ -3,10 +3,12 @@ package com.DesignQuads.adapters;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,20 +71,36 @@ public class UnTagAdapter extends BaseAdapter {
 
         holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view){
+                AlertDialog.Builder builder=new AlertDialog.Builder(UnTagAdapter.this.context);
+                builder.setMessage("This will Un-tag your place.")
+                        .setPositiveButton("Un-tag",new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialog,int which) {
 
 //                Toast.makeText(context,rowItem.FuelID,Toast.LENGTH_LONG).show();
 
-                FirebaseDatabase.getInstance().getReference().child("FuelPumps").child(rowItem.FuelID).removeValue();
+                                FirebaseDatabase.getInstance().getReference().child("FuelPumps").child(rowItem.FuelID).removeValue();
+                                FirebaseDatabase.getInstance().getReference().child("Service_Stations").child(rowItem.FuelID).removeValue();
+                                FirebaseDatabase.getInstance().getReference().child("RoadSide_Assistance").child(rowItem.FuelID).removeValue();
+                                FirebaseDatabase.getInstance().getReference().child("Hospitals").child(rowItem.FuelID).removeValue();
 
-                Intent intent = new Intent(context, UntagLocation.class);
-                UntagLocation.getInstance().finish();
-                context.startActivity(intent);
+                                Intent intent = new Intent(context, UntagLocation.class);
+                                UntagLocation.getInstance().finish();
+                                context.startActivity(intent);
 
-                notifyDataSetChanged();
+                                notifyDataSetChanged();
+                            }
+                        })
+                        .setNegativeButton("Cancel",null);
+                AlertDialog alert=builder.create();
+                alert.show();
+
+
             }
-        });
 
+        });
         return convertView;
     }
 

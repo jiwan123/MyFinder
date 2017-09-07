@@ -57,9 +57,9 @@
             android:layout_marginTop="20dp"
             android:layout_marginRight="30dp"
             android:background="#ffffff"
-            android:backgroundTint="#b3ffb3"
+            android:backgroundTint="#66c2ff"
             android:text="SERVICE STATION"
-            android:textColor="#001a00"
+            android:textColor="#ffffff"
             android:textSize="24sp" />
 
         <Button
@@ -72,9 +72,9 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
             android:background="#ffffff"
-            android:backgroundTint="#b3ffb3"
+            android:backgroundTint="#66c2ff"
             android:text="FUEL STATION"
-            android:textColor="#001a00"
+            android:textColor="#ffffff"
             android:textSize="24sp" />
 
         <Button
@@ -87,9 +87,9 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
             android:background="#ffffff"
-            android:backgroundTint="#b3ffb3"
+            android:backgroundTint="#66c2ff"
             android:text="ROADSIDE ASSISTANCE"
-            android:textColor="#001a00"
+            android:textColor="#ffffff"
             android:textSize="24sp" />
 
         <Button
@@ -100,11 +100,11 @@
             android:layout_alignStart="@+id/roadSideAssis_btn"
             android:layout_below="@+id/roadSideAssis_btn"
             android:background="#ffffff"
-            android:backgroundTint="#b3ffb3"
+            android:backgroundTint="#66c2ff"
             android:layout_marginTop="10dp"
             android:layout_marginRight="30dp"
             android:text="HOSPITAL"
-            android:textColor="#001a00"
+            android:textColor="#ffffff"
             android:textSize="24sp" />
 
         <Button

@@ -56,7 +56,7 @@
         android:background="#00b300"
         android:elevation="0dp"
         android:fontFamily="sans-serif-condensed"
-        android:text="TAG LOCATION"
+        android:text="TAG SERVICE"
         android:textSize="24sp" />
 
     <Button
@@ -72,7 +72,7 @@
         android:layout_marginTop="42dp"
         android:background="#007acc"
         android:fontFamily="sans-serif-condensed"
-        android:text="EDIT TAGGED LOCATION"
+        android:text="EDIT TAGGED SERVICE"
         android:textSize="24sp" />
 
     <Button
@@ -88,7 +88,7 @@
         android:layout_marginTop="44dp"
         android:background="#ff9900"
         android:fontFamily="sans-serif-condensed"
-        android:text="UN-TAG LOCATION"
+        android:text="UN-TAG SERVICE"
         android:textColor="#ffffff"
         android:textSize="24sp" />
 

@@ -2,6 +2,7 @@ package com.DesignQuads.AssistanceFinder;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -12,6 +13,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -26,6 +28,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.DesignQuads.adapters.UnTagAdapter;
 import com.DesignQuads.dataSource.MyData;
 import com.DesignQuads.modal.DataAddress;
 import com.DesignQuads.modal.DataHospital;
@@ -57,6 +60,8 @@ public class MainActivity extends AppCompatActivity
 
     private static final long LOCATION_REFRESH_TIME = 100;
     private static final float LOCATION_REFRESH_DISTANCE = 100;
+    private static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
+    private static final int MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 1;
     private GoogleMap mMap;
     private LocationManager mLocationManager;
     Geocoder geocoder = null;
@@ -69,7 +74,7 @@ public class MainActivity extends AppCompatActivity
 
     public SharedPreferences sharedpreferences;
 
-    public static final String MyPREFERENCES = "MyPrefs" ;
+    public static final String MyPREFERENCES = "MyPrefs";
 
 
     private final LocationListener mLocationListener = new LocationListener() {
@@ -140,11 +145,11 @@ public class MainActivity extends AppCompatActivity
             }
         });
         btn_fuel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                show_fuel();
-            }
-        }
+                                        @Override
+                                        public void onClick(View view) {
+                                            show_fuel();
+                                        }
+                                    }
         );
         btn_pickup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,8 +168,8 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
 
                 Intent intent = new Intent(MainActivity.this, list.class);
-                intent.putExtra("LAT", currentLatitude+"");
-                intent.putExtra("LNG", currentLongitude+"");
+                intent.putExtra("LAT", currentLatitude + "");
+                intent.putExtra("LNG", currentLongitude + "");
                 startActivity(intent);
 
             }
@@ -172,15 +177,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -194,14 +191,14 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         Intent intent = new Intent(this, list.class);
-        intent.putExtra("LAT", currentLatitude+"");
-        intent.putExtra("LNG", currentLongitude+"");
+        intent.putExtra("LAT", currentLatitude + "");
+        intent.putExtra("LNG", currentLongitude + "");
         startActivity(intent);
 
         return super.onOptionsItemSelected(item);
     }
 
-    public void show_service(){
+    public void show_service() {
 
         btn_service.setVisibility(View.INVISIBLE);
         btn_fuel.setVisibility(View.INVISIBLE);
@@ -219,7 +216,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                for (DataSnapshot postSnapshot :dataSnapshot.getChildren()) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     final DataServiceStn ss = postSnapshot.getValue(DataServiceStn.class);
 
                     FirebaseDatabase.getInstance().getReference().child("Address").orderByChild("FuelID")
@@ -229,14 +226,14 @@ public class MainActivity extends AppCompatActivity
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot2) {
 
-                            for (DataSnapshot postSnapshot2 :dataSnapshot2.getChildren()) {
+                            for (DataSnapshot postSnapshot2 : dataSnapshot2.getChildren()) {
                                 DataServiceAddress ad = postSnapshot2.getValue(DataServiceAddress.class);
-                                String addressString = ad.unit_house_number+", "+ad.street_name+", "+ad.suburb_name+" " +
-                                        ""+ad.state+" "+ad.post_code;
+                                String addressString = ad.unit_house_number + ", " + ad.street_name + ", " + ad.suburb_name + " " +
+                                        "" + ad.state + " " + ad.post_code;
                                 double[] cords = getLatLongFromAddress(addressString);
                                 googleMap.addMarker(new MarkerOptions()
                                         .position(new LatLng(cords[0], cords[1]))
-                                        .title( ss.PlaceName ));
+                                        .title(ss.PlaceName));
                             }
 
 
@@ -261,7 +258,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    public void show_fuel(){
+    public void show_fuel() {
 
         btn_service.setVisibility(View.INVISIBLE);
         btn_fuel.setVisibility(View.INVISIBLE);
@@ -279,7 +276,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                for (DataSnapshot postSnapshot :dataSnapshot.getChildren()) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     final FuelPump fp = postSnapshot.getValue(FuelPump.class);
 
                     FirebaseDatabase.getInstance().getReference().child("Address").orderByChild("FuelID")
@@ -289,15 +286,15 @@ public class MainActivity extends AppCompatActivity
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot2) {
 
-                            for (DataSnapshot postSnapshot2 :dataSnapshot2.getChildren()) {
+                            for (DataSnapshot postSnapshot2 : dataSnapshot2.getChildren()) {
                                 DataAddress ad = postSnapshot2.getValue(DataAddress.class);
-                                String addressString = ad.unit_house_number+", "+ad.street_name+", "+ad.suburb_name+" " +
-                                        ""+ad.state+" "+ad.post_code;
+                                String addressString = ad.unit_house_number + ", " + ad.street_name + ", " + ad.suburb_name + " " +
+                                        "" + ad.state + " " + ad.post_code;
 
                                 double[] cords = getLatLongFromAddress(addressString);
                                 googleMap.addMarker(new MarkerOptions()
                                         .position(new LatLng(cords[0], cords[1]))
-                                        .title( fp.PlaceName ));
+                                        .title(fp.PlaceName));
                             }
 
 
@@ -322,7 +319,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    public void show_roadside(){
+    public void show_roadside() {
 
         btn_service.setVisibility(View.INVISIBLE);
         btn_fuel.setVisibility(View.INVISIBLE);
@@ -379,7 +376,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    public void show_hospital(){
+    public void show_hospital() {
 
         btn_service.setVisibility(View.INVISIBLE);
         btn_fuel.setVisibility(View.INVISIBLE);
@@ -398,7 +395,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                for (DataSnapshot postSnapshot :dataSnapshot.getChildren()) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     final DataHospital hs = postSnapshot.getValue(DataHospital.class);
 
                     FirebaseDatabase.getInstance().getReference().child("Address").orderByChild("FuelID")
@@ -408,14 +405,14 @@ public class MainActivity extends AppCompatActivity
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot2) {
 
-                            for (DataSnapshot postSnapshot2 :dataSnapshot2.getChildren()) {
+                            for (DataSnapshot postSnapshot2 : dataSnapshot2.getChildren()) {
                                 DataHospitalAddress ad = postSnapshot2.getValue(DataHospitalAddress.class);
-                                String addressString = ad.unit_house_number+", "+ad.street_name+", "+ad.suburb_name+" " +
-                                        ""+ad.state+" "+ad.post_code;
+                                String addressString = ad.unit_house_number + ", " + ad.street_name + ", " + ad.suburb_name + " " +
+                                        "" + ad.state + " " + ad.post_code;
                                 double[] cords = getLatLongFromAddress(addressString);
                                 googleMap.addMarker(new MarkerOptions()
                                         .position(new LatLng(cords[0], cords[1]))
-                                        .title( hs.PlaceName ));
+                                        .title(hs.PlaceName));
                             }
 
 
@@ -449,28 +446,20 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_service) {
             show_service();
-        }
-
-        else if (id == R.id.nav_fuel) {
+        } else if (id == R.id.nav_fuel) {
             show_fuel();
-        }
-
-        else if (id == R.id.nav_pickup) {
+        } else if (id == R.id.nav_pickup) {
             show_service();
-        }
-        else if (id == R.id.nav_hospital) {
+        } else if (id == R.id.nav_hospital) {
             show_hospital();
 
-        }
-        else if (id == R.id.nav_road) {
+        } else if (id == R.id.nav_road) {
             show_roadside();
 
-        }
-        else if (id == R.id.nav_login) {
+        } else if (id == R.id.nav_login) {
             Intent intent = new Intent(this, login.class);
             startActivity(intent);
-        }
-        else if (id == R.id.nav_register) {
+        } else if (id == R.id.nav_register) {
             Intent intent = new Intent(this, register.class);
             startActivity(intent);
         }
@@ -487,23 +476,65 @@ public class MainActivity extends AppCompatActivity
         this.googleMap = googleMap;
 
         mMap = googleMap;
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-            return;
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION) &&
+                    ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+            } else {
+
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
         }
 
         mMap.setMyLocationEnabled(true);
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-            return;
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION) &&
+                    ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+            } else {
+
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
         }
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME,
                 LOCATION_REFRESH_DISTANCE, mLocationListener);
 
-        LocationManager locationManager = (LocationManager)getSystemService
+        LocationManager locationManager = (LocationManager) getSystemService
                 (Context.LOCATION_SERVICE);
         Location getLastLocation = locationManager.getLastKnownLocation
                 (LocationManager.PASSIVE_PROVIDER);
@@ -526,13 +557,13 @@ public class MainActivity extends AppCompatActivity
         String txtAddress = "";
 
         // Handle case where no address was found.
-        if (addresses == null || addresses.size()  == 0) {
+        if (addresses == null || addresses.size() == 0) {
             txtAddress = "Not found";
         } else {
             Address address = addresses.get(0);
             ArrayList<String> addressFragments = new ArrayList<String>();
 
-            for(int i = 0; i <= address.getMaxAddressLineIndex(); i++) {
+            for (int i = 0; i <= address.getMaxAddressLineIndex(); i++) {
                 addressFragments.add(address.getAddressLine(i));
             }
 
@@ -549,31 +580,50 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    private double[] getLatLongFromAddress(String address)
-    {
-        double lat= 0.0, lng= 0.0;
+    private double[] getLatLongFromAddress(String address) {
+        double lat = 0.0, lng = 0.0;
 
         Geocoder geoCoder = new Geocoder(this.getApplicationContext(), Locale.getDefault());
-        try
-        {
-            List<android.location.Address> addresses = geoCoder.getFromLocationName(address , 1);
-            if (addresses.size() > 0)
-            {
+        try {
+            List<android.location.Address> addresses = geoCoder.getFromLocationName(address, 1);
+            if (addresses.size() > 0) {
 
-                lat=addresses.get(0).getLatitude();
-                lng=addresses.get(0).getLongitude();
+                lat = addresses.get(0).getLatitude();
+                lng = addresses.get(0).getLongitude();
 
             }
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return new double[]{lat,lng};
+        return new double[]{lat, lng};
     }
 
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+
+        AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("Exit Assistance Finder.")
+        .setMessage("Are you sure.")
+                .setPositiveButton("Exit",new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog,int which) {
+                        MainActivity.super.onBackPressed();
 
 
+                    }
+                })
+                .setNegativeButton("Cancel",null);
+        AlertDialog alert=builder.create();
+        alert.show();
+
+    }
 }
 
 

@@ -47,8 +47,141 @@ public class UntagLocation extends AppCompatActivity {
         SharedPreferences shared = getSharedPreferences(MyPREFERENCES, MODE_PRIVATE);
         String user_id = (shared.getString("user_id", ""));
 
-        FirebaseDatabase.getInstance().getReference().child("FuelPumps").orderByChild("userId").startAt(user_id)
-                .endAt(user_id).addValueEventListener(new ValueEventListener() {
+
+
+        FirebaseDatabase.getInstance().getReference().child("FuelPumps").orderByChild("userId")
+                .startAt(user_id).endAt(user_id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (final DataSnapshot postSnapshot :dataSnapshot.getChildren()) {
+                    final AbstractAddress aa = postSnapshot.getValue(AbstractAddress.class);
+
+                    FirebaseDatabase.getInstance().getReference().child("Address").orderByChild("FuelID")
+                            .startAt(postSnapshot.getKey())
+                            .endAt(postSnapshot.getKey()).addValueEventListener(new ValueEventListener() {
+
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot2) {
+
+                            for (DataSnapshot postSnapshot2 :dataSnapshot2.getChildren()) {
+                                AbstractAddress aa2 = postSnapshot2.getValue(AbstractAddress.class);
+                                allPlaces.add(new AbstractAddress(postSnapshot.getKey(),aa.PlaceName,aa.LocationPhone,aa2.
+                                        unit_house_number,aa2.street_name,aa2.suburb_name,aa2.post_code,aa2.state));
+                                adapter = new UnTagAdapter(UntagLocation.this, allPlaces);
+                                untaglist.setAdapter(adapter);
+                            }
+
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError2) {
+
+                        }
+                    });
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        //Getting SERVICE_Stations from database.
+        FirebaseDatabase.getInstance().getReference().child("Service_Stations").orderByChild("userId")
+                .startAt(user_id).endAt(user_id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (final DataSnapshot postSnapshot :dataSnapshot.getChildren()) {
+                    final AbstractAddress aa = postSnapshot.getValue(AbstractAddress.class);
+
+                    FirebaseDatabase.getInstance().getReference().child("Address").orderByChild("FuelID")
+                            .startAt(postSnapshot.getKey())
+                            .endAt(postSnapshot.getKey()).addValueEventListener(new ValueEventListener() {
+
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot2) {
+
+                            for (DataSnapshot postSnapshot2 :dataSnapshot2.getChildren()) {
+                                AbstractAddress aa2 = postSnapshot2.getValue(AbstractAddress.class);
+                                allPlaces.add(new AbstractAddress(postSnapshot.getKey(),aa.PlaceName,aa.LocationPhone,aa2.
+                                        unit_house_number,aa2.street_name,aa2.suburb_name,aa2.post_code,aa2.state));
+                                adapter = new UnTagAdapter(UntagLocation.this, allPlaces);
+                                untaglist.setAdapter(adapter);
+                            }
+
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError2) {
+
+                        }
+                    });
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+        //Getting Roadside Assistance from database.
+        FirebaseDatabase.getInstance().getReference().child("RoadSide_Assistance").orderByChild("userId")
+                .startAt(user_id).endAt(user_id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (final DataSnapshot postSnapshot :dataSnapshot.getChildren()) {
+                    final AbstractAddress aa = postSnapshot.getValue(AbstractAddress.class);
+
+                    FirebaseDatabase.getInstance().getReference().child("Address").orderByChild("FuelID")
+                            .startAt(postSnapshot.getKey())
+                            .endAt(postSnapshot.getKey()).addValueEventListener(new ValueEventListener() {
+
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot2) {
+
+                            for (DataSnapshot postSnapshot2 :dataSnapshot2.getChildren()) {
+                                AbstractAddress aa2 = postSnapshot2.getValue(AbstractAddress.class);
+                                allPlaces.add(new AbstractAddress(postSnapshot.getKey(),aa.PlaceName,aa.LocationPhone,aa2.
+                                        unit_house_number,aa2.street_name,aa2.suburb_name,aa2.post_code,aa2.state));
+                                adapter = new UnTagAdapter(UntagLocation.this, allPlaces);
+                                untaglist.setAdapter(adapter);
+                            }
+
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError2) {
+
+                        }
+                    });
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+        //Getting Hospitals from database.
+        FirebaseDatabase.getInstance().getReference().child("Hospitals").orderByChild("userId")
+                .startAt(user_id).endAt(user_id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
