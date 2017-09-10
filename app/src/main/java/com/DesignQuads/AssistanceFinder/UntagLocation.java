@@ -66,7 +66,7 @@ public class UntagLocation extends AppCompatActivity {
 
                             for (DataSnapshot postSnapshot2 :dataSnapshot2.getChildren()) {
                                 AbstractAddress aa2 = postSnapshot2.getValue(AbstractAddress.class);
-                                allPlaces.add(new AbstractAddress(postSnapshot.getKey(),aa.PlaceName,aa.LocationPhone,aa2.
+                                allPlaces.add(new AbstractAddress(postSnapshot.getKey(),"FuelPumps",aa.PlaceName,aa.LocationPhone,aa2.
                                         unit_house_number,aa2.street_name,aa2.suburb_name,aa2.post_code,aa2.state));
                                 adapter = new UnTagAdapter(UntagLocation.this, allPlaces);
                                 untaglist.setAdapter(adapter);
@@ -109,7 +109,7 @@ public class UntagLocation extends AppCompatActivity {
 
                             for (DataSnapshot postSnapshot2 :dataSnapshot2.getChildren()) {
                                 AbstractAddress aa2 = postSnapshot2.getValue(AbstractAddress.class);
-                                allPlaces.add(new AbstractAddress(postSnapshot.getKey(),aa.PlaceName,aa.LocationPhone,aa2.
+                                allPlaces.add(new AbstractAddress(postSnapshot.getKey(),"Service_Stations",aa.PlaceName,aa.LocationPhone,aa2.
                                         unit_house_number,aa2.street_name,aa2.suburb_name,aa2.post_code,aa2.state));
                                 adapter = new UnTagAdapter(UntagLocation.this, allPlaces);
                                 untaglist.setAdapter(adapter);
@@ -153,7 +153,7 @@ public class UntagLocation extends AppCompatActivity {
 
                             for (DataSnapshot postSnapshot2 :dataSnapshot2.getChildren()) {
                                 AbstractAddress aa2 = postSnapshot2.getValue(AbstractAddress.class);
-                                allPlaces.add(new AbstractAddress(postSnapshot.getKey(),aa.PlaceName,aa.LocationPhone,aa2.
+                                allPlaces.add(new AbstractAddress(postSnapshot.getKey(),"RoadSide_Assistance",aa.PlaceName,aa.LocationPhone,aa2.
                                         unit_house_number,aa2.street_name,aa2.suburb_name,aa2.post_code,aa2.state));
                                 adapter = new UnTagAdapter(UntagLocation.this, allPlaces);
                                 untaglist.setAdapter(adapter);
@@ -197,7 +197,7 @@ public class UntagLocation extends AppCompatActivity {
 
                             for (DataSnapshot postSnapshot2 :dataSnapshot2.getChildren()) {
                                 AbstractAddress aa2 = postSnapshot2.getValue(AbstractAddress.class);
-                                allPlaces.add(new AbstractAddress(postSnapshot.getKey(),aa.PlaceName,aa.LocationPhone,aa2.
+                                allPlaces.add(new AbstractAddress(postSnapshot.getKey(),"Hospitals",aa.PlaceName,aa.LocationPhone,aa2.
                                         unit_house_number,aa2.street_name,aa2.suburb_name,aa2.post_code,aa2.state));
                                 adapter = new UnTagAdapter(UntagLocation.this, allPlaces);
                                 untaglist.setAdapter(adapter);

@@ -56,7 +56,7 @@ public class ProfileActivity extends AppCompatActivity {
         editTag_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ProfileActivity.this, TagLocation.class);
+                Intent intent = new Intent(ProfileActivity.this, EditList.class);
                 startActivity(intent);
             }
         });
