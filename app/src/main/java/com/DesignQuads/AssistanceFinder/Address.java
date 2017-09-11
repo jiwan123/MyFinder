@@ -377,7 +377,8 @@ public class Address extends AppCompatActivity {
         }
     }
 
-    private void writeNewDataAddress(String unit_house_number , String street_name, String suburb_name, String post_code, String state) {
+    private void writeNewDataAddress(String unit_house_number , String street_name, String suburb_name, String post_code, String state)
+    {
         DataAddress address = new DataAddress(FuelId, unit_house_number, street_name, suburb_name, post_code, state);
 
         if (edit_id != "") {

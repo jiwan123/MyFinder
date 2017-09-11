@@ -15,7 +15,10 @@ import android.widget.Toast;
 
 import com.DesignQuads.AssistanceFinder.Address;
 import com.DesignQuads.AssistanceFinder.EditList;
+import com.DesignQuads.AssistanceFinder.HospitalAddress;
 import com.DesignQuads.AssistanceFinder.R;
+import com.DesignQuads.AssistanceFinder.RoadSideAddress;
+import com.DesignQuads.AssistanceFinder.ServiceAddress;
 import com.DesignQuads.AssistanceFinder.UntagLocation;
 import com.DesignQuads.modal.AbstractAddress;
 import com.google.firebase.database.FirebaseDatabase;
@@ -71,6 +74,21 @@ public class EditListAdapter extends BaseAdapter {
             public void onClick(View view) {
                 if(rowItem.type =="FuelPumps"){
                     Intent intent = new Intent(context, Address.class);
+                    intent.putExtra("EXTRA_FUEL_ID", rowItem.FuelID);
+                    context.startActivity(intent);
+                }
+                else if(rowItem.type =="Service_Stations"){
+                    Intent intent = new Intent(context, ServiceAddress.class);
+                    intent.putExtra("EXTRA_FUEL_ID", rowItem.FuelID);
+                    context.startActivity(intent);
+                }
+                else if(rowItem.type =="RoadSide_Assistance"){
+                    Intent intent = new Intent(context, RoadSideAddress.class);
+                    intent.putExtra("EXTRA_FUEL_ID", rowItem.FuelID);
+                    context.startActivity(intent);
+                }
+                else if(rowItem.type =="Hospitals"){
+                    Intent intent = new Intent(context, HospitalAddress.class);
                     intent.putExtra("EXTRA_FUEL_ID", rowItem.FuelID);
                     context.startActivity(intent);
                 }

@@ -46,6 +46,8 @@ public class EditList extends AppCompatActivity {
         SharedPreferences shared = getSharedPreferences(MyPREFERENCES, MODE_PRIVATE);
         String user_id = (shared.getString("user_id", ""));
 
+
+        //Edit for Fuel Stations
         FirebaseDatabase.getInstance().getReference().child("FuelPumps").orderByChild("userId")
                 .startAt(user_id).endAt(user_id).addValueEventListener(new ValueEventListener() {
             @Override
@@ -87,6 +89,137 @@ public class EditList extends AppCompatActivity {
 
             }
         });
+
+
+        //Edit for Service stations
+        FirebaseDatabase.getInstance().getReference().child("Service_Stations").orderByChild("userId")
+                .startAt(user_id).endAt(user_id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (final DataSnapshot postSnapshot :dataSnapshot.getChildren()) {
+                    final AbstractAddress aa = postSnapshot.getValue(AbstractAddress.class);
+
+                    FirebaseDatabase.getInstance().getReference().child("Address").orderByChild("FuelID")
+                            .startAt(postSnapshot.getKey())
+                            .endAt(postSnapshot.getKey()).addValueEventListener(new ValueEventListener() {
+
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot2) {
+
+                            for (DataSnapshot postSnapshot2 :dataSnapshot2.getChildren()) {
+                                AbstractAddress aa2 = postSnapshot2.getValue(AbstractAddress.class);
+                                allPlaces.add(new AbstractAddress(postSnapshot.getKey(),"Service_Stations",aa.PlaceName,aa.LocationPhone,aa2.
+                                        unit_house_number,aa2.street_name,aa2.suburb_name,aa2.post_code,aa2.state));
+                                adapter = new EditListAdapter(EditList.this, allPlaces);
+                                editList.setAdapter(adapter);
+                            }
+
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError2) {
+
+                        }
+                    });
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        //Edit for Roadside
+        FirebaseDatabase.getInstance().getReference().child("RoadSide_Assistance").orderByChild("userId")
+                .startAt(user_id).endAt(user_id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (final DataSnapshot postSnapshot :dataSnapshot.getChildren()) {
+                    final AbstractAddress aa = postSnapshot.getValue(AbstractAddress.class);
+
+                    FirebaseDatabase.getInstance().getReference().child("Address").orderByChild("FuelID")
+                            .startAt(postSnapshot.getKey())
+                            .endAt(postSnapshot.getKey()).addValueEventListener(new ValueEventListener() {
+
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot2) {
+
+                            for (DataSnapshot postSnapshot2 :dataSnapshot2.getChildren()) {
+                                AbstractAddress aa2 = postSnapshot2.getValue(AbstractAddress.class);
+                                allPlaces.add(new AbstractAddress(postSnapshot.getKey(),"RoadSide_Assistance",aa.PlaceName,aa.LocationPhone,aa2.
+                                        unit_house_number,aa2.street_name,aa2.suburb_name,aa2.post_code,aa2.state));
+                                adapter = new EditListAdapter(EditList.this, allPlaces);
+                                editList.setAdapter(adapter);
+                            }
+
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError2) {
+
+                        }
+                    });
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        //Edit for Hospitals
+        FirebaseDatabase.getInstance().getReference().child("Hospitals").orderByChild("userId")
+                .startAt(user_id).endAt(user_id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (final DataSnapshot postSnapshot :dataSnapshot.getChildren()) {
+                    final AbstractAddress aa = postSnapshot.getValue(AbstractAddress.class);
+
+                    FirebaseDatabase.getInstance().getReference().child("Address").orderByChild("FuelID")
+                            .startAt(postSnapshot.getKey())
+                            .endAt(postSnapshot.getKey()).addValueEventListener(new ValueEventListener() {
+
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot2) {
+
+                            for (DataSnapshot postSnapshot2 :dataSnapshot2.getChildren()) {
+                                AbstractAddress aa2 = postSnapshot2.getValue(AbstractAddress.class);
+                                allPlaces.add(new AbstractAddress(postSnapshot.getKey(),"Hospitals",aa.PlaceName,aa.LocationPhone,aa2.
+                                        unit_house_number,aa2.street_name,aa2.suburb_name,aa2.post_code,aa2.state));
+                                adapter = new EditListAdapter(EditList.this, allPlaces);
+                                editList.setAdapter(adapter);
+                            }
+
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError2) {
+
+                        }
+                    });
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
 
     }
 

@@ -16,11 +16,16 @@ import android.widget.Toast;
 
 import com.DesignQuads.modal.DataAddress;
 import com.DesignQuads.modal.DataFuelOpeningHrs;
+import com.DesignQuads.modal.DataServiceAddress;
+import com.DesignQuads.modal.DataServiceOpeningHrs;
 import com.DesignQuads.modal.DataServiceStn;
 import com.DesignQuads.modal.FuelPump;
 import com.DesignQuads.modal.Station;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * Created by yodhbir singh on 8/23/2017.
@@ -42,6 +47,13 @@ public class ServiceAddress extends AppCompatActivity {
     private boolean saveaddress = false;
     private String ServiceStnId;
 
+    private DataServiceStn _serviceStn;
+    private DataServiceAddress _Service_address;
+    private DataServiceOpeningHrs _Service_openingHours;
+    private String _ohoursId;
+    private String _addressId;
+    private String edit_id;
+
     public SharedPreferences sharedpreferences;
 
     public static final String MyPREFERENCES = "MyPrefs" ;
@@ -52,6 +64,12 @@ public class ServiceAddress extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_station);
 
+        edit_id = getIntent().getStringExtra("EXTRA_FUEL_ID");
+
+        if(edit_id == null){
+            edit_id = "";
+        }
+
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
         PlaceName = (EditText) findViewById(R.id.edit_PlaceName);
@@ -61,7 +79,32 @@ public class ServiceAddress extends AppCompatActivity {
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        ServiceStnId = mDatabase.push().getKey();
+        if(edit_id != ""){
+
+            ServiceStnId = edit_id;
+
+            mDatabase.child("Service_Stations").orderByKey().equalTo(edit_id).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot child : dataSnapshot.getChildren()) {
+                        _serviceStn = child.getValue(DataServiceStn.class);
+                        PlaceName.setText(_serviceStn.PlaceName);
+                        LocationPhone.setText(_serviceStn.LocationPhone);
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+
+        }else{
+            ServiceStnId = mDatabase.push().getKey();
+        }
+
+
 
         Button mOpeningHrs_btn = (Button) findViewById(R.id.OpeningHrs_btn);
         mOpeningHrs_btn.setOnClickListener(new View.OnClickListener() {
@@ -78,6 +121,34 @@ public class ServiceAddress extends AppCompatActivity {
                 final Spinner sp3 = (Spinner) mView.findViewById(R.id.spinner3);
                 final Spinner sp4 = (Spinner) mView.findViewById(R.id.spinner4);
                 Button mHoursSave = (Button) mView.findViewById(R.id.Hours_save);
+
+                if(edit_id != ""){
+
+                    mDatabase.child("OpeningHrs").orderByChild("FuelID").equalTo(edit_id).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                _ohoursId = child.getKey();
+                                _Service_openingHours = child.getValue(DataServiceOpeningHrs.class);
+                                mWDamOpening.setText(_Service_openingHours.WeekDaysAM.split(" ")[0]);
+                                sp1.setSelection((_Service_openingHours.WeekDaysAM.split(" ")[1].equalsIgnoreCase("AM")) ? 0 : 1);
+                                mWDpmClosing.setText(_Service_openingHours.WeekDaysPM.split(" ")[0]);
+                                sp2.setSelection((_Service_openingHours.WeekDaysPM.split(" ")[1].equalsIgnoreCase("AM")) ? 0 : 1);
+
+                                mWEamOpening.setText(_Service_openingHours.WeekEndsAM.split(" ")[0]);
+                                sp3.setSelection((_Service_openingHours.WeekEndsAM.split(" ")[1].equalsIgnoreCase("AM")) ? 0 : 1);
+                                mWEpmClosing.setText(_Service_openingHours.WeekEndsPM.split(" ")[0]);
+                                sp4.setSelection((_Service_openingHours.WeekEndsPM.split(" ")[1].equalsIgnoreCase("AM")) ? 0 : 1);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+                }
 
                 mBuilder.setView(mView);
                 final AlertDialog dialog = mBuilder.create();
@@ -144,6 +215,29 @@ public class ServiceAddress extends AppCompatActivity {
                 mBuilder.setView(mView);
                 final AlertDialog dialog = mBuilder.create();
                 dialog.show();
+
+                if(edit_id != "") {
+
+                    mDatabase.child("Address").orderByChild("FuelID").equalTo(edit_id).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                _addressId = child.getKey();
+                                _Service_address = child.getValue(DataServiceAddress.class);
+                                mHouseNumber.setText(_Service_address.unit_house_number);
+                                mStreet.setText(_Service_address.street_name);
+                                mSuburb.setText(_Service_address.suburb_name);
+                                mPostcode.setText(_Service_address.post_code);
+                                mState.setText(_Service_address.state);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
 
 
                 mSave.setOnClickListener(new View.OnClickListener() {
@@ -213,17 +307,36 @@ public class ServiceAddress extends AppCompatActivity {
                     return;
                 }
 
-                if (!saveaddress) {
-                    Toast.makeText(ServiceAddress.this, "Address is required", Toast.LENGTH_LONG).show();
-                    return;
+                if (edit_id == "") {
+
+                    if (!saveaddress) {
+                        Toast.makeText(ServiceAddress.this, "Address is required", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
+                    if (!saveOpeningHrs) {
+                        Toast.makeText(ServiceAddress.this, "Opening hours is required", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                 }
 
                 writeNewServiceStation(PlaceName.getText().toString(),LocationPhone.getText().toString());
 
-                PlaceName.setText("");
-                LocationPhone.setText("");
+                if (edit_id != "") {
 
-                Toast.makeText(ServiceAddress.this, "Service Station is Successfully Added... ", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ServiceAddress.this, "Service Station is Successfully Updated... ", Toast.LENGTH_LONG).show();
+                    Intent i = new Intent(ServiceAddress.this, EditList.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i);
+
+
+                }else {
+
+                    PlaceName.setText("");
+                    LocationPhone.setText("");
+
+                    Toast.makeText(ServiceAddress.this, "Service Station is Successfully Added... ", Toast.LENGTH_LONG).show();
+                }
 
             }
         });
@@ -233,13 +346,19 @@ public class ServiceAddress extends AppCompatActivity {
     private void WriteDataServiceOpeningHrs(String WDamOpening ,String WDam_pm_opening, String WDpmClosing,String WDam_pm_closing,
                                          String WEamOpening ,String WEam_pm_opening, String WEpmClosing,String WEam_pm_closing)
     {
-        Log.v("bbb",WDamOpening+" "+WDam_pm_opening);
-        DataFuelOpeningHrs OpenHours = new DataFuelOpeningHrs(ServiceStnId,WDamOpening+" "+WDam_pm_opening,
-                WDpmClosing+" " +WDam_pm_closing, WEamOpening+" "+WEam_pm_opening, WEpmClosing+" "+WEam_pm_closing);
+        DataServiceOpeningHrs OpenHours = new DataServiceOpeningHrs(ServiceStnId, WDamOpening + " " + WDam_pm_opening,
+                WDpmClosing + " " + WDam_pm_closing, WEamOpening + " " + WEam_pm_opening, WEpmClosing + " " + WEam_pm_closing);
 
-        String openingHrsId = mDatabase.push().getKey();
-        mDatabase.child("OpeningHrs").child(openingHrsId).setValue(OpenHours);
-        saveOpeningHrs = true;
+        if (edit_id != "") {
+
+            mDatabase.child("OpeningHrs").child(_ohoursId).setValue(OpenHours);
+
+        } else {
+            String openingHrsId = mDatabase.push().getKey();
+            mDatabase.child("OpeningHrs").child(openingHrsId).setValue(OpenHours);
+            saveOpeningHrs = true;
+        }
+
     }
 
 
@@ -247,20 +366,37 @@ public class ServiceAddress extends AppCompatActivity {
         SharedPreferences shared = getSharedPreferences(MyPREFERENCES, MODE_PRIVATE);
         String user_id = (shared.getString("user_id", ""));
 
-        DataServiceStn station = new DataServiceStn(PlaceName,LocationPhone,user_id);
-        mDatabase.child("Service_Stations").child(ServiceStnId).setValue(station);
+        if (edit_id != "") {
 
-        ServiceStnId = mDatabase.push().getKey();
+
+            DataServiceStn station = new DataServiceStn(PlaceName, LocationPhone, user_id);
+            mDatabase.child("Service_Stations").child(edit_id).setValue(station);
+        }else{
+            DataServiceStn Station = new DataServiceStn(PlaceName, LocationPhone, user_id);
+            mDatabase.child("Service_Stations").child(ServiceStnId).setValue(Station);
+
+            ServiceStnId = mDatabase.push().getKey();
+        }
+
+
     }
 
 
     private void writeNewDataAddress(String unit_house_number , String street_name, String suburb_name, String post_code, String state)
     {
-        DataAddress address = new DataAddress(ServiceStnId,unit_house_number, street_name, suburb_name, post_code,state);
+        DataAddress address = new DataAddress(ServiceStnId, unit_house_number, street_name, suburb_name, post_code, state);
 
-        String addressId = mDatabase.push().getKey();
-        mDatabase.child("Address").child(addressId).setValue(address);
-        saveaddress = true;
+        if (edit_id != "") {
+
+            mDatabase.child("Address").child(_addressId).setValue(address);
+
+        } else {
+
+            String addressId = mDatabase.push().getKey();
+            mDatabase.child("Address").child(addressId).setValue(address);
+            saveaddress = true;
+
+        }
     }
 
 }

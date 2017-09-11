@@ -73,7 +73,7 @@ public class UnTagAdapter extends BaseAdapter {
             @Override
             public void onClick(View view){
                 AlertDialog.Builder builder=new AlertDialog.Builder(UnTagAdapter.this.context);
-                builder.setMessage("This will Un-tag your place.")
+                builder.setMessage("This will Un-tag your service.")
                         .setPositiveButton("Un-tag",new DialogInterface.OnClickListener()
                         {
                             @Override
