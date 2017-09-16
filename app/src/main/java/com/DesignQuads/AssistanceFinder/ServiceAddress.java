@@ -2,6 +2,7 @@ package com.DesignQuads.AssistanceFinder;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -26,6 +28,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 /**
  * Created by yodhbir singh on 8/23/2017.
@@ -54,6 +58,12 @@ public class ServiceAddress extends AppCompatActivity {
     private String _addressId;
     private String edit_id;
 
+    Button mCarModels_btn;
+    private String _CarModelsID;
+    String[] listItems;
+    boolean[] checkedItems;
+    ArrayList<Integer> mUserItems = new ArrayList<>();
+
     public SharedPreferences sharedpreferences;
 
     public static final String MyPREFERENCES = "MyPrefs" ;
@@ -75,6 +85,12 @@ public class ServiceAddress extends AppCompatActivity {
         PlaceName = (EditText) findViewById(R.id.edit_PlaceName);
         LocationPhone = (EditText) findViewById(R.id.edit_phone);
         Address_btn = (Button) findViewById(R.id.Address_btn);
+
+        mCarModels_btn = (Button) findViewById(R.id.CarModels_btn);
+        listItems = getResources().getStringArray(R.array.Model_name);
+        checkedItems = new boolean[listItems.length];
+
+
 
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -290,6 +306,70 @@ public class ServiceAddress extends AppCompatActivity {
 
         Address_save = (Button) findViewById(R.id.Address_save);
 
+
+
+
+        //Car models dialog box+list
+        mCarModels_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder mBuilder = new AlertDialog.Builder(ServiceAddress.this);
+                final AbsListView.MultiChoiceModeListener MC1 = (AbsListView.MultiChoiceModeListener)
+
+                mBuilder.setTitle(R.string.dialog_title);
+                mBuilder.setMultiChoiceItems(listItems, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int position, boolean isChecked) {
+
+                        if(isChecked){
+                            mUserItems.add(position);
+                        }else{
+                            mUserItems.remove((Integer.valueOf(position)));
+                        }
+                    }
+                });
+
+                mBuilder.setCancelable(false);
+                mBuilder.setPositiveButton(R.string.ok_label, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        String item = "";
+                        for (int i = 0; i < mUserItems.size(); i++) {
+                            item = item + listItems[mUserItems.get(i)];
+                            if (i != mUserItems.size() - 1) {
+                                item = item + ", ";
+                            }
+                        }
+                    }
+
+
+                    });
+
+                mBuilder.setNegativeButton(R.string.dismiss_label, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+
+                mBuilder.setNeutralButton(R.string.clear_all_label, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        for (int i = 0; i < checkedItems.length; i++) {
+                            checkedItems[i] = false;
+                            mUserItems.clear();
+                            //mItemSelected.setText("");
+                        }
+                    }
+                });
+
+                AlertDialog mDialog = mBuilder.create();
+                mDialog.show();
+            }
+        });
+
+        //end car models
+
         Submit_btn = (Button) findViewById(R.id.Submit_btn);
 
         Submit_btn.setOnClickListener(new View.OnClickListener() {
@@ -397,6 +477,16 @@ public class ServiceAddress extends AppCompatActivity {
             saveaddress = true;
 
         }
+    }
+
+
+
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(ServiceAddress.this, TagLocation.class);
+        startActivity(intent);
+
     }
 
 }

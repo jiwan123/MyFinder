@@ -98,6 +98,12 @@ public class TagLocation extends AppCompatActivity {
         });
 
 }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(TagLocation.this, ProfileActivity.class);
+        startActivity(intent);
+
+    }
 
 
 }

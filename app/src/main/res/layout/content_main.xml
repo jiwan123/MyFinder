@@ -52,12 +52,13 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/linearLayout2"
             android:layout_centerHorizontal="true"
-            android:background="#68b9ce"
+            android:layout_marginBottom="1dp"
+            android:background="@drawable/customborder"
             android:elevation="0dp"
             android:text="List View"
             android:textAllCaps="false"
-            android:textColor="#ffffff"
-            android:textSize="28dp"
+            android:textColor="#000000"
+            android:textSize="26dp"
             android:textStyle="normal"
             android:visibility="gone" />
 

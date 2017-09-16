@@ -107,6 +107,7 @@ public class Address extends AppCompatActivity {
             public void onClick(View view) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(Address.this);
                 View mView = getLayoutInflater().inflate(R.layout.activity_opening_hrs__dialog, null);
+
                 final EditText mWDamOpening = (EditText) mView.findViewById(R.id.WDamOpening);
                 final EditText mWDpmClosing = (EditText) mView.findViewById(R.id.WDpmClosing);
                 final EditText mWEamOpening = (EditText) mView.findViewById(R.id.WEamOpening);
@@ -126,6 +127,7 @@ public class Address extends AppCompatActivity {
                             for (DataSnapshot child : dataSnapshot.getChildren()) {
                                 _ohoursId = child.getKey();
                                 _openingHours = child.getValue(DataFuelOpeningHrs.class);
+
                                 mWDamOpening.setText(_openingHours.WeekDaysAM.split(" ")[0]);
                                 sp1.setSelection((_openingHours.WeekDaysAM.split(" ")[1].equalsIgnoreCase("AM")) ? 0 : 1);
                                 mWDpmClosing.setText(_openingHours.WeekDaysPM.split(" ")[0]);
@@ -392,5 +394,13 @@ public class Address extends AppCompatActivity {
             saveaddress = true;
 
         }
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(Address.this, TagLocation.class);
+        startActivity(intent);
+
     }
 }

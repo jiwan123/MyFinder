@@ -376,5 +376,11 @@ public class list extends AppCompatActivity {
         }
         return new double[]{lat,lng};
     }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(list.this, MainActivity.class);
+        startActivity(intent);
+
+    }
 
 }

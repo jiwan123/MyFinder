@@ -52,4 +52,56 @@
     </string-array>
 
 
+    <string-array name="services">
+        <item>SERVICES</item>
+        <item>Pick-up</item>
+
+    </string-array>
+    Service>
+
+
+    <string name="CarModels_btn">Car models you fix</string>
+    <string name="dialog_title">Select car models you can service.</string>
+    <string name="ok_label">OK</string>
+    <string name="dismiss_label">Dismiss</string>
+    <string name="clear_all_label">Clear all</string>
+    <string name="start">start</string>
+    <string name="next">next</string>
+
+    <string-array name="Model_name">
+        <item>Toyota</item>
+        <item>Hyundai</item>
+        <item>Holdan</item>
+        <item>Ford</item>
+        <item>Mazda</item>
+        <item>Audi</item>
+        <item>BMW</item>
+        <item>Mercedes</item>
+        <item>Honda</item>
+        <item>Suzuki</item>
+    </string-array>
+
+
+        <string name="A">Intro Slider</string>
+        <string name="title_activity_welcome">Assistance Finder</string>
+
+        <string name="skip">SKIP</string>
+
+
+        <string name="slide_1_title">Find service or fuel stations.</string>
+        <string name="slide_1_desc">The easiest way to find service or fuel stations around you.</string>
+
+        <string name="slide_2_title">Need pick-up or roadside assistance!</string>
+        <string name="slide_2_desc">Find help here, if your vehicle broke down.</string>
+
+        <string name="slide_3_title">Emergency!</string>
+        <string name="slide_3_desc">Look for hospitals around you and make hospital call.</string>
+
+        <string name="slide_4_title">Tag your services.</string>
+        <string name="slide_4_desc">Just register and add your own services and show on maps for others!</string>
+
+        <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
+        <string name="play_again">Play Again</string>
+
+
 </resources>

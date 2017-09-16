@@ -21,6 +21,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -146,11 +147,9 @@ public class MainActivity extends AppCompatActivity
         });
         btn_fuel.setOnClickListener(new View.OnClickListener() {
                                         @Override
-                                        public void onClick(View view) {
-                                            show_fuel();
+                                        public void onClick(View view) {show_fuel();
                                         }
-                                    }
-        );
+                                    });
         btn_pickup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -163,6 +162,7 @@ public class MainActivity extends AppCompatActivity
                 show_roadside();
             }
         });
+
         btn_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -531,6 +531,8 @@ public class MainActivity extends AppCompatActivity
                 // result of the request.
             }
         }
+
+
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME,
                 LOCATION_REFRESH_DISTANCE, mLocationListener);
 
@@ -538,6 +540,8 @@ public class MainActivity extends AppCompatActivity
                 (Context.LOCATION_SERVICE);
         Location getLastLocation = locationManager.getLastKnownLocation
                 (LocationManager.PASSIVE_PROVIDER);
+
+
         currentLongitude = getLastLocation.getLongitude();
         currentLatitude = getLastLocation.getLatitude();
 

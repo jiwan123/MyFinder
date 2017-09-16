@@ -11,6 +11,13 @@
     tools:layout_editor_absoluteX="0dp">
 
 
+    <LinearLayout
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:background="#00b300"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="8dp">
     <TextView
         android:id="@+id/textView4"
         android:layout_width="300dp"
@@ -18,109 +25,107 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="18dp"
-        android:layout_marginStart="18dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="17dp"
         android:text="Tag New Location"
         android:textSize="30sp"
         android:textColor="#001a00"/>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textView7"
         android:layout_width="300dp"
         android:layout_height="70dp"
-        android:layout_alignLeft="@+id/textView4"
-        android:layout_alignStart="@+id/textView4"
-        android:layout_below="@+id/textView4"
+        android:layout_marginTop="80dp"
+        android:layout_marginLeft="20dp"
         android:text="What type of service your place have? Select one."
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textColor="#001a00"/>
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="600dp"
-        android:layout_height="600dp"
-        android:layout_below="@+id/textView7"
-        android:orientation="vertical"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="0dp"
-        android:layout_alignLeft="@+id/textView7"
-        android:layout_alignStart="@+id/textView7">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="270dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="150dp"
+        android:background="#1aa3ff">
+
 
         <Button
             android:id="@+id/ServiceStation_btn"
-            android:layout_width="350dp"
+            android:layout_width="330dp"
             android:layout_height="50dp"
             android:layout_alignLeft="@+id/fuelStation_btn"
             android:layout_alignStart="@+id/fuelStation_btn"
-            android:layout_below="@+id/textView7"
             android:layout_marginTop="20dp"
-            android:layout_marginRight="30dp"
-            android:background="#ffffff"
-            android:backgroundTint="#66c2ff"
+            android:layout_marginRight="0dp"
+            android:background="@drawable/customborder"
+            android:backgroundTint="#ffffff"
+
             android:text="SERVICE STATION"
-            android:textColor="#ffffff"
+            android:textColor="#00264d"
             android:textSize="24sp" />
 
         <Button
             android:id="@+id/fuelStation_btn"
             style="@style/Widget.AppCompat.Button.Small"
-            android:layout_width="350dp"
+            android:layout_width="330dp"
             android:layout_height="50dp"
             android:layout_below="@+id/ServiceStation_btn"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="30dp"
-            android:background="#ffffff"
-            android:backgroundTint="#66c2ff"
+            android:layout_marginRight="0dp"
+            android:background="@drawable/customborder"
+            android:backgroundTint="#ffffff"
             android:text="FUEL STATION"
-            android:textColor="#ffffff"
+            android:textColor="#00264d"
             android:textSize="24sp" />
 
         <Button
             android:id="@+id/roadSideAssis_btn"
-            android:layout_width="350dp"
+            android:layout_width="330dp"
             android:layout_height="50dp"
             android:layout_alignLeft="@+id/ServiceStation_btn"
             android:layout_alignStart="@+id/ServiceStation_btn"
             android:layout_below="@+id/fuelStation_btn"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="30dp"
-            android:background="#ffffff"
-            android:backgroundTint="#66c2ff"
+            android:layout_marginRight="0dp"
+            android:background="@drawable/customborder"
+            android:backgroundTint="#ffffff"
             android:text="ROADSIDE ASSISTANCE"
-            android:textColor="#ffffff"
+            android:textColor="#00264d"
             android:textSize="24sp" />
 
         <Button
             android:id="@+id/Hospital_btn"
-            android:layout_width="350dp"
+            android:layout_width="330dp"
             android:layout_height="50dp"
             android:layout_alignLeft="@+id/roadSideAssis_btn"
             android:layout_alignStart="@+id/roadSideAssis_btn"
             android:layout_below="@+id/roadSideAssis_btn"
-            android:background="#ffffff"
-            android:backgroundTint="#66c2ff"
+            android:background="@drawable/customborder"
+            android:backgroundTint="#ffffff"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginRight="0dp"
             android:text="HOSPITAL"
-            android:textColor="#ffffff"
+            android:textColor="#00264d"
             android:textSize="24sp" />
+    </RelativeLayout>
 
         <Button
             android:id="@+id/logOut_btn"
             style="@android:style/Widget.Button"
             android:layout_width="221dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/Hospital_btn"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="43dp"
+            android:layout_marginTop="440dp"
             android:layout_marginLeft="55dp"
             android:elevation="0dp"
             android:fontFamily="sans-serif"
             android:text="Log out"
             android:textSize="18sp" />
-    </LinearLayout>
+
 
 
 

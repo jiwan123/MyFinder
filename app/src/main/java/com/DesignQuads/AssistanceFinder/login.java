@@ -24,6 +24,7 @@ public class login extends AppCompatActivity {
     public EditText username;
     public EditText password;
     public Button btn_login;
+    public Button btn_SignUp;
     public SharedPreferences sharedpreferences;
 
     public static final String MyPREFERENCES = "MyPrefs" ;
@@ -32,8 +33,8 @@ public class login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Login");
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+       // getSupportActionBar().setTitle("Login");
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
@@ -43,6 +44,7 @@ public class login extends AppCompatActivity {
         password = (EditText) findViewById(R.id.edit_password);
 
         btn_login = (Button) findViewById(R.id.btn_login);
+
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,6 +112,16 @@ public class login extends AppCompatActivity {
             }
         });
 
+        btn_SignUp = (Button) findViewById(R.id.btn_SignUp);
+        btn_SignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(login.this, register.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 
     @Override
@@ -119,4 +131,5 @@ public class login extends AppCompatActivity {
         startActivity(intent);
         return true;
     }
+
 }

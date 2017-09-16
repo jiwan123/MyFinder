@@ -88,7 +88,7 @@ public class ProfileActivity extends AppCompatActivity {
                 editor.commit();
                 finish();
 
-                Intent intent = new Intent(ProfileActivity.this, login.class);
+                Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
                 startActivity(intent);
 
                 Toast.makeText(ProfileActivity.this,"You are now logged out..",Toast.LENGTH_LONG).show();
@@ -96,6 +96,12 @@ public class ProfileActivity extends AppCompatActivity {
 
         });
 
+
+    }
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(ProfileActivity.this, login.class);
+        startActivity(intent);
 
     }
 }

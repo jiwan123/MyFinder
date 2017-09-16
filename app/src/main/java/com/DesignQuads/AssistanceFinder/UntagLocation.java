@@ -1,6 +1,7 @@
 package com.DesignQuads.AssistanceFinder;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -226,5 +227,12 @@ public class UntagLocation extends AppCompatActivity {
 
     public static UntagLocation getInstance(){
         return   activityA;
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(UntagLocation.this, ProfileActivity.class);
+        startActivity(intent);
+
     }
 }

@@ -1,6 +1,7 @@
 package com.DesignQuads.AssistanceFinder;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -225,5 +226,12 @@ public class EditList extends AppCompatActivity {
 
     public static EditList getInstance(){
         return  activityA;
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(EditList.this, ProfileActivity.class);
+        startActivity(intent);
+
     }
 }

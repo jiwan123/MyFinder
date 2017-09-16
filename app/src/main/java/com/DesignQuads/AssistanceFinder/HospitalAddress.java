@@ -401,4 +401,11 @@ public class HospitalAddress extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(HospitalAddress.this, TagLocation.class);
+        startActivity(intent);
+
+    }
+
 }
