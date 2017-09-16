@@ -22,7 +22,8 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="com.DesignQuads.AssistanceFinder.WelcomeActivity">
+            android:name="com.DesignQuads.AssistanceFinder.SplashScreen"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -96,6 +97,10 @@
         <activity
             android:name=".EditList"
             android:noHistory="true" />
+        <activity
+            android:name=".WelcomeActivity"
+            android:noHistory="true"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
 
     </application>
 
