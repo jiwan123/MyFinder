@@ -8,6 +8,7 @@ public class Fuel {
     private double lat;
     private double lng;
     public int distanceInt;
+    public String FuelId;
 
     public Fuel() {
     }

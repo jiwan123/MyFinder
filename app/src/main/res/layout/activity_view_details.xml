@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context="com.DesignQuads.AssistanceFinder.ViewDetails">
+
+    <TextView
+        android:id="@+id/placeName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="PlaceName" />
+
+    <TextView
+        android:id="@+id/placeNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Place Number"/>
+
+    <TextView
+        android:id="@+id/addressTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Place Number"/>
+
+    <TextView
+        android:id="@+id/openingHoursWD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Place Number"/>
+
+    <TextView
+        android:id="@+id/openingHoursWE"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Place Number"/>
+
+    <TextView
+        android:id="@+id/servies"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Place Number"/>
+
+    <Button
+        android:id="@+id/navigationBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Navigation"/>
+
+</LinearLayout>

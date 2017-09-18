@@ -68,7 +68,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,OnMapReadyCallback {
+        implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
 
     private static final long LOCATION_REFRESH_TIME = 100;
     private static final float LOCATION_REFRESH_DISTANCE = 100;
@@ -160,10 +160,11 @@ public class MainActivity extends AppCompatActivity
             }
         });
         btn_fuel.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View view) {show_fuel();
-                                        }
-                                    });
+            @Override
+            public void onClick(View view) {
+                show_fuel();
+            }
+        });
         btn_pickup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -190,7 +191,6 @@ public class MainActivity extends AppCompatActivity
         });
 
     }
-
 
 
     @Override
@@ -273,6 +273,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void show_fuel() {
+
+        googleMap.animateCamera( CameraUpdateFactory.zoomTo( 8.0f ) );
 
         btn_service.setVisibility(View.INVISIBLE);
         btn_fuel.setVisibility(View.INVISIBLE);
@@ -459,15 +461,20 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_service) {
+            googleMap.clear();
             show_service();
         } else if (id == R.id.nav_fuel) {
+            googleMap.clear();
             show_fuel();
         } else if (id == R.id.nav_pickup) {
+            googleMap.clear();
             show_service();
         } else if (id == R.id.nav_hospital) {
+            googleMap.clear();
             show_hospital();
 
         } else if (id == R.id.nav_road) {
+            googleMap.clear();
             show_roadside();
 
         } else if (id == R.id.nav_login) {
@@ -490,116 +497,105 @@ public class MainActivity extends AppCompatActivity
         this.googleMap = googleMap;
 
         mMap = googleMap;
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
 
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION) &&
-                    ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION)) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
+            ActivityCompat.requestPermissions(MainActivity.this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
 
+            ActivityCompat.requestPermissions(MainActivity.this,
+                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                    MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION);
+
+
+        }else{
+
+
+            mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME,
+                    LOCATION_REFRESH_DISTANCE, mLocationListener);
+
+            LocationManager locationManager = (LocationManager) getSystemService
+                    (Context.LOCATION_SERVICE);
+            Location getLastLocation = locationManager.getLastKnownLocation
+                    (LocationManager.PASSIVE_PROVIDER);
+
+            if(getLastLocation == null){
+                enableLoc();
+                return;
+            }
+
+            mMap.setMyLocationEnabled(true);
+
+            currentLongitude = getLastLocation.getLongitude();
+            currentLatitude = getLastLocation.getLatitude();
+
+            LatLng currentLocation = new LatLng(currentLatitude, currentLongitude);
+
+            List<Address> addresses = null;
+
+            try {
+                addresses = geocoder.getFromLocation(
+                        currentLatitude,
+                        currentLongitude,
+                        1);
+            } catch (IOException ioException) {
+            } catch (IllegalArgumentException illegalArgumentException) {
+            }
+
+            String txtAddress = "";
+
+            // Handle case where no address was found.
+            if (addresses == null || addresses.size() == 0) {
+                txtAddress = "Not found";
             } else {
+                Address address = addresses.get(0);
+                ArrayList<String> addressFragments = new ArrayList<String>();
 
-                // No explanation needed, we can request the permission.
+                for (int i = 0; i <= address.getMaxAddressLineIndex(); i++) {
+                    addressFragments.add(address.getAddressLine(i));
+                }
 
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION);
-
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
-            }
-        }
-
-        mMap.setMyLocationEnabled(true);
-
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION) &&
-                    ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_COARSE_LOCATION)) {
-
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-
-            } else {
-
-                // No explanation needed, we can request the permission.
-
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION);
-
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
-            }
-        }
-
-
-        mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, LOCATION_REFRESH_TIME,
-                LOCATION_REFRESH_DISTANCE, mLocationListener);
-
-        LocationManager locationManager = (LocationManager) getSystemService
-                (Context.LOCATION_SERVICE);
-        Location getLastLocation = locationManager.getLastKnownLocation
-                (LocationManager.PASSIVE_PROVIDER);
-
-        if(getLastLocation == null){
-            enableLoc();
-            return;
-        }
-
-        currentLongitude = getLastLocation.getLongitude();
-        currentLatitude = getLastLocation.getLatitude();
-
-        LatLng currentLocation = new LatLng(currentLatitude, currentLongitude);
-
-        List<Address> addresses = null;
-
-        try {
-            addresses = geocoder.getFromLocation(
-                    currentLatitude,
-                    currentLongitude,
-                    1);
-        } catch (IOException ioException) {
-        } catch (IllegalArgumentException illegalArgumentException) {
-        }
-
-        String txtAddress = "";
-
-        // Handle case where no address was found.
-        if (addresses == null || addresses.size() == 0) {
-            txtAddress = "Not found";
-        } else {
-            Address address = addresses.get(0);
-            ArrayList<String> addressFragments = new ArrayList<String>();
-
-            for (int i = 0; i <= address.getMaxAddressLineIndex(); i++) {
-                addressFragments.add(address.getAddressLine(i));
+                txtAddress = TextUtils.join(System.getProperty("line.separator"),
+                        addressFragments);
             }
 
-            txtAddress = TextUtils.join(System.getProperty("line.separator"),
-                    addressFragments);
+            googleMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(currentLatitude, currentLongitude))
+                    .title(txtAddress));
+
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(currentLatitude, currentLongitude), 14));
+
+
+
         }
 
-        googleMap.addMarker(new MarkerOptions()
-                .position(new LatLng(currentLatitude, currentLongitude))
-                .title(txtAddress));
 
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(currentLatitude, currentLongitude), 14));
+    }
 
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
 
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    MainActivity.this.onMapReady(googleMap);
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
     }
 
     private double[] getLatLongFromAddress(String address) {
@@ -678,6 +674,7 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+
     @Override
     public void onBackPressed() {
 
@@ -688,9 +685,11 @@ public class MainActivity extends AppCompatActivity
                 {
                     @Override
                     public void onClick(DialogInterface dialog,int which) {
-                        MainActivity.super.onBackPressed();
-
-
+                        Intent intent = new Intent(Intent.ACTION_MAIN);
+                        intent.addCategory(Intent.CATEGORY_HOME);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        finish();
+                        startActivity(intent);
                     }
                 })
                 .setNegativeButton("Cancel",null);

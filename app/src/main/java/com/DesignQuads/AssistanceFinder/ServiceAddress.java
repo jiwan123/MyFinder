@@ -50,6 +50,7 @@ public class ServiceAddress extends AppCompatActivity {
     private Button Submit_btn;
     private boolean saveaddress = false;
     private String ServiceStnId;
+    private String item;
 
     private DataServiceStn _serviceStn;
     private DataServiceAddress _Service_address;
@@ -314,7 +315,6 @@ public class ServiceAddress extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(ServiceAddress.this);
-                final AbsListView.MultiChoiceModeListener MC1 = (AbsListView.MultiChoiceModeListener)
 
                 mBuilder.setTitle(R.string.dialog_title);
                 mBuilder.setMultiChoiceItems(listItems, checkedItems, new DialogInterface.OnMultiChoiceClickListener() {
@@ -333,7 +333,7 @@ public class ServiceAddress extends AppCompatActivity {
                 mBuilder.setPositiveButton(R.string.ok_label, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
-                        String item = "";
+                        item = "";
                         for (int i = 0; i < mUserItems.size(); i++) {
                             item = item + listItems[mUserItems.get(i)];
                             if (i != mUserItems.size() - 1) {
@@ -449,10 +449,10 @@ public class ServiceAddress extends AppCompatActivity {
         if (edit_id != "") {
 
 
-            DataServiceStn station = new DataServiceStn(PlaceName, LocationPhone, user_id);
+            DataServiceStn station = new DataServiceStn(PlaceName, LocationPhone,item, user_id);
             mDatabase.child("Service_Stations").child(edit_id).setValue(station);
         }else{
-            DataServiceStn Station = new DataServiceStn(PlaceName, LocationPhone, user_id);
+            DataServiceStn Station = new DataServiceStn(PlaceName, LocationPhone, item, user_id);
             mDatabase.child("Service_Stations").child(ServiceStnId).setValue(Station);
 
             ServiceStnId = mDatabase.push().getKey();

@@ -12,12 +12,14 @@ public class DataServiceStn {
     public String PlaceName;
     public String LocationPhone;
     public String userId;
+    public String item;
 
     public DataServiceStn() {}
 
-    public DataServiceStn(String PlaceName, String LocationPhone,String UserId) {
+    public DataServiceStn(String PlaceName, String LocationPhone,String item,String UserId) {
         this(PlaceName,LocationPhone);
         this.userId = UserId;
+        this.item = item;
     }
 
     public DataServiceStn(String PlaceName, String LocationPhone) {
@@ -25,4 +27,5 @@ public class DataServiceStn {
         this.LocationPhone = LocationPhone;
 
     }
+
 }

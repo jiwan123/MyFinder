@@ -82,26 +82,26 @@
     </string-array>
 
 
-        <string name="A">Intro Slider</string>
-        <string name="title_activity_welcome">Assistance Finder</string>
+    <string name="A">Intro Slider</string>
+    <string name="title_activity_welcome">Assistance Finder</string>
 
-        <string name="skip">SKIP</string>
+    <string name="skip">SKIP</string>
 
 
-        <string name="slide_1_title">Find service or fuel stations.</string>
-        <string name="slide_1_desc">The easiest way to find service or fuel stations around you.</string>
+    <string name="slide_1_title">Find service or fuel stations.</string>
+    <string name="slide_1_desc">The easiest way to find service or fuel stations around you.</string>
 
-        <string name="slide_2_title">Need pick-up or roadside assistance!</string>
-        <string name="slide_2_desc">Find help here, if your vehicle broke down.</string>
+    <string name="slide_2_title">Need pick-up or roadside assistance!</string>
+    <string name="slide_2_desc">Find help here, if your vehicle broke down.</string>
 
-        <string name="slide_3_title">Emergency!</string>
-        <string name="slide_3_desc">Look for hospitals around you and make hospital call.</string>
+    <string name="slide_3_title">Emergency!</string>
+    <string name="slide_3_desc">Look for hospitals around you and make hospital call.</string>
 
-        <string name="slide_4_title">Tag your services.</string>
-        <string name="slide_4_desc">Just register and add your own services and show on maps for others!</string>
+    <string name="slide_4_title">Tag your services.</string>
+    <string name="slide_4_desc">Just register and add your own services and show on maps for others!</string>
 
-        <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
-        <string name="play_again">Play Again</string>
+    <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
+    <string name="play_again">Play Again</string>
 
 
 </resources>

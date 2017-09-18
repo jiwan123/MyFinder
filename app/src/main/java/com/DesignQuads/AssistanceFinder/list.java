@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.DesignQuads.adapters.CustomBaseAdapter;
@@ -85,7 +87,6 @@ public class list extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.listview);
 
-
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         final List<Fuel> allFuels = new ArrayList<>();
@@ -96,7 +97,6 @@ public class list extends AppCompatActivity {
         SharedPreferences shared = getSharedPreferences(MyPREFERENCES, MODE_PRIVATE);
         final String tab_clicked = (shared.getString("tab_clicked", ""));
 
-        Log.v("bbb","tab =>"+tab_clicked);
 
         mDatabase.child(tab_clicked).addValueEventListener(new ValueEventListener() {
             @Override
@@ -108,7 +108,7 @@ public class list extends AppCompatActivity {
 
                         final Fuel fuel = new Fuel();
                         final FuelPump fp = postSnapshot.getValue(FuelPump.class);
-
+                        final String key = postSnapshot.getKey();
                         fuel.setName(fp.PlaceName);
                         fuel.setPhone(fp.LocationPhone);
 
@@ -126,6 +126,7 @@ public class list extends AppCompatActivity {
 //                                MyData.this.fuels.add(new Fuel(fp.PlaceName,fp.LocationPhone,cords[0],cords[1]));
                                     fuel.setLat(cords[0]);
                                     fuel.setLng(cords[1]);
+                                    fuel.FuelId = key;
 
                                     Location loc1 = new Location("");
                                     loc1.setLatitude(currentLocation.latitude);
@@ -142,6 +143,16 @@ public class list extends AppCompatActivity {
                                     CustomBaseAdapter adapter = new CustomBaseAdapter(list.this, allFuels);
                                     listView.setAdapter(adapter);
 
+                                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                        @Override
+                                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                            Intent intent = new Intent(list.this, ViewDetails.class);
+                                            intent.putExtra("EXTRA_FUEL_TYPE", tab_clicked);
+                                            intent.putExtra("EXTRA_FUEL_ID", allFuels.get(i).FuelId);
+                                            list.this.startActivity(intent);
+                                        }
+                                    });
+
                                 }
 
                             }
@@ -157,8 +168,6 @@ public class list extends AppCompatActivity {
 
                     else if(tab_clicked == "Service_Stations")
                     {
-
-                        Log.v("bbb","tab2 =>"+tab_clicked);
 
                         final Station station = new Station();
                         final DataServiceStn ss = postSnapshot.getValue(DataServiceStn.class);
@@ -215,11 +224,9 @@ public class list extends AppCompatActivity {
                     else if(tab_clicked == "RoadSide_Assistance")
                     {
 
-                        Log.v("bbb","tab4 =>"+tab_clicked);
-
                         final RoadsideAssistance roadsideassistance= new RoadsideAssistance();
                         final DataRoadAssis ra = postSnapshot.getValue(DataRoadAssis.class);
-
+                        final String key = postSnapshot.getKey();
                         roadsideassistance.setName(ra.PlaceName);
                         roadsideassistance.setPhone(ra.LocationPhone);
 
@@ -237,6 +244,7 @@ public class list extends AppCompatActivity {
 
                                     roadsideassistance.setLat(cords[0]);
                                     roadsideassistance.setLng(cords[1]);
+                                    roadsideassistance.FuelId = key;
 
                                     Location loc1 = new Location("");
                                     loc1.setLatitude(currentLocation.latitude);
@@ -255,6 +263,16 @@ public class list extends AppCompatActivity {
                                     RoadsideBaseAdapter adapter = new RoadsideBaseAdapter(list.this, allRoadsideAssistances);
                                     listView.setAdapter(adapter);
 
+                                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                        @Override
+                                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                            Intent intent = new Intent(list.this, ViewDetails.class);
+                                            intent.putExtra("EXTRA_FUEL_TYPE", tab_clicked);
+                                            intent.putExtra("EXTRA_FUEL_ID", allRoadsideAssistances.get(i).FuelId);
+                                            list.this.startActivity(intent);
+                                        }
+                                    });
+
                                 }
 
                             }
@@ -272,7 +290,6 @@ public class list extends AppCompatActivity {
                     else if(tab_clicked == "Hospitals")
                     {
 
-                        Log.v("bbb","tab5 =>"+tab_clicked);
 
                         final HospitalModel hospitalModel= new HospitalModel();
                         final DataHospital hs = postSnapshot.getValue(DataHospital.class);

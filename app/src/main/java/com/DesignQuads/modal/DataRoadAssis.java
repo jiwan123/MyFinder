@@ -12,12 +12,14 @@ public class DataRoadAssis {
     public String PlaceName;
     public String LocationPhone;
     public String userId;
+    public String services;
 
     public DataRoadAssis() {}
 
-    public DataRoadAssis(String PlaceName, String LocationPhone,String UserId) {
+    public DataRoadAssis(String PlaceName, String LocationPhone,String services,String UserId) {
         this(PlaceName,LocationPhone);
         this.userId = UserId;
+        this.services = services;
     }
 
     public DataRoadAssis(String PlaceName, String LocationPhone) {

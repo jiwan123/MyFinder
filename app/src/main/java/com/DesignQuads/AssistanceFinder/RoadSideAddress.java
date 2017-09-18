@@ -56,6 +56,7 @@ public class RoadSideAddress extends AppCompatActivity {
     private String _ohoursId;
     private String _addressId;
     private String edit_id;
+    private Spinner Road_spinner;
 
     public SharedPreferences sharedpreferences;
 
@@ -78,6 +79,7 @@ public class RoadSideAddress extends AppCompatActivity {
         PlaceName = (EditText) findViewById(R.id.edit_PlaceName);
         LocationPhone = (EditText) findViewById(R.id.edit_phone);
         Address_btn = (Button) findViewById(R.id.Address_btn);
+        Road_spinner = (Spinner) findViewById(R.id.Road_spinner);
 
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -370,10 +372,10 @@ public class RoadSideAddress extends AppCompatActivity {
         if (edit_id != "") {
 
 
-            DataRoadAssis RoadsideAssistance = new DataRoadAssis(PlaceName, LocationPhone, user_id);
+            DataRoadAssis RoadsideAssistance = new DataRoadAssis(PlaceName, LocationPhone, Road_spinner.getSelectedItem().toString(), user_id);
             mDatabase.child("RoadSide_Assistance").child(edit_id).setValue(RoadsideAssistance);
         }else{
-            DataRoadAssis RoadsideAssistance = new DataRoadAssis(PlaceName, LocationPhone, user_id);
+            DataRoadAssis RoadsideAssistance = new DataRoadAssis(PlaceName, LocationPhone, Road_spinner.getSelectedItem().toString(), user_id);
             mDatabase.child("RoadSide_Assistance").child(RoadAssisId).setValue(RoadsideAssistance);
 
             RoadAssisId = mDatabase.push().getKey();
