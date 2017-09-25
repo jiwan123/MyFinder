@@ -172,6 +172,7 @@ public class list extends AppCompatActivity {
                         final Station station = new Station();
                         final DataServiceStn ss = postSnapshot.getValue(DataServiceStn.class);
 
+                        final String key = postSnapshot.getKey();
                         station.setName(ss.PlaceName);
                         station.setPhone(ss.LocationPhone);
 
@@ -189,6 +190,7 @@ public class list extends AppCompatActivity {
 
                                     station.setLat(cords[0]);
                                     station.setLng(cords[1]);
+                                    station.FuelId = key;
 
                                     Location loc1 = new Location("");
                                     loc1.setLatitude(currentLocation.latitude);
@@ -206,6 +208,16 @@ public class list extends AppCompatActivity {
 
                                     StationBaseAdapter adapter = new StationBaseAdapter(list.this, allStations);
                                     listView.setAdapter(adapter);
+
+                                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                        @Override
+                                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                            Intent intent = new Intent(list.this, ViewDetails.class);
+                                            intent.putExtra("EXTRA_FUEL_TYPE", tab_clicked);
+                                            intent.putExtra("EXTRA_FUEL_ID", allStations.get(i).FuelId);
+                                            list.this.startActivity(intent);
+                                        }
+                                    });
 
                                 }
 
@@ -294,8 +306,10 @@ public class list extends AppCompatActivity {
                         final HospitalModel hospitalModel= new HospitalModel();
                         final DataHospital hs = postSnapshot.getValue(DataHospital.class);
 
+                        final String key = postSnapshot.getKey();
                         hospitalModel.setName(hs.PlaceName);
                         hospitalModel.setPhone(hs.LocationPhone);
+
 
                         mDatabase.child("Address").orderByChild("FuelID")
                                 .startAt(postSnapshot.getKey())
@@ -311,6 +325,7 @@ public class list extends AppCompatActivity {
 
                                     hospitalModel.setLat(cords[0]);
                                     hospitalModel.setLng(cords[1]);
+                                    hospitalModel.FuelId = key;
 
                                     Location loc1 = new Location("");
                                     loc1.setLatitude(currentLocation.latitude);
@@ -328,6 +343,17 @@ public class list extends AppCompatActivity {
 
                                     HospitalCallAdapter adapter = new HospitalCallAdapter(list.this,allHospitalModel);
                                     listView.setAdapter(adapter);
+
+                                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                        @Override
+                                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                            Intent intent = new Intent(list.this, ViewDetails.class);
+                                            intent.putExtra("EXTRA_FUEL_TYPE", tab_clicked);
+                                            intent.putExtra("EXTRA_FUEL_ID", allHospitalModel.get(i).FuelId);
+                                            list.this.startActivity(intent);
+                                        }
+                                    });
+
 
                                 }
 

@@ -6,49 +6,250 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context="com.DesignQuads.AssistanceFinder.ViewDetails">
+    tools:context="com.DesignQuads.AssistanceFinder.ViewDetails"
+    android:weightSum="1">
 
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/item_store"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="2dp"
+            android:src="@drawable/ic_store_black_24dp"
+            />
     <TextView
         android:id="@+id/placeName"
         android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:text="PlaceName"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="50dp"
+        android:textSize="20sp"
+        android:textStyle="normal"
+        android:textColor="#8585ad"
+        />
+
+    ></RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="PlaceName" />
+        android:layout_weight="0.06"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/item_address"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignBottom="@+id/addressTxt"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="0dp"
+            android:src="@drawable/ic_place_black_24dp" />
+
+        <TextView
+            android:id="@+id/addressTxt"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="5dp"
+            android:text="Place Number"
+            android:textColor="#8585ad"
+            android:textSize="20sp"
+            android:textStyle="normal" />
+
+        <Button
+            android:id="@+id/navigationBtn"
+            android:layout_width="160dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/addressTxt"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="02dp"
+            android:backgroundTint="#33bbff"
+            android:text="Get Directions"
+            android:textColor="#ffffff" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        android:layout_weight="0.02">
+
+
+    <ImageView
+        android:id="@+id/item_phone"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="2dp"
+
+
+
+        android:src="@drawable/ic_call_black_24dp"
+        />
 
     <TextView
         android:id="@+id/placeNumber"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Place Number"/>
+        android:layout_height="40dp"
+        android:text="Place Number"
+        android:layout_marginLeft="50dp"
 
-    <TextView
-        android:id="@+id/addressTxt"
+        android:textSize="20sp"
+        android:textStyle="normal"
+        android:textColor="#8585ad"/>
+
+        <Button
+            android:id="@+id/callBtn"
+            android:layout_width="160dp"
+            android:layout_height="50dp"
+            android:layout_alignLeft="@+id/placeNumber"
+            android:layout_alignStart="@+id/placeNumber"
+            android:layout_below="@+id/placeNumber"
+            android:textColor="#ffffff"
+            android:backgroundTint="@color/bg_screen8"
+            android:text=" Make Call" />
+
+
+        ></RelativeLayout>
+
+
+
+
+
+
+
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Place Number"/>
+        android:orientation="vertical">
 
+    <ImageView
+        android:id="@+id/item_time1"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="30dp"
+
+        android:src="@drawable/ic_access_time_black_24dp"
+        android:layout_alignBottom="@+id/openingHoursWD" />
+
+        <TextView
+            android:id="@+id/WDOpening_time"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginBottom="0dp"
+            android:text="Weekdays Opening hours"
+            android:textSize="20sp"
+            android:textStyle="normal"
+            android:textColor="#29293d"/>
     <TextView
         android:id="@+id/openingHoursWD"
         android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="Place Number"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="30dp"
+        android:textSize="20sp"
+        android:textStyle="normal"
+        android:textColor="#8585ad"/>
+        ></RelativeLayout>
+
+
+
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Place Number"/>
+        android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/item_time2"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="30dp"
+
+        android:src="@drawable/ic_access_time_black_24dp"
+        android:layout_alignBottom="@+id/openingHoursWE" />
+        <TextView
+            android:id="@+id/WEOpening_time"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:text="Weekend Opening hours"
+            android:layout_marginLeft="50dp"
+            android:textSize="20sp"
+            android:textStyle="normal"
+            android:textColor="#29293d"/>
 
     <TextView
         android:id="@+id/openingHoursWE"
         android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="Place Number"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="30dp"
+        android:textSize="20sp"
+        android:textStyle="normal"
+        android:textColor="#8585ad"/>
+
+        ></RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Place Number"/>
+        android:orientation="vertical">
+
 
     <TextView
         android:id="@+id/servies"
-        android:visibility="gone"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Place Number"/>
+        android:layout_height="35dp"
+        android:text="Place Number"
+        android:textColor="#8585ad"
+        android:layout_marginLeft="50dp"
+        android:textSize="20sp"
+        android:textStyle="normal"
+        android:visibility="gone" />
+        ></RelativeLayout>
 
-    <Button
-        android:id="@+id/navigationBtn"
+
+
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Navigation"/>
+        android:orientation="vertical">
+
+
+
+    <TextView
+        android:id="@+id/item"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:text="Place Number"
+        android:textColor="#8585ad"
+        android:layout_marginLeft="50dp"
+        android:textSize="20sp"
+        android:textStyle="normal"
+        android:visibility="gone" />
+
+        ></RelativeLayout>
+
+
+
 
 </LinearLayout>

@@ -1,18 +1,28 @@
 package com.DesignQuads.AssistanceFinder;
 
+import android.*;
+import android.Manifest;
+import android.app.Notification;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.*;
 import android.net.Uri;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.DesignQuads.adapters.CustomBaseAdapter;
 import com.DesignQuads.modal.DataAddress;
 import com.DesignQuads.modal.DataFuelOpeningHrs;
+import com.DesignQuads.modal.DataHospital;
 import com.DesignQuads.modal.DataRoadAssis;
+import com.DesignQuads.modal.DataServiceStn;
+import com.DesignQuads.modal.Fuel;
 import com.DesignQuads.modal.FuelPump;
 import com.DesignQuads.modal.RoadsideAssistance;
 import com.google.firebase.database.DataSnapshot;
@@ -26,22 +36,31 @@ import org.w3c.dom.Text;
 import java.util.List;
 import java.util.Locale;
 
+
+
+
 public class ViewDetails extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
     private FuelPump _fuelPump;
     private DataRoadAssis _ra;
+    private DataServiceStn _sss;
+    private DataHospital _hsp;
+    private Button callBtn;
     private DataAddress _address;
     private DataFuelOpeningHrs _openingHours;
-    public String edit_id,type,addressString;
+    public String edit_id,type,addressString,callString;
     public TextView placeName;
-    public TextView locationPhone,addressTxt,openingHoursWD,openingHoursWE,servies;
+    public TextView locationPhone,addressTxt,openingHoursWD,openingHoursWE,servies,item;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_details);
         addressString = "";
+        callString="";
         mDatabase = FirebaseDatabase.getInstance().getReference();
         placeName = (TextView) findViewById(R.id.placeName);
         locationPhone = (TextView) findViewById(R.id.placeNumber);
@@ -49,6 +68,9 @@ public class ViewDetails extends AppCompatActivity {
         openingHoursWD = (TextView) findViewById(R.id.openingHoursWD);
         openingHoursWE = (TextView) findViewById(R.id.openingHoursWE);
         servies = (TextView) findViewById(R.id.servies);
+        item = (TextView) findViewById(R.id.item);
+
+
 
         edit_id = getIntent().getStringExtra("EXTRA_FUEL_ID");
         type = getIntent().getStringExtra("EXTRA_FUEL_TYPE");
@@ -67,7 +89,11 @@ public class ViewDetails extends AppCompatActivity {
                             _fuelPump = child.getValue(FuelPump.class);
                             placeName.setText(_fuelPump.PlaceName);
                             locationPhone.setText(_fuelPump.LocationPhone);
+                            callString=_fuelPump.LocationPhone;
+
                             servies.setVisibility(View.INVISIBLE);
+
+
                         }
                     }
 
@@ -84,8 +110,11 @@ public class ViewDetails extends AppCompatActivity {
                             _ra = child.getValue(DataRoadAssis.class);
                             placeName.setText(_ra.PlaceName);
                             locationPhone.setText(_ra.LocationPhone);
+                            callString=_ra.LocationPhone;
+
                             servies.setVisibility(View.VISIBLE);
                             servies.setText(_ra.services);
+
                         }
                     }
 
@@ -94,6 +123,52 @@ public class ViewDetails extends AppCompatActivity {
 
                     }
                 });
+            }else if(type.equalsIgnoreCase("Service_Stations")){
+                mDatabase.child("Service_Stations").orderByKey().equalTo(edit_id).addListenerForSingleValueEvent
+                        (new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot child : dataSnapshot.getChildren()) {
+                            _sss = child.getValue(DataServiceStn.class);
+                            placeName.setText(_sss.PlaceName);
+                            locationPhone.setText(_sss.LocationPhone);
+                            callString=_sss.LocationPhone;
+
+
+                            item.setVisibility(View.VISIBLE);
+                            item.setText(_sss.item);
+                            servies.setVisibility(View.INVISIBLE);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+            else if(type.equalsIgnoreCase("Hospitals")){
+                mDatabase.child("Hospitals").orderByKey().equalTo(edit_id).addListenerForSingleValueEvent
+                        (new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                    _hsp = child.getValue(DataHospital.class);
+                                    placeName.setText(_hsp.PlaceName);
+                                    locationPhone.setText(_hsp.LocationPhone);
+                                    callString=_hsp.LocationPhone;
+
+                                    servies.setVisibility(View.INVISIBLE);
+
+
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
             }
 
             mDatabase.child("Address").orderByChild("FuelID").equalTo(edit_id).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -132,6 +207,26 @@ public class ViewDetails extends AppCompatActivity {
 
         }
 
+
+
+        Button btn = (Button) findViewById(R.id.callBtn);
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse("tel: "+ViewDetails.this.callString));
+
+                if (ActivityCompat.checkSelfPermission(ViewDetails.this,
+                        Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                    return;
+                }
+                startActivity(callIntent);
+            }
+        });
+
+
+
+
         Button navButton = (Button) findViewById(R.id.navigationBtn);
         navButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,6 +241,9 @@ public class ViewDetails extends AppCompatActivity {
         });
 
     }
+
+
+
 
     private double[] getLatLongFromAddress(String address) {
         double lat = 0.0, lng = 0.0;
@@ -164,4 +262,21 @@ public class ViewDetails extends AppCompatActivity {
         }
         return new double[]{lat, lng};
     }
+
+
+
+
+
+
+
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(ViewDetails.this, MainActivity.class);
+        startActivity(intent);
+
+    }
+
+
+
 }

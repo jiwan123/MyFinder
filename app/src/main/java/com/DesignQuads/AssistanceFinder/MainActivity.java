@@ -213,6 +213,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void show_service() {
+        googleMap.animateCamera( CameraUpdateFactory.zoomTo( 9.0f ) );
 
         btn_service.setVisibility(View.INVISIBLE);
         btn_fuel.setVisibility(View.INVISIBLE);
@@ -274,7 +275,7 @@ public class MainActivity extends AppCompatActivity
 
     public void show_fuel() {
 
-        googleMap.animateCamera( CameraUpdateFactory.zoomTo( 8.0f ) );
+        googleMap.animateCamera( CameraUpdateFactory.zoomTo( 9.0f ) );
 
         btn_service.setVisibility(View.INVISIBLE);
         btn_fuel.setVisibility(View.INVISIBLE);
@@ -336,6 +337,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void show_roadside() {
+        googleMap.animateCamera( CameraUpdateFactory.zoomTo( 9.0f ) );
 
         btn_service.setVisibility(View.INVISIBLE);
         btn_fuel.setVisibility(View.INVISIBLE);
@@ -393,6 +395,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void show_hospital() {
+        googleMap.animateCamera( CameraUpdateFactory.zoomTo( 9.0f ) );
 
         btn_service.setVisibility(View.INVISIBLE);
         btn_fuel.setVisibility(View.INVISIBLE);
@@ -484,6 +487,9 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(this, register.class);
             startActivity(intent);
         }
+        else if (id == R.id.nav_about_us) {
+            Intent intent = new Intent(this, AboutUs.class);
+            startActivity(intent);}
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -565,7 +571,7 @@ public class MainActivity extends AppCompatActivity
                     .position(new LatLng(currentLatitude, currentLongitude))
                     .title(txtAddress));
 
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(currentLatitude, currentLongitude), 14));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(currentLatitude, currentLongitude), 18));
 
 
 
