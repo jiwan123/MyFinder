@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,13 +53,17 @@ public class ViewDetails extends AppCompatActivity {
     public String edit_id,type,addressString,callString;
     public TextView placeName;
     public TextView locationPhone,addressTxt,openingHoursWD,openingHoursWE,servies,item;
-
+    public RelativeLayout item_holder;
+    public RelativeLayout services_holder;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_details);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Details view");
+
         addressString = "";
         callString="";
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -69,6 +74,8 @@ public class ViewDetails extends AppCompatActivity {
         openingHoursWE = (TextView) findViewById(R.id.openingHoursWE);
         servies = (TextView) findViewById(R.id.servies);
         item = (TextView) findViewById(R.id.item);
+        item_holder = (RelativeLayout) findViewById(R.id.item_holder);
+        services_holder = (RelativeLayout) findViewById(R.id.services_holder);
 
 
 
@@ -112,6 +119,7 @@ public class ViewDetails extends AppCompatActivity {
                             locationPhone.setText(_ra.LocationPhone);
                             callString=_ra.LocationPhone;
 
+                            services_holder.setVisibility(View.VISIBLE);
                             servies.setVisibility(View.VISIBLE);
                             servies.setText(_ra.services);
 
@@ -134,7 +142,7 @@ public class ViewDetails extends AppCompatActivity {
                             locationPhone.setText(_sss.LocationPhone);
                             callString=_sss.LocationPhone;
 
-
+                            item_holder.setVisibility(View.VISIBLE);
                             item.setVisibility(View.VISIBLE);
                             item.setText(_sss.item);
                             servies.setVisibility(View.INVISIBLE);

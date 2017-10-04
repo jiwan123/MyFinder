@@ -66,6 +66,8 @@ public class HospitalAddress extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hospital);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Tag Hospital");
 
         edit_id = getIntent().getStringExtra("EXTRA_FUEL_ID");
 
@@ -340,6 +342,9 @@ public class HospitalAddress extends AppCompatActivity {
                     LocationPhone.setText("");
 
                     Toast.makeText(HospitalAddress.this, "Hospital is Successfully Added... ", Toast.LENGTH_LONG).show();
+                    Intent i = new Intent(HospitalAddress.this, TagLocation.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i);
                 }
 
             }

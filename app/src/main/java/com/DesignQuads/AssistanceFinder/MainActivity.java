@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity
         btn_pickup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                show_service();
+                show_roadside();
             }
         });
         btn_road.setOnClickListener(new View.OnClickListener() {
@@ -471,7 +471,7 @@ public class MainActivity extends AppCompatActivity
             show_fuel();
         } else if (id == R.id.nav_pickup) {
             googleMap.clear();
-            show_service();
+            show_roadside();
         } else if (id == R.id.nav_hospital) {
             googleMap.clear();
             show_hospital();

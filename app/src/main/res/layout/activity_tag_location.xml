@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:background="#ffffff"
     android:orientation="horizontal"
     tools:context="com.DesignQuads.AssistanceFinder.TagLocation"
@@ -11,77 +15,109 @@
     tools:layout_editor_absoluteX="0dp">
 
 
+
+
     <LinearLayout
-        android:layout_width="340dp"
-        android:layout_height="wrap_content"
-        android:background="#00b300"
-        android:layout_marginLeft="14dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginTop="8dp">
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="0dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="17dp"
-        android:text="Tag New Location"
-        android:textSize="30sp"
-        android:textColor="#001a00"/>
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="300dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="80dp"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
-        android:text="What type of service your place have? Select one."
-        android:textSize="20sp"
-        android:textColor="#001a00"/>
+        android:layout_marginRight="20dp"
+        android:background="#ffffff"
+        android:gravity="center"
+        android:id="@+id/linearLayout4">
 
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="0dp"
+            android:text="What type of service your place have? Select one."
+            android:textColor="#001a00"
+            android:textSize="20sp" />
+    </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="270dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="150dp"
-        android:background="#1aa3ff">
+        android:background="#ffffff"
+        android:layout_below="@+id/linearLayout4"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/relativeLayout">
 
 
         <Button
             android:id="@+id/ServiceStation_btn"
-            android:layout_width="330dp"
+            android:layout_width="250dp"
             android:layout_height="50dp"
-            android:layout_alignLeft="@+id/fuelStation_btn"
-            android:layout_alignStart="@+id/fuelStation_btn"
             android:layout_marginTop="20dp"
-            android:layout_marginRight="0dp"
             android:background="@drawable/customborder"
             android:backgroundTint="#ffffff"
-
             android:text="SERVICE STATION"
             android:textColor="#00264d"
-            android:textSize="24sp" />
+            android:layout_marginRight="30dp"
+            android:textSize="24sp"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/btn_service"
+            android:layout_toEndOf="@+id/btn_service" />
+
+        <ImageButton
+            android:id="@+id/btn_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:background="#ffffff"
+            android:cropToPadding="true"
+            android:src="@mipmap/ic_service"
+            android:text="Service Stations"
+            android:layout_above="@+id/fuelStation_btn"
+            android:layout_alignLeft="@+id/btn_fuel"
+            android:layout_alignStart="@+id/btn_fuel" />
+
+        <ImageButton
+            android:id="@+id/btn_fuel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            android:src="@mipmap/ic_fuel12"
+            android:text="Fuel Stations"
+            android:layout_alignTop="@+id/fuelStation_btn"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="42dp" />
 
         <Button
             android:id="@+id/fuelStation_btn"
             style="@style/Widget.AppCompat.Button.Small"
-            android:layout_width="330dp"
+            android:layout_width="250dp"
             android:layout_height="50dp"
-            android:layout_below="@+id/ServiceStation_btn"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="0dp"
+            android:layout_marginTop="11dp"
             android:background="@drawable/customborder"
             android:backgroundTint="#ffffff"
             android:text="FUEL STATION"
             android:textColor="#00264d"
-            android:textSize="24sp" />
+            android:layout_marginRight="20dp"
+            android:textSize="24sp"
+            android:layout_below="@+id/ServiceStation_btn"
+            android:layout_toEndOf="@+id/btn_fuel"
+            android:layout_toRightOf="@+id/btn_fuel" />
 
+        <ImageButton
+            android:id="@+id/btn_road"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            android:src="@mipmap/ic_road"
+            android:text="Road side assists"
+            android:visibility="visible"
+            android:layout_above="@+id/Hospital_btn"
+            android:layout_toLeftOf="@+id/roadSideAssis_btn"
+            android:layout_toStartOf="@+id/roadSideAssis_btn" />
         <Button
             android:id="@+id/roadSideAssis_btn"
             android:layout_width="330dp"
@@ -90,12 +126,26 @@
             android:layout_alignStart="@+id/ServiceStation_btn"
             android:layout_below="@+id/fuelStation_btn"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="0dp"
             android:background="@drawable/customborder"
             android:backgroundTint="#ffffff"
             android:text="ROADSIDE ASSISTANCE"
             android:textColor="#00264d"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:layout_alignRight="@+id/fuelStation_btn"
+            android:layout_alignEnd="@+id/fuelStation_btn" />
+
+        <ImageButton
+            android:id="@+id/Hospital"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            android:src="@mipmap/ic_hospitalwwlcome"
+            android:text="Road side assists"
+            android:visibility="visible"
+            android:layout_alignTop="@+id/Hospital_btn"
+            android:layout_alignLeft="@+id/btn_road"
+            android:layout_alignStart="@+id/btn_road" />
 
         <Button
             android:id="@+id/Hospital_btn"
@@ -107,26 +157,27 @@
             android:background="@drawable/customborder"
             android:backgroundTint="#ffffff"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="0dp"
             android:text="HOSPITAL"
             android:textColor="#00264d"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:layout_alignRight="@+id/roadSideAssis_btn"
+            android:layout_alignEnd="@+id/roadSideAssis_btn" />
     </RelativeLayout>
 
-        <Button
-            android:id="@+id/logOut_btn"
-            style="@android:style/Widget.Button"
-            android:layout_width="221dp"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="440dp"
-            android:layout_marginLeft="55dp"
-            android:elevation="0dp"
-            android:fontFamily="sans-serif"
-            android:text="Log out"
-            android:textSize="18sp" />
 
+    <Button
+        android:id="@+id/logOut_btn"
+        android:layout_width="160dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="380dp"
+        android:text="Log out"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
 
 
 </RelativeLayout>
+</ScrollView>

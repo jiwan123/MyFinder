@@ -67,6 +67,8 @@ public class RoadSideAddress extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_road_side);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Tag Roadside assistance");
 
         edit_id = getIntent().getStringExtra("EXTRA_FUEL_ID");
 
@@ -340,6 +342,9 @@ public class RoadSideAddress extends AppCompatActivity {
                     LocationPhone.setText("");
 
                     Toast.makeText(RoadSideAddress.this, "Roadside Assistance is Successfully Added... ", Toast.LENGTH_LONG).show();
+                    Intent i = new Intent(RoadSideAddress.this, TagLocation.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i);
                 }
 
             }

@@ -14,42 +14,28 @@
     android:weightSum="1">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="0dp"
 
-        android:orientation="vertical"
-        android:background="#80aaff">
+        android:background="#ffffff"
+        android:orientation="vertical">
 
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="@string/Form"
-            android:textColor="#ffffff"
             android:layout_marginBottom="2dp"
-            android:layout_marginTop="2dp"
             android:layout_marginLeft="8dp"
+            android:layout_marginTop="2dp"
+            android:text="@string/Form"
+            android:textColor="#00264d"
             android:textSize="24sp" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="20dp"
-        android:layout_weight="0.20"
-        android:text="@string/PlaceName"
-        android:textColor="#001a00"
-        android:textSize="18sp"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
+
 
     <EditText
         android:id="@+id/edit_PlaceName"
@@ -59,7 +45,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/textView"
         android:ems="10"
-        android:hint=""
+        android:hint="@string/PlaceName"
         android:inputType="textPersonName"
         android:layout_marginBottom="5dp"
         tools:layout_editor_absoluteX="8dp"
@@ -67,22 +53,14 @@
 
 
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/PhoneNumber"
-        android:textColor="#001a00"
-        android:textSize="18sp"
-        android:layout_below="@+id/edit_PlaceName"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+
 
     <EditText
         android:id="@+id/edit_phone"
         android:layout_width="345dp"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="@string/PhoneNumber"
         android:inputType="phone"
         android:layout_below="@+id/textView9"
         android:layout_alignParentLeft="true"
@@ -126,7 +104,8 @@
         style="@android:style/Widget.Holo.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="90dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="0dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"

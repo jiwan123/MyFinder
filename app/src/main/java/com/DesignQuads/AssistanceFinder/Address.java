@@ -57,6 +57,8 @@ public class Address extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fuel_station);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Tag Fuel station");
 
         edit_id = getIntent().getStringExtra("EXTRA_FUEL_ID");
 
@@ -334,6 +336,9 @@ public class Address extends AppCompatActivity {
                     LocationPhone.setText("");
 
                     Toast.makeText(Address.this, "Fuel Station is Successfully Added... ", Toast.LENGTH_LONG).show();
+                    Intent i = new Intent(Address.this, TagLocation.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i);
                 }
 
             }

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -66,13 +69,14 @@
         <Button
             android:id="@+id/navigationBtn"
             android:layout_width="160dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/addressTxt"
             android:layout_marginLeft="50dp"
             android:layout_marginTop="02dp"
             android:backgroundTint="#33bbff"
             android:text="Get Directions"
-            android:textColor="#ffffff" />
+            android:textColor="#ffffff"
+            android:textSize="16dp"/>
     </RelativeLayout>
 
 
@@ -81,6 +85,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:layout_weight="0.02">
 
 
@@ -109,16 +114,17 @@
         <Button
             android:id="@+id/callBtn"
             android:layout_width="160dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/placeNumber"
             android:layout_alignStart="@+id/placeNumber"
             android:layout_below="@+id/placeNumber"
             android:textColor="#ffffff"
             android:backgroundTint="@color/bg_screen8"
-            android:text=" Make Call" />
+            android:text=" Make Call"
+            android:textSize="18dp"/>
+        >
+    </RelativeLayout>
 
-
-        ></RelativeLayout>
 
 
 
@@ -207,49 +213,83 @@
         ></RelativeLayout>
 
 
-
     <RelativeLayout
+        android:id="@+id/services_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="49dp"
+            android:layout_marginStart="49dp"
+            android:text="Services we provide."
+            android:textColor="#29293d"
+            android:textSize="20dp" />
 
 
-    <TextView
-        android:id="@+id/servies"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:text="Place Number"
-        android:textColor="#8585ad"
-        android:layout_marginLeft="50dp"
-        android:textSize="20sp"
-        android:textStyle="normal"
-        android:visibility="gone" />
-        ></RelativeLayout>
-
-
+        <TextView
+            android:id="@+id/servies"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_alignLeft="@+id/textView5"
+            android:layout_alignStart="@+id/textView5"
+            android:layout_below="@+id/textView5"
+            android:text="Place Number"
+            android:textColor="#8585ad"
+            android:textSize="20sp"
+            android:textStyle="normal"
+            android:visibility="gone" />
+        >
+    </RelativeLayout>
 
 
     <RelativeLayout
+        android:id="@+id/item_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="gone">
 
 
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/item"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/item"
+            android:layout_marginBottom="10dp"
+            android:text="Car model we fix."
+            android:textColor="#29293d"
+            android:textSize="20dp" />
 
-    <TextView
-        android:id="@+id/item"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:text="Place Number"
-        android:textColor="#8585ad"
-        android:layout_marginLeft="50dp"
-        android:textSize="20sp"
-        android:textStyle="normal"
-        android:visibility="gone" />
+        <TextView
+            android:id="@+id/item"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView4"
+            android:layout_marginLeft="54dp"
+            android:layout_marginStart="54dp"
+            android:text="Place Number"
+            android:textColor="#8585ad"
+            android:textSize="20sp"
+            android:textStyle="normal"
+            android:visibility="gone" />
 
-        ></RelativeLayout>
+    </RelativeLayout>
 
 
 
 
 </LinearLayout>
+</ScrollView>
